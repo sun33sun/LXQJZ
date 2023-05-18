@@ -7,8 +7,10 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 
+
 		protected override void OnDisable()
 		{
+			isSuccess1 = false;
 			base.OnDisable();
 			GameObject GypsumEffect = GetObj("GypsumEffect");
 			if(GypsumEffect != null)

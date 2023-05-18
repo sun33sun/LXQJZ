@@ -10,14 +10,21 @@ namespace LXQJZ
     //继承了 MonoBehaviour 的 单例模式对象 需要我们自己保证它的位移性
     public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T instance;
+        protected static T instance;
 
         public static T Instance { get { return instance; } }
 
         protected virtual void Awake()
         {
-            instance = this as T;
-            DontDestroyOnLoadManager.Add(gameObject);
+            if (instance != null)
+			{
+                Destroy(gameObject);
+			}
+			else
+			{
+                instance = this as T;
+                DontDestroyOnLoadManager.Add(gameObject);
+            }
         }
         protected virtual void OnDestory()
         {

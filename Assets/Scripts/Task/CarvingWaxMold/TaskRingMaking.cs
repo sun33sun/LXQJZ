@@ -1,5 +1,6 @@
 using LXQJZ.UI;
 using LXQJZ.UI.Effect;
+using QFramework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace LXQJZ.Task
 		[Header(" ‰»Î¿Øπ‹øÌ∂»")]
 		float rightWidth = 4;
 
-		bool isSuccess0 = false;
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
 		bool isSuccess3 = false;
 		bool isSuccess4 = false;
 		bool isSuccess5 = false;
+
 
 		protected override void Awake()
 		{
@@ -29,8 +30,29 @@ namespace LXQJZ.Task
 			base.Awake();
 		}
 
+		private void OnDestroy()
+		{
+			GetUI<InputField>("inputWaxTubeWidth").gameObject.SetActive(false);
+			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
+			GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(false);
+		}
+
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			isSuccess3 = false;
+			isSuccess4 = false;
+			isSuccess5 = false;
+			base.OnDisable();
+		}
+
 		void HideSomething()
 		{
+			GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(false);
+			GetUI<InputField>("inputWaxTubeWidth").gameObject.SetActive(false);
+			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
+
 			ParticleManager.Stop(GetObj("FireGun_Fire"));
 			ParticleManager.Stop(GetObj("WeldingWaxMachine_Pen_Fire"));
 			GetObj("RingWaxTubeMarkLine").SetActive(false);
@@ -48,18 +70,12 @@ namespace LXQJZ.Task
 			HideSomething();
 			ShowSomething();
 
-			Step step0 = new Step();
-			step0.btnList.Add(GetUI<Button>("btnSketch"));
-			step0.OnClickBtn += ClickBtn0;
-			step0.CheckState += CheckState0;
-
 			Step step1 = new Step();
-			step1.Prepare += Prepare1;
 			step1.objList.Add(GetObj("Caliper_1"));
 			step1.objList.Add(GetObj("Caliper_2"));
+			step1.Prepare += Prepare1;
 			step1.CheckState += CheckState1;
 			step1.OnClickObj += ClickObj1;
-			GetUI<InputField>("inputWaxTubeWidth").onValueChanged.AddListener(OnValueChanged);
 			step1.tips = "«Î±Í æΩ‰»¶¿Ø∆¨£¨≤¢æ‚œ¬¿ØøÈ£¨«–∏ÓΩ‰»¶Ω‰»¶¿Ø∆¨";
 
 			Step step2 = new Step();
@@ -84,21 +100,25 @@ namespace LXQJZ.Task
 			step5.CheckState += CheckState5;
 		}
 
-		#region Step0
-		void ClickBtn0()
-		{
-			isSuccess0 = true;
-		}
-		StepState CheckState0()
-		{
-			return CheckState(isSuccess0);
-		}
-		#endregion
-
 		#region Step1
 		private void Prepare1()
 		{
-			OnlineLabPanel.Instance.ShowSketch(sketchs);
+			GetUI<Button>("btnConfirm").onClick.AddListener(() =>
+			{
+				InputField input = GetUI<InputField>("inputWaxTubeWidth");
+				if (input == null || GetUI<InputField>("inputWaxTubeWidth").text == "" || int.Parse(GetUI<InputField>("inputWaxTubeWidth").text) != rightWidth)
+				{
+					GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(true);
+				}
+				else
+				{
+					input.gameObject.SetActive(false);
+					GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
+					GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(false);
+					AnimCallBack("RingWaxTube", AnimEnd1, "RingWaxTube_Up");
+				}
+			});
+			ActionKit.Delay(0.5f, ()=> { OnlineLabPanel.Instance.ShowSketch(sketchs); }).Start(this);
 		}
 
 		private void ClickObj1()
@@ -106,23 +126,7 @@ namespace LXQJZ.Task
 			RoamCamera.Instance.IsEnable = false;
 			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy(false);
 			GetUI<InputField>("inputWaxTubeWidth").gameObject.SetActive(true);
-		}
-
-		private void OnValueChanged(string arg0)
-		{
-			if (rightWidth == int.Parse(arg0))
-			{
-				InputField input = GetUI<InputField>("inputWaxTubeWidth");
-				input.onValueChanged.RemoveListener(OnValueChanged);
-				input.text = null;
-				input.gameObject.SetActive(false);
-				AnimCallBack("RingWaxTube", AnimEnd1, "RingWaxTube_Up");
-
-			}
-			else
-			{
-				GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(true);
-			}
+			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(true);
 		}
 
 		void AnimEnd1()

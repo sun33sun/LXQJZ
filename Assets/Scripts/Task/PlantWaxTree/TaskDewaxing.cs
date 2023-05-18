@@ -13,6 +13,14 @@ namespace LXQJZ.Task
 		bool isSuccess2 = false;
 		bool isSuccess3 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			isSuccess3 = false;
+			base.OnDisable();
+		}
+
 		void OnEnable()
 		{
 			ParticleManager.Stop(GetObj("WeldingWaxMachine_Pen_Fire"));
@@ -66,7 +74,6 @@ namespace LXQJZ.Task
 			//石膏模放入烤炉
 			AnimStart("Oven", "OvenOpen");
 			AnimStart("GypsumEffect", "GypsumEffect_Enter_Oven");
-			RoamCamera.Instance.MoveTo(new Vector3(-2.25f, -0.31f, 1.026f));
 			yield return wait4;
 			//关闭烤箱门
 			AnimStart("Oven", "OvenClose");

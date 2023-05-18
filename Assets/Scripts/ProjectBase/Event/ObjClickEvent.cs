@@ -21,7 +21,7 @@ namespace LXQJZ
 			if(isInvoke)
 				OnClick?.Invoke();
 			OnClick = null;
-			cakeslice.Outline outline = GetComponent<cakeslice.Outline>();
+			QuickOutline.Outline outline = GetComponent<QuickOutline.Outline>();
 			if (outline != null)
 				Destroy(outline);
 			Destroy(this);

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using DG.Tweening;
+using Cinemachine;
+using QFramework;
 
 namespace LXQJZ
 {
@@ -14,7 +16,10 @@ namespace LXQJZ
 		[SerializeField] float rotateSpeed = 3;
 		[SerializeField] [Range(0, 1)] float drag = 0.8f;
 
-		Rigidbody rig;
+		Rigidbody rig = null;
+		CinemachineVirtualCamera roamCamera = null;
+		[SerializeField] CinemachineVirtualCamera fixedCamera = null;
+		[SerializeField] CinemachineVirtualCamera lookAtCamera = null;
 
 		Vector3 originPos;
 		Vector3 originAngle;
@@ -28,18 +33,21 @@ namespace LXQJZ
 			}
 			set
 			{
-				if (value == false)
-					BackOrigin();
+				//if (value == false)
+				//	BackOrigin();
 				isEnable = value;
 			}
 		}
+
 		bool isRotate = false;
 
 		private void Start()
 		{
 			//查找组件
-			if(rig == null)
+			if (rig == null)
 				rig = GetComponent<Rigidbody>();
+			if (roamCamera == null)
+				roamCamera = GetComponent<CinemachineVirtualCamera>();
 			//记录初始位置
 			originPos = transform.position;
 			originAngle = transform.rotation.eulerAngles;
@@ -77,6 +85,7 @@ namespace LXQJZ
 			rig.constraints = RigidbodyConstraints.FreezeRotation;
 		}
 
+		#region 按键响应事件
 		private void OnWState()
 		{
 			if (!IsEnable)
@@ -169,7 +178,7 @@ namespace LXQJZ
 			nowPos.y += verticalSpeed * Time.fixedDeltaTime;
 			transform.localPosition = nowPos;
 		}
-
+		#endregion
 
 		public void MoveTo(Vector3 targetPos)
 		{
@@ -177,12 +186,8 @@ namespace LXQJZ
 
 			StartCoroutine(MoveToAsync(targetPos));
 		}
-
-
-
 		public void MoveToOrigin()
 		{
-			//transform.DOMove(originPos, 2);
 			StopAllCoroutines();
 			StartCoroutine(MoveToAsync(originPos));
 		}
@@ -196,6 +201,37 @@ namespace LXQJZ
 				rig.MovePosition(transform.position + dir);
 				yield return wait;
 			}
+		}
+
+
+		public void LookAt(Transform target, float followTime)
+		{
+			lookAtCamera.LookAt = target;
+
+			float firstSpan = Mathf.Min(followTime * 0.33f, 0.1f);
+			float secondSpan = followTime - firstSpan;
+
+			ActionKit.Sequence()
+			.DelayFrame(1)
+			.Callback(() =>
+			{
+				lookAtCamera.Priority = 12;
+				roamCamera.Priority = 11;
+				fixedCamera.Priority = 10;
+			})
+			.Delay(followTime, () =>
+			{
+				lookAtCamera.LookAt = null;
+				roamCamera.transform.position = lookAtCamera.transform.position;
+				roamCamera.transform.rotation = lookAtCamera.transform.rotation;
+			}).DelayFrame(2)
+			.Callback(() =>
+			{
+				roamCamera.Priority = 12;
+				lookAtCamera.Priority = 11;
+				fixedCamera.Priority = 10;
+			})
+			.Start(this);
 		}
 	}
 

@@ -8,6 +8,12 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			base.OnDisable();
+		}
+
 		public override void InitState()
 		{
 			modelName = "DryRing";
@@ -19,21 +25,15 @@ namespace LXQJZ.Task
 			Step step1 = new Step();
 			step1.tips = "用清水冲洗戒指，将戒指擦干。";
 			step1.objList.Add(GetObj("Ring_Diamond"));
-			step1.Prepare += Prepare1;
 			step1.OnClickObj += ClickObj1;
 			step1.CheckState += CheckState1;
 		}
 
 		#region Step1
 
-		void Prepare1()
-		{
-			RoamCamera.Instance.IsEnable = false;
-			RoamCamera.Instance.MoveTo(new Vector3(1, 0.8f, -1.3f));
-		}
-
 		void ClickObj1()
 		{
+			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
 				.Callback(() => { AnimStart("Ring_Diamond", "Ring_Diamond_Enter_WaterCup"); })
 				.Delay(2, () => { AnimStart("Towel", "Towel_Clean_Ring_Diamond"); })

@@ -12,6 +12,16 @@ namespace LXQJZ.Task
 		bool isSuccess4 = false;
 		bool isSuccess5 = false;
 
+
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			isSuccess3 = false;
+			isSuccess4 = false;
+			isSuccess5 = false;
+			base.OnDisable();
+		}
 		public override void InitState()
 		{
 			modelName = "PolishRing";

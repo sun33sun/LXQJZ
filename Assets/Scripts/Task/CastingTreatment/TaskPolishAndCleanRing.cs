@@ -9,6 +9,13 @@ namespace LXQJZ.Task
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			base.OnDisable();
+		}
+
 		public override void InitState()
 		{
 			modelName = "PolishAndCleanRing";
@@ -20,7 +27,6 @@ namespace LXQJZ.Task
 			Step step1 = new Step();
 			step1.tips = "在打磨轮盘上涂抛光蜡，将戒指进行整体抛光。";
 			step1.objList.Add(GetObj("Turntable2"));
-			step1.Prepare += Prepare1;
 			step1.OnClickObj += ClickObj1;
 			step1.CheckState += CheckState1;
 
@@ -32,17 +38,9 @@ namespace LXQJZ.Task
 
 		#region Step1
 
-		void Prepare1()
-		{
-			RoamCamera.Instance.IsEnable = false;
-			ActionKit.
-				Delay(3, () => { RoamCamera.Instance.MoveTo(new Vector3(0.9f, 0.75f, -2.5f)); })
-				.Start(this);
-
-		}
-
 		void ClickObj1()
 		{
+			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
 				.Callback(() => { AnimStart("BoilCup", "BoilCup_Pour_Turntable2"); })
 				.Delay(2, () =>{ AnimStart("Ring_Diamond", "Ring_Diamond_Approach_Turntable2"); })

@@ -9,6 +9,12 @@ namespace LXQJZ.Task
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			base.OnDisable();
+		}
 		public override void InitState()
 		{
 			modelName = "TrimClawInlay";
@@ -26,7 +32,6 @@ namespace LXQJZ.Task
 
 			Step step2 = new Step();
 			step2.objList.Add(GetObj("Turntable2"));
-			step2.Prepare += Prepare2;
 			step2.OnClickObj += ClickObj2;
 			step2.CheckState += CheckState2;
 		}
@@ -52,14 +57,9 @@ namespace LXQJZ.Task
 
 		#region Step2
 
-		void Prepare2()
-		{
-			RoamCamera.Instance.IsEnable = false;
-			RoamCamera.Instance.MoveTo(new Vector3(1, 0.8f, -1.3f));
-		}
-
 		void ClickObj2()
 		{
+			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
 				.Callback(() => { AnimStart("Ring_Polish", "Ring_Polish_Approach_Turntable2"); })
 				.Delay(3.1f, () =>{RoamCamera.Instance.MoveToOrigin();})

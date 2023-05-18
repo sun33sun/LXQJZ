@@ -15,6 +15,14 @@ namespace LXQJZ.Task
 		bool isSuccess3 = false;
 
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			isSuccess3 = false;
+			base.OnDisable();
+		}
+
 		public override void RegisterSteps()
 		{
 			Step step1 = new Step();
@@ -55,7 +63,7 @@ namespace LXQJZ.Task
 			AnimStart("Stirrer", "Stirrer_Stir_WaterCup");
 			yield return wait3;
 			//水杯变色
-			MeshRenderer renderer = GetObj("WaterEffect").GetComponent<MeshRenderer>();
+			MeshRenderer renderer = GetObj("WaterCupEffect").GetComponent<MeshRenderer>();
 			renderer.material.color = Color.white;
 
 			isSuccess1 = true;
@@ -90,7 +98,7 @@ namespace LXQJZ.Task
 			AnimStart("WaterCup", "WaterCup_Dump_WaxTree");
 			yield return wait3;
 			//水杯变色
-			MeshRenderer renderer = GetObj("WaterEffect").GetComponent<MeshRenderer>();
+			MeshRenderer renderer = GetObj("WaterCupEffect").GetComponent<MeshRenderer>();
 			renderer.material.color = Color.blue;
 			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = true;
 			GetObj("GypsumEffect").GetComponent<CapsuleCollider>().enabled = true;

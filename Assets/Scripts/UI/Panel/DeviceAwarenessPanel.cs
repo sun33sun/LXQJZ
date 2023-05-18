@@ -10,9 +10,13 @@ namespace LXQJZ.UI
 {
 	public class DeviceAwarenessPanel : BasePanel<DeviceAwarenessPanel>
 	{
+		[SerializeField] RectTransform leftTogRect;
 		[SerializeField] Button btnExit;
-		[SerializeField] private List<Toggle> togList;
-		[SerializeField] private Image imgDevice;
+		[SerializeField] List<Toggle> togList;
+		[SerializeField] List<string> strHeaderList;
+		[SerializeField] List<string> strList;
+		[SerializeField] Image imgDevice;
+		[SerializeField] Text txtHeader;
 		[SerializeField] Text txtDevice;
 
 		Dictionary<string, Sprite> spriteDic = new Dictionary<string, Sprite>();
@@ -46,15 +50,27 @@ namespace LXQJZ.UI
 			{
 				string key = string.Copy(togList[i].name);
 				key = key.Remove(0, 3);
+				RectTransform rect = togList[i].transform as RectTransform;
+				int index = i;
 				togList[i].onValueChanged.AddListener((isOn) =>
 				{
 					if (isOn)
-						ChangeDeviceImageAndText(key);
+					{
+						rect.sizeDelta = new Vector2(264, 104);
+						ChangeDeviceImage(key);
+						txtHeader.text = strHeaderList[index];
+						txtDevice.text = strList[index];
+					}
+					else
+					{
+						rect.sizeDelta = new Vector2(184, 75);
+					}
+					LayoutRebuilder.MarkLayoutForRebuild(leftTogRect);
 				});
 			}
 		}
 
-		private void ChangeDeviceImageAndText(string key)
+		private void ChangeDeviceImage(string key)
 		{
 			if (!spriteDic.ContainsKey(key))
 			{
@@ -69,7 +85,7 @@ namespace LXQJZ.UI
 			togList[0].isOn = true;
 			string key = string.Copy(togList[0].name);
 			key = key.Remove(0, 3);
-			ChangeDeviceImageAndText(key);
+			ChangeDeviceImage(key);
 		}
 	}
 }

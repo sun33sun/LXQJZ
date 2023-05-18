@@ -7,6 +7,11 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			base.OnDisable();
+		}
 		public override void InitState()
 		{
 			modelName = "AdjustDetail";

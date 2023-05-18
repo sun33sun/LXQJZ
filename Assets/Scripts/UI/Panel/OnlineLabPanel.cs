@@ -26,6 +26,7 @@ namespace LXQJZ.UI
 		[SerializeField] GameObject objHelp;
 		[Header("步骤Toggle")]
 		[SerializeField] GameObject stepObj;
+		RectTransform stepRect;
 		[SerializeField] List<Toggle> togList;
 		int fatherIndex = 0;
 		[Header("子步骤Text Group")]
@@ -49,17 +50,19 @@ namespace LXQJZ.UI
 		[SerializeField] Text txtOnlineLabTip;
 		bool isA = false;
 		bool isRight = false;
-		
+
 
 		void InitListener()
 		{
+			//步骤父物体组件记录
+			stepRect = stepObj.transform as RectTransform;
 			//步骤提示
 			objOnlinLabTipHeader.GetComponent<Button>().onClick.AddListener(SwitchOnlineLabTipContent);
 			objOnlinLabTipContent.GetComponent<Button>().onClick.AddListener(SwitchOnlineLabTipContent);
 			//右上角按钮
 			btnHelp.onClick.AddListener(SwitchHelp);
 			btnGoBack.onClick.AddListener(ShowObjGoBack);
-			btnFullScreen.onClick.AddListener(() =>{Screen.fullScreen = !Screen.fullScreen;});
+			btnFullScreen.onClick.AddListener(() => { Screen.fullScreen = !Screen.fullScreen; });
 			//右上角弹窗按钮
 			btnGoBackConfirm.onClick.AddListener(ShowMainPanel);
 			btnGoBackCancle.onClick.AddListener(HideObjGoBack);
@@ -75,7 +78,7 @@ namespace LXQJZ.UI
 				});
 			}
 
-			togA.onValueChanged.AddListener( OnOnlineLabChoiceA);
+			togA.onValueChanged.AddListener(OnOnlineLabChoiceA);
 			togB.onValueChanged.AddListener(OnOnlineLabChoiceB);
 		}
 
@@ -126,8 +129,14 @@ namespace LXQJZ.UI
 
 		void ShowMainPanel()
 		{
+			StartCoroutine(DoShowMainPanel());
+		}
+
+		IEnumerator DoShowMainPanel()
+		{
+			StepManager.GetInstance().ClearStep();
 			TaskManager.Instance.Exit();
-			SceneManager.UnloadSceneAsync(2);
+			yield return SceneManager.UnloadSceneAsync(2);
 			MainPanel.Instance.Show();
 			Hide();
 		}
@@ -163,9 +172,13 @@ namespace LXQJZ.UI
 			{
 				togList[fatherIndex].interactable = false;
 				togList[fatherIndex].isOn = false;
+				(togList[fatherIndex].transform as RectTransform).sizeDelta = new Vector2(184, 75);
 				objChildStepFatherList[fatherIndex].SetActive(false);
 				fatherIndex++;
 				togList[fatherIndex].interactable = true;
+				(togList[fatherIndex].transform as RectTransform).sizeDelta = new Vector2(240, 80);
+
+				LayoutRebuilder.MarkLayoutForRebuild(stepRect);
 			}
 		}
 
@@ -228,7 +241,7 @@ namespace LXQJZ.UI
 		{
 			if (sprites != null)
 			{
-				for (int i = 0; i < sprites.Count && i< imgSketchs.Count; i++)
+				for (int i = 0; i < sprites.Count && i < imgSketchs.Count; i++)
 				{
 					imgSketchs[i].sprite = sprites[i];
 				}
@@ -248,7 +261,7 @@ namespace LXQJZ.UI
 			objOnlinLabTipHeader.SetActive(false);
 		}
 
-		public void ShowSingleChoice(string strTitle,string strA,string strB,bool isA,string tip)
+		public void ShowSingleChoice(string strTitle, string strA, string strB, bool isA, string tip)
 		{
 			this.isA = isA;
 			txtA.text = strA;
@@ -272,6 +285,7 @@ namespace LXQJZ.UI
 		IEnumerator LoadOnlineLabScene()
 		{
 			yield return SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+			yield return new WaitWhile(() => { return TaskToolManager.Instance == null; });
 			TaskManager.Instance.StartTask();
 		}
 	}

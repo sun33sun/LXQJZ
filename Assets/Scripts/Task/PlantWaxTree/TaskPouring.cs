@@ -8,6 +8,11 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			base.OnDisable();
+		}
 		void OnEnable()
 		{
 			ParticleManager.Stop(GetObj("FireGun_Fire"));

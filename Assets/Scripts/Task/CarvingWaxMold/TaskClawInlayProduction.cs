@@ -17,6 +17,17 @@ namespace LXQJZ.Task
 		bool isSuccess6 = false;
 		bool isSuccess7 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			isSuccess3 = false;
+			isSuccess4 = false;
+			isSuccess5 = false;
+			isSuccess6 = false;
+			isSuccess7 = false;
+			base.OnDisable();
+		}
 		public override void RegisterSteps()
 		{
 			Step step1 = new Step();

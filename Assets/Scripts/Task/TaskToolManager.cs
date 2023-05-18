@@ -10,7 +10,14 @@ namespace LXQJZ
 
 		protected override void Awake()
 		{
-			base.Awake();
+			if (instance != null)
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				instance = this;
+			}
 			Transform[] transArray = transform.GetComponentsInChildren<Transform>();
 			for (int i = 0; i < transArray.Length; i++)
 			{

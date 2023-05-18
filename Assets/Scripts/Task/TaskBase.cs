@@ -1,4 +1,3 @@
-using LXQJZ;
 using LXQJZ.Task;
 using QFramework;
 using System;
@@ -67,6 +66,8 @@ namespace LXQJZ
 			}
 			else
 			{
+				if (ui == null)
+					Debug.LogError(uiName);
 				t = ui.gameObject.GetComponent<T>();
 				return t;
 			}
@@ -78,13 +79,17 @@ namespace LXQJZ
 			if (callBack != null)
 				obj.AddComponent<CallBackEvent>().AddEndEvent(callBack, clipName + "AnimEnd");
 			AnimManager.Play(obj, clipName, waitTime);
+			RoamCamera.Instance.LookAt(obj.transform, waitTime);
 		}
+
 
 		protected void AnimStart(string objName, string clipName)
 		{
-			Animator animator = GetObj(objName).GetComponent<Animator>();
+			GameObject animObj = GetObj(objName);
+			Animator animator = animObj.GetComponent<Animator>();
 			animator.speed = 1;
 			animator.Play(clipName, 0, 0);
+			RoamCamera.Instance.LookAt(animObj.transform,1);
 		}
 
 		protected void AnimStop(string objName)
@@ -102,7 +107,8 @@ namespace LXQJZ
 			particle.Play();
 			ActionKit.Sequence()
 				.Delay(waitTime,
-				() => {
+				() =>
+				{
 					ParticleManager.particleList.Remove(particle);
 					particle.Stop();
 				}).Start(this);
@@ -120,7 +126,7 @@ namespace LXQJZ
 		{
 			if (isSuccess)
 			{
-				RoamCamera.Instance.IsEnable = false;
+				RoamCamera.Instance.IsEnable = true;
 				return StepState.Success;
 			}
 			else
@@ -131,7 +137,7 @@ namespace LXQJZ
 		{
 			if (modelName == null || modelName.Equals(""))
 				return;
-			if(modelPrefab == null)
+			if (modelPrefab == null)
 			{
 				ResKit.Init();
 				modelPrefab = mResLoader.LoadSync<GameObject>(modelName);

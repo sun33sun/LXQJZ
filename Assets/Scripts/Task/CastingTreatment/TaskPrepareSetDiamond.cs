@@ -9,6 +9,13 @@ namespace LXQJZ.Task
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
 
+		protected override void OnDisable()
+		{
+			isSuccess1 = false;
+			isSuccess2 = false;
+			base.OnDisable();
+		}
+
 		public override void InitState()
 		{
 			modelName = "PrepareSetDiamond";

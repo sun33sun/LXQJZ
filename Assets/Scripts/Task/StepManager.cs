@@ -14,6 +14,9 @@ namespace LXQJZ.Task
 			MonoMgr.GetInstance().AddUpdateListener(Update);
 		}
 
+		List<QuickOutline.Outline> outlines = new List<QuickOutline.Outline>();
+		List<UIOutline> uIOutlines = new List<UIOutline>();
+
 		private bool IsEnable = false;
 		private static int _stepIndex = -1;
 		/// <summary>
@@ -56,7 +59,7 @@ namespace LXQJZ.Task
 			}
 		}
 
-		private void ClearStep()
+		public void ClearStep()
 		{
 			IsEnable = false;
 			ClearEvent();
@@ -64,6 +67,21 @@ namespace LXQJZ.Task
 			{
 				StepList[i].Clear();
 				StepList.RemoveAt(i);
+			}
+			ClearOutline();
+		}
+
+		private void ClearOutline()
+		{
+			for (int i = outlines.Count - 1; i > -1; i--)
+			{
+				MonoMgr.GetInstance().DoDestroy(outlines[i]);
+				outlines.RemoveAt(i);
+			}
+			for (int i = uIOutlines.Count - 1; i > -1; i--)
+			{
+				MonoMgr.GetInstance().DoDestroy(uIOutlines[i]);
+				uIOutlines.RemoveAt(i);
 			}
 		}
 
@@ -126,28 +144,34 @@ namespace LXQJZ.Task
 		{
 			for (int i = 0; i < nowObjList.Count; i++)
 			{
-					cakeslice.Outline outline = nowObjList[i].AddComponent<cakeslice.Outline>();
-					if (nowStep.OnClickObj != null)
-						nowObjList[i].AddComponent<ObjClickEvent>().OnClick += nowStep.OnClickObj;
+				QuickOutline.Outline outline = nowObjList[i].AddComponent<QuickOutline.Outline>();
+				outlines.Add(outline);
+				if (nowStep.OnClickObj != null)
+					nowObjList[i].AddComponent<ObjClickEvent>().OnClick += nowStep.OnClickObj;
 			}
 			for (int i = 0; i < nowBtnList.Count; i++)
 			{
 				Button nowBtn = nowBtnList[i];
 				UIOutline uIOutline = nowBtn.gameObject.AddComponent<UIOutline>();
-				if(nowStep.OnClickBtn != null)
+				uIOutlines.Add(uIOutline);
+				if (nowStep.OnClickBtn != null)
 					nowBtn.gameObject.AddComponent<UIClickEvent>().OnClick += nowStep.OnClickBtn;
 			}
 			for (int i = 0; i < nowTogList.Count; i++)
 			{
 				Toggle nowTog = nowTogList[i];
 				UIOutline uIOutline = nowTogList[i].gameObject.AddComponent<UIOutline>();
+				uIOutlines.Add(uIOutline);
 				if (nowStep.OnClickBtn != null)
 					nowTog.gameObject.AddComponent<UIClickEvent>().OnClick += nowStep.OnClickTog;
 			}
-			if(nowStep.tips != null)
+			if (nowStep.tips != null)
 				OnlineLabPanel.Instance.ShowOnlineTip(nowStep.tips);
 			nowStep.Prepare?.Invoke();
 			IsEnable = true;
+
+			if(nowObjList != null && nowObjList.Count > 0)
+				RoamCamera.Instance.LookAt(nowObjList[0].transform, 1);
 		}
 	}
 }
