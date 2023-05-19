@@ -22,7 +22,6 @@ namespace LXQJZ.Task
 			modelName = "MetalDemolding";
 			base.InitState();
 			ParticleManager.Stop(GetObj("FireGun_Fire"));
-			ParticleManager.Stop(GetObj("WeldingWaxMachine_Pen_Fire"));
 			GetObj("Ring_Rough_Silver").SetActive(false);
 		}
 

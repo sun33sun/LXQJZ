@@ -48,7 +48,6 @@ namespace LXQJZ.Task
 			yield return wait1;
 			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_Weld_WaxTree");
 			yield return wait05;
-			ParticleStart("WeldingWaxMachine_Pen_Fire", 2);
 			yield return wait2;
 			yield return wait05;
 			GetObj("TreatedRing2").transform.SetParent(GetObj("GypsumEffect").transform);

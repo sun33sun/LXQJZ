@@ -157,11 +157,6 @@ namespace LXQJZ.Task
 
 		void AnimEnd2_2()
 		{
-			ParticleCallBack("WeldingWaxMachine_Pen_Fire", ParticleEnd2, 3);
-		}
-
-		void ParticleEnd2()
-		{
 			AnimCallBack("WeldingWaxMachine", AnimEnd2_3, "WeldingWaxMachine_From_RingWax_Gap_To_Origin", 1);
 		}
 

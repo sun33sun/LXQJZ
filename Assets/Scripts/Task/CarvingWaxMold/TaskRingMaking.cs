@@ -54,21 +54,14 @@ namespace LXQJZ.Task
 			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
 
 			ParticleManager.Stop(GetObj("FireGun_Fire"));
-			ParticleManager.Stop(GetObj("WeldingWaxMachine_Pen_Fire"));
 			GetObj("RingWaxTubeMarkLine").SetActive(false);
 			GetObj("RingWaxBlock_Smooth").SetActive(false);
 			GetUI<Image>("DeaerationMixer_Slider").gameObject.SetActive(false);
 		}
 
-		void ShowSomething()
-		{
-			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = true;
-		}
-
 		public override void RegisterSteps()
 		{
 			HideSomething();
-			ShowSomething();
 
 			Step step1 = new Step();
 			step1.objList.Add(GetObj("Caliper_1"));

@@ -21,12 +21,6 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		void OnEnable()
-		{
-			ParticleManager.Stop(GetObj("WeldingWaxMachine_Pen_Fire"));
-			ParticleManager.Stop(GetObj("FireGun_Fire"));
-		}
-
 		public override void RegisterSteps()
 		{
 			Step step1 = new Step();
