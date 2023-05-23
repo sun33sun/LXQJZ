@@ -14,6 +14,7 @@ namespace LXQJZ
 		[SerializeField] float horizontalSpeed = 3;
 		[SerializeField] float verticalSpeed = 2;
 		[SerializeField] float rotateSpeed = 3;
+		[SerializeField] float mouseScrollWheelSpeed = 1;
 		[SerializeField] [Range(0, 1)] float drag = 0.8f;
 
 		Rigidbody rig = null;
@@ -71,6 +72,8 @@ namespace LXQJZ
 			EventCenter.GetInstance().AddEventListener(KeyCode.LeftControl + "保持", OnLeftControlState);
 
 			EventCenter.GetInstance().AddEventListener(KeyCode.Space + "保持", OnSpaceState);
+
+			EventCenter.GetInstance().AddEventListener<float>("鼠标滚轮", OnMouseScrollWheel);
 		}
 
 		private void BackOrigin()
@@ -177,6 +180,14 @@ namespace LXQJZ
 			nowPos = transform.localPosition;
 			nowPos.y += verticalSpeed * Time.fixedDeltaTime;
 			transform.localPosition = nowPos;
+		}
+		private void OnMouseScrollWheel(float distance)
+		{
+			roamCamera.m_Lens.FieldOfView += distance * mouseScrollWheelSpeed;
+			if (roamCamera.m_Lens.FieldOfView < 1)
+				roamCamera.m_Lens.FieldOfView = 1;
+			else if (roamCamera.m_Lens.FieldOfView > 90)
+				roamCamera.m_Lens.FieldOfView = 90;
 		}
 		#endregion
 

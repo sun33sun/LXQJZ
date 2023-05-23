@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -97, y: -74}
+  m_AnchoredPosition: {x: -30, y: -30}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34055611
@@ -3195,7 +3195,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 30
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
@@ -3239,6 +3239,7 @@ MonoBehaviour:
   horizontalSpeed: 2
   verticalSpeed: 1.5
   rotateSpeed: 2
+  mouseScrollWheelSpeed: 20
   drag: 1
   fixedCamera: {fileID: 248047347}
   lookAtCamera: {fileID: 1743660055}

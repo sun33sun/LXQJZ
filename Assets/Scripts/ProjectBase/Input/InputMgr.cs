@@ -67,6 +67,8 @@ namespace LXQJZ
                 EventCenter.GetInstance().EventTrigger("鼠标右键抬起");
         
             EventCenter.GetInstance().EventTrigger<Vector2>("鼠标滑动", new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")));
+
+            EventCenter.GetInstance().EventTrigger<float>("鼠标滚轮", Input.GetAxis("Mouse ScrollWheel"));
         }
 
         private void MyFixedUpdate()

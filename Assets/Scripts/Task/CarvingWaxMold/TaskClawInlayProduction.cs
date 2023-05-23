@@ -31,7 +31,6 @@ namespace LXQJZ.Task
 		public override void RegisterSteps()
 		{
 			Step step1 = new Step();
-			step1.Prepare += Prepare1;
 			step1.objList.Add(GetObj("WoodenHandleSaw"));
 			step1.OnClickObj += ClickObj1;
 			step1.CheckState += CheckState1;
@@ -78,10 +77,6 @@ namespace LXQJZ.Task
 		}
 
 		#region Step1
-		private void Prepare1()
-		{
-			OnlineLabPanel.Instance.ShowSketch(sketchs);
-		}
 		private void ClickObj1()
 		{
 			RoamCamera.Instance.IsEnable = false;
