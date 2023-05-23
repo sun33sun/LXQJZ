@@ -10,7 +10,7 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 12;
+		int startIndex = 0;
 
 		void OnNextTask()
 		{

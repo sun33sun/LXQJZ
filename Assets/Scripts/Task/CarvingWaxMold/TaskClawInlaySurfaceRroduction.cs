@@ -145,23 +145,21 @@ namespace LXQJZ.Task
 		{
 			RoamCamera.Instance.IsEnable = false;
 			GetObj("WeldingWaxMachine_Bottom").GetComponent<ObjClickEvent>().SelfDestroy();
-			AnimCallBack("ClawInlayWaxBlock", AnimEnd2_1, "ClawInlayWaxBlock_Approach_RingWax_Gap");
+
+			StartCoroutine(working2());
 		}
-		void AnimEnd2_1()
+
+		IEnumerator working2()
 		{
+			AnimStart("ClawInlayWaxBlock", "ClawInlayWaxBlock_Approach_RingWax_Gap");
+			yield return new WaitForSeconds(3);
 			GetObj("ClawInlayWaxBlock").SetActive(false);
 			GetObj("ClawInlay_Melt").SetActive(true);
 
-			AnimCallBack("WeldingWaxMachine", AnimEnd2_2, "WeldingWaxMachine_Approach_RingWax_Gap");
-		}
-
-		void AnimEnd2_2()
-		{
-			AnimCallBack("WeldingWaxMachine", AnimEnd2_3, "WeldingWaxMachine_From_RingWax_Gap_To_Origin", 1);
-		}
-
-		void AnimEnd2_3()
-		{
+			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_Approach_RingWax_Gap");
+			yield return new WaitForSeconds(5);
+			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_From_RingWax_Gap_To_Origin");
+			yield return new WaitForSeconds(1);
 			isSuccess2 = true;
 		}
 

@@ -11,6 +11,7 @@ namespace LXQJZ.UI
 {
 	public class KnowledgeAssessmentPanel : BasePanel<KnowledgeAssessmentPanel>
 	{
+		[SerializeField] Button btnExit;
 		[Header("考试题部分UI")]
 		[SerializeField] GameObject titleFather;
 		[SerializeField] List<GameObject> titleList = new List<GameObject>();
@@ -37,6 +38,11 @@ namespace LXQJZ.UI
 		void InitListener()
 		{
 			btnSubmit.onClick.AddListener(SubmitPaper);
+			btnExit.onClick.AddListener(() =>
+			{
+				MainPanel.Instance.Show();
+				Hide();
+			});
 		}
 
 		IEnumerator LoadPaper()
@@ -67,16 +73,16 @@ namespace LXQJZ.UI
 
 		void SubmitPaper()
 		{
-			endTime = DateTime.Now;
-			int score = 0;
-			for (int i = 0; i < titleList.Count; i++)
-			{
-				ITitle title = titleList[i].GetComponent<ITitle>();
-				if (title.IsRight)
-					score += title.Score;
-			}
+			//endTime = DateTime.Now;
+			//int score = 0;
+			//for (int i = 0; i < titleList.Count; i++)
+			//{
+			//	ITitle title = titleList[i].GetComponent<ITitle>();
+			//	if (title.IsRight)
+			//		score += title.Score;
+			//}
 			LabReportPanel.Instance.Show();
-			LabReportPanel.Instance.CreateModuleReport("知识考核", startTime, endTime, score);
+			//LabReportPanel.Instance.CreateModuleReport("知识考核", startTime, endTime, score);
 			Hide();
 		}
 	}
