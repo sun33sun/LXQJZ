@@ -1,5 +1,6 @@
 using LXQJZ.UI;
 using QFramework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,15 @@ namespace LXQJZ.Task
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
 		int startIndex = 10;
+		public Action OnLabCompleted;
 
 		void OnNextTask()
 		{
-			if (taskIndex > taskList.Count - 2)
+			if (taskIndex >= taskList.Count - 1)
+			{
+				OnLabCompleted?.Invoke();
 				return;
+			}
 
 			taskList[taskIndex].enabled = false;
 			if (taskList[taskIndex].modelName != null)
