@@ -240,6 +240,9 @@ namespace LXQJZ.UI
 			imgSketch.DoHideAnimImmediately(btnSketch.transform.position);
 			inputWaxTubeWidth.text = "";
 			inputWaxTubeWidth.gameObject.SetActive(false);
+
+			imgRetract.transform.localScale = Vector3.one;
+			objOnlinLabTipContent.SetActive(false);
 		}
 
 

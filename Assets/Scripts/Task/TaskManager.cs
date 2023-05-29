@@ -11,7 +11,7 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 10;
+		int startIndex = 4;
 		public Action OnLabCompleted;
 
 		void OnNextTask()
@@ -28,7 +28,7 @@ namespace LXQJZ.Task
 
 			OnlineLabPanel.Instance.NextTask();
 			taskIndex++;
-			Debug.LogError("当前任务序号为：" + taskIndex);
+			Debug.LogWarning("当前任务序号为：" + taskIndex);
 			taskList[taskIndex].enabled = true;
 			if (taskList[taskIndex].modelName != null)
 				taskList[taskIndex].InitState();
@@ -44,45 +44,45 @@ namespace LXQJZ.Task
 			EventCenter.GetInstance().AddEventListener("下一个任务", OnNextTask);
 
 			//雕刻蜡模
-			//戒圈制作
+			//戒圈制作0
 			taskList.Add(GetComponent<TaskRingMaking>());
-			//爪镶制作
+			//爪镶制作1
 			taskList.Add(GetComponent<TaskClawInlayProduction>());
-			//爪镶戒面制作
+			//爪镶戒面制作2
 			taskList.Add(GetComponent<TaskClawInlaySurfaceRroduction>());
 
 			//失蜡铸造
-			//种蜡树
+			//种蜡树3
 			taskList.Add(GetComponent<TaskPlantWaxTree>());
-			//进盅
+			//进盅4
 			taskList.Add(GetComponent<TaskEnterWaxCup>());
-			//浇筑石膏
+			//浇筑石膏5
 			taskList.Add(GetComponent<TaskPouringGypsum>());
-			//脱蜡
+			//脱蜡6
 			taskList.Add(GetComponent<TaskDewaxing>());
-			//浇铸
+			//浇铸7
 			taskList.Add(GetComponent<TaskPouring>());
-			//金属脱模
+			//金属脱模8
 			taskList.Add(GetComponent<TaskMetalDemolding>());
-			//泡酸
+			//泡酸9
 			taskList.Add(GetComponent<TaskSoakingSO4>());
 
 			//铸件处理
-			//处理水口
+			//处理水口10
 			taskList.Add(GetComponent<TaskTreatmentWaterOutlet>());
-			//调整戒指细节
+			//调整戒指细节11
 			taskList.Add(GetComponent<TaskAdjustDetail>());
-			//抛光戒指
+			//抛光戒指12
 			taskList.Add(GetComponent<TaskPolishRing>());
-			//准备镶嵌钻石
+			//准备镶嵌钻石13
 			taskList.Add(GetComponent<TaskPrepareSetDiamond>());
-			//固定钻石
+			//固定钻石14
 			taskList.Add(GetComponent<TaskFixDiamond>());
-			//修整爪镶
+			//修整爪镶15
 			taskList.Add(GetComponent<TaskTrimClawInlay>());
-			//戒指的抛光和清洁
+			//戒指的抛光和清洁16
 			taskList.Add(GetComponent<TaskPolishAndCleanRing>());
-			//烘干戒指
+			//烘干戒指17
 			taskList.Add(GetComponent<TaskDryRing>());
 		}
 
@@ -97,7 +97,7 @@ namespace LXQJZ.Task
 			StepManager.GetInstance().Start();
 		}
 
-	
+
 		public void Exit()
 		{
 			Destroy(taskList[taskIndex].modelInstance);

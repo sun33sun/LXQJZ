@@ -1,0 +1,52 @@
+ManifestFileVersion: 0
+CRC: 583106726
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a9217c54f786110f46e5a3cf52d155e5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b3257722fce6259433fdd26c1e594d63
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/AssetBundle/Task_Prefab/PolishRing.prefab
+- Assets/AssetBundle/Task_Prefab/RingMaking.prefab
+- Assets/AssetBundle/Task_Prefab/MetalDemolding.prefab
+- Assets/AssetBundle/Task_Prefab/DryRing.prefab
+- Assets/AssetBundle/Task_Prefab/PolishAndCleanRing.prefab
+- Assets/AssetBundle/Task_Prefab/ClawInlaySurfaceRroduction.prefab
+- Assets/AssetBundle/Task_Prefab/PrepareSetDiamond.prefab
+- Assets/AssetBundle/Task_Prefab/TrimClawInlay.prefab
+- Assets/AssetBundle/Task_Prefab/TreatmentWaterOutlet.prefab
+- Assets/AssetBundle/Task_Prefab/ClawInlayProduction.prefab
+- Assets/AssetBundle/Task_Prefab/AdjustDetail.prefab
+- Assets/AssetBundle/Task_Prefab/FixDiamond.prefab
+- Assets/AssetBundle/Task_Prefab/PlantWaxTree.prefab
+- Assets/AssetBundle/Task_Prefab/SoakingSO4.prefab
+Dependencies: []

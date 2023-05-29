@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,36 +9,71 @@ using UnityEngine.UI;
 
 namespace LXQJZ.UI
 {
+	public class Device
+	{
+		public string nameCN = "";
+		public string description = "";
+		public List<string> spriteList = new List<string>();
+	}
 	public class DeviceAwarenessPanel : BasePanel<DeviceAwarenessPanel>
 	{
 		[SerializeField] RectTransform leftTogRect;
 		[SerializeField] Button btnExit;
 		[SerializeField] List<Toggle> togList;
-		[SerializeField] List<string> strHeaderList;
-		[SerializeField] List<string> strList;
-		[SerializeField] Image imgDevice;
+		[SerializeField] Transform transDevice;
 		[SerializeField] Text txtHeader;
-		[SerializeField] Text txtDevice;
+		[SerializeField] Text txtDescription;
 
-		Dictionary<string, Sprite> spriteDic = new Dictionary<string, Sprite>();
-		Dictionary<string, string> textDic = new Dictionary<string, string>();
-
+		Dictionary<string, Device> deviceDic = new Dictionary<string, Device>();
+		[SerializeField] Dictionary<string, List<Sprite>> spriteDic = new Dictionary<string, List<Sprite>>();
+		ResLoader resLoader = ResLoader.Allocate();
+		List<GameObject> childs = new List<GameObject>();
 
 		protected override void Start()
 		{
-			InitDic();
-			InitListener();
-			base.Start();
-			StartCoroutine(HideAsync(0.05f));
+			InitData();
 		}
 
-		private void InitDic()
+		private void Update()
 		{
-			for (int i = 0; i < ProjectSettings.DEVICES_IMAGE.Count; i++)
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				Sprite sprite = ResMgr.GetInstance().Load<Sprite>(ProjectSettings.DEVICES_IMAGE[i]);
-				spriteDic.Add(ProjectSettings.DEVICES_IMAGE[i].Split('\\')[1], sprite);
+				foreach (var item in spriteDic.Values)
+				{
+					foreach (var sprite in item)
+					{
+						Debug.Log(sprite.name);
+					}
+				}
 			}
+		}
+
+		private void InitData()
+		{
+			ResKit.InitAsync().ToAction().Start(this, () =>
+			 {
+				 resLoader.Add2Load<TextAsset>("Devices", "deviceDic");
+				 resLoader.LoadAsync(() =>
+				 {
+					 TextAsset jsonAsset = resLoader.LoadSync<TextAsset>("deviceDic");
+					 deviceDic = JsonConvert.DeserializeObject<Dictionary<string, Device>>(jsonAsset.text);
+					 foreach (var item in deviceDic)
+					 {
+						 List<string> spriteList = item.Value.spriteList;
+						 string newKey = item.Key;
+						 spriteDic.Add(newKey, new List<Sprite>());
+						 for (int j = 0; j < spriteList.Count; j++)
+						 {
+							 resLoader.Add2Load<Sprite>("Devices", spriteList[j], (isSuccess, newAsset) =>
+							 {
+								 if (isSuccess)
+									 spriteDic[newKey].Add(newAsset.Asset.As<Sprite>());
+							 });
+						 }
+					 }
+					 resLoader.LoadAsync(()=> { InitListener(); });
+				 });
+			 });
 		}
 		private void InitListener()
 		{
@@ -49,17 +85,13 @@ namespace LXQJZ.UI
 			for (int i = 0; i < togList.Count; i++)
 			{
 				string key = string.Copy(togList[i].name);
-				key = key.Remove(0, 3);
 				RectTransform rect = togList[i].transform as RectTransform;
-				int index = i;
 				togList[i].onValueChanged.AddListener((isOn) =>
 				{
 					if (isOn)
 					{
 						rect.sizeDelta = new Vector2(264, 104);
-						ChangeDeviceImage(key);
-						txtHeader.text = strHeaderList[index];
-						txtDevice.text = strList[index];
+						ChangeTextAndImage(key);
 					}
 					else
 					{
@@ -68,24 +100,40 @@ namespace LXQJZ.UI
 					LayoutRebuilder.MarkLayoutForRebuild(leftTogRect);
 				});
 			}
+			InitState();
+			Hide();
 		}
 
-		private void ChangeDeviceImage(string key)
+		private void ChangeTextAndImage(string key)
 		{
-			if (!spriteDic.ContainsKey(key))
+			//É¾³ýÔàÍ¼Æ¬
+
+			if (childs != null && childs.Count > 0)
 			{
-				Debug.Log($"Í¼Æ¬{key}²»´æÔÚ");
-				return;
+				for (int i = childs.Count - 1; i > -1; i--)
+					Destroy(childs[i].gameObject);
 			}
-			imgDevice.sprite = spriteDic[key];
+
+			for (int i = 0; i < deviceDic[key].spriteList.Count; i++)
+			{
+				GameObject newObj = new GameObject();
+				newObj.name = deviceDic[key].spriteList[i];
+				childs.Add(newObj);
+				
+				Image newImg = newObj.AddComponent<Image>();
+				newImg.sprite = spriteDic[key][i];
+
+				newObj.transform.SetParent(transDevice);
+				(newObj.transform as RectTransform).sizeDelta = new Vector2(400, 400);
+			}
+			txtHeader.text = deviceDic[key].nameCN;
+			txtDescription.text = deviceDic[key].description;
 		}
 
 		protected override void InitState()
 		{
 			togList[0].isOn = true;
-			string key = string.Copy(togList[0].name);
-			key = key.Remove(0, 3);
-			ChangeDeviceImage(key);
+			ChangeTextAndImage(togList[0].name);
 		}
 	}
 }

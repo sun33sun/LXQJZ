@@ -32,9 +32,9 @@ namespace LXQJZ.Task
 
 		private void OnDestroy()
 		{
-			GetUI<InputField>("inputWaxTubeWidth").gameObject.SetActive(false);
-			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
-			GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(false);
+			GetUI<InputField>("inputWaxTubeWidth")?.gameObject.SetActive(false);
+			GetUI<Image>("imgWaxTubeWidth")?.gameObject.SetActive(false);
+			GetUI<Text>("txtWaxWidthTip")?.gameObject.SetActive(false);
 		}
 
 		protected override void OnDisable()

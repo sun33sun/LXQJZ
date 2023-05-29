@@ -45,13 +45,13 @@ namespace LXQJZ.Task
 		{
 			WaitForSeconds wait2 = new WaitForSeconds(2);
 
-			AnimStart("GypsumEffect", "GypsumEffect_Enter_Bucket");
-			yield return new WaitForSeconds(1.5f);
+			AnimStart("WaxTree", "WaxTree_Enter_Bucket");
+			yield return new WaitForSeconds(6);
 			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = false;
 			GetObj("Ring_Rough_Silver").SetActive(true);
 			yield return new WaitForSeconds(1);
-			AnimStart("Ring_Rough_Silver", "Ring_Rough_Silver_From_Bucket_To_Table1");
-			yield return wait2;
+			AnimStart("Ring_Rough_Silver", "Ring_Rough_Silver_Up");
+			yield return new WaitForSeconds(1);
 			isSuccess1 = true;
 		}
 

@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 3207253962
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 42a374b31ba3d410474079e6cc7377e0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 29ec6e617780db0b90abce266a56ea86
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- "Assets/Image/Devices/\u96D5\u8721\u673A.png"
+- "Assets/Image/Devices/\u6212\u6307\u68D2.png"
+- "Assets/Image/Devices/\u771F\u7A7A\u62BD\u6CE1\u673A.png"
+- "Assets/Image/Devices/\u710A\u8721\u673A.png"
+- "Assets/Image/Devices/\u6E38\u6807\u5361\u5C3A.png"
+- "Assets/Image/Devices/\u771F\u7A7A\u9000\u706B\u7089.png"
+- Assets/Image/Devices/deviceDic.json
+- "Assets/Image/Devices/\u7802\u7EB8\u68D2.png"
+- "Assets/Image/Devices/\u96D5\u523B\u624B\u672F\u5200.png"
+- "Assets/Image/Devices/\u7403\u5F62\u96D5\u523B\u9488.png"
+- "Assets/Image/Devices/\u80F6\u76AE\u76C5\u5EA7.png"
+- "Assets/Image/Devices/\u6241\u9509.png"
+- "Assets/Image/Devices/\u6253\u78E8\u9488.png"
+- "Assets/Image/Devices/\u9509.png"
+- "Assets/Image/Devices/\u78C1\u529B\u6E9C\u5149\u673A.png"
+- "Assets/Image/Devices/\u6212\u6307\u8721.png"
+- "Assets/Image/Devices/\u5706\u89C4\u673A\u526A.png"
+- "Assets/Image/Devices/\u8D85\u58F0\u6CE2\u6E05\u6D17\u673A.png"
+- "Assets/Image/Devices/\u952F\u5F13.png"
+- "Assets/Image/Devices/\u96D5\u8721\u5200.png"
+Dependencies: []

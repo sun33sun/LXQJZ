@@ -64,10 +64,9 @@ namespace LXQJZ.Task
 			WaitForSeconds wait01 = new WaitForSeconds(0.1f);
 			WaitForSeconds wait1 = new WaitForSeconds(1);
 
-			GetObj("GypsumEffect").transform.SetParent(GetObj("Tool").transform);
 			//石膏模放入烤炉
 			AnimStart("Oven", "OvenOpen");
-			AnimStart("GypsumEffect", "GypsumEffect_Enter_Oven");
+			AnimStart("WaxTree", "WaxTree_Enter_Oven");
 			yield return wait4;
 			//关闭烤箱门
 			AnimStart("Oven", "OvenClose");
@@ -135,17 +134,17 @@ namespace LXQJZ.Task
 
 		IEnumerator working3()
 		{
-			GameObject GypsumEffect = GetObj("GypsumEffect");
+			GameObject WaxTree = GetObj("WaxTree");
 
 			//取出石膏模
 			AnimStart("Tongs", "Tongs_Enter_Oven");
 			yield return new WaitForSeconds(2.2f);
-			GypsumEffect.transform.SetParent(GetObj("Tongs").transform);
-			AnimStart("GypsumEffect", "GypsumEffect_Forward_Tongs");
+			WaxTree.transform.SetParent(GetObj("Tongs").transform);
+			AnimStart("WaxTree", "WaxTree_Forward_Tongs");
 			yield return new WaitForSeconds(1.8f);
-			GypsumEffect.transform.SetParent(GetObj("Tool").transform);
-			AnimStart("GypsumEffect", "GypsumEffect_Enter_GypsumTile");
-			yield return new WaitForSeconds(1.4f);
+			WaxTree.transform.SetParent(GetObj("Tool").transform);
+			AnimStart("WaxTree", "WaxTree_Enter_GypsumTile");
+			yield return new WaitForSeconds(1);
 			//关闭烤箱门
 			AnimStart("Oven", "OvenClose");
 			yield return new WaitForSeconds(1);

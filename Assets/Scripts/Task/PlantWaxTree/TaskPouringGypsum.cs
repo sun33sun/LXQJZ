@@ -87,7 +87,7 @@ namespace LXQJZ.Task
 			WaitForSeconds wait4 = new WaitForSeconds(4);
 			WaitForSeconds wait3 = new WaitForSeconds(3);
 
-			OnlineLabPanel.Instance.ShowSingleChoice("可以将调配好的石膏液直接凝固用于铸造吗？", "可以", "不可以", false, "回答错误，正确答案为：不可以");
+			OnlineLabPanel.Instance.ShowSingleChoice("可以将调配好的石膏液直接凝固用于铸造吗？", "可以", "不可以", false, "正确答案为：B");
 			yield return new WaitUntil(OnlineLabPanel.Instance.CheckOnlinLabChoice);
 			//蜡树进入吸泡机
 			AnimStart("DeaerationMixer", "DeaerationMixer_Open");

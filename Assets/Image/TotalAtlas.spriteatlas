@@ -113,11 +113,16 @@ SpriteAtlas:
     - {fileID: 2800000, guid: aa35b3eaffb74e042b8e02ce9ce9eac3, type: 3}
     - {fileID: 2800000, guid: 85c6ebd82cdf9324196a01405dfab521, type: 3}
     - {fileID: 2800000, guid: 8b8450070faf30e4fa8add31817764b3, type: 3}
+    - {fileID: 2800000, guid: 4deca314cbadc7649b8962305a94dc2c, type: 3}
+    - {fileID: 2800000, guid: 36ab24bc75fdb66489319527da53f20d, type: 3}
+    - {fileID: 2800000, guid: 6566563dd4b880e4691547a089defe51, type: 3}
+    - {fileID: 2800000, guid: 5587e120d72deee46ae87063c4375d84, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: e2c80910366c846428303168eaed904c, type: 3}
   - {fileID: 21300000, guid: 9285bf1092af4b94cbe5136a7355ced2, type: 3}
+  - {fileID: 21300000, guid: 5587e120d72deee46ae87063c4375d84, type: 3}
   - {fileID: 21300000, guid: a7037b503d1eeaf42a2cfad3b3482e2b, type: 3}
   - {fileID: 21300000, guid: 7774bd70127e3e244b2ffe9edbcbf05f, type: 3}
   - {fileID: 21300000, guid: cc66c0d06177f6442b6ddccf33601630, type: 3}
@@ -136,6 +141,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 17d8a7c31b5a72d4f8005c04ccd07c97, type: 3}
   - {fileID: 21300000, guid: 63b5cce3184b6f8498c85e57a11f86e3, type: 3}
   - {fileID: 21300000, guid: d4580104ed873dc44ba1b354cc4cad94, type: 3}
+  - {fileID: 21300000, guid: 4deca314cbadc7649b8962305a94dc2c, type: 3}
   - {fileID: 21300000, guid: 999bcb245cb04d04885f445f6d05170d, type: 3}
   - {fileID: 21300000, guid: 207bbe8480f53fd439dc62c65b83acd9, type: 3}
   - {fileID: 21300000, guid: 4e6780b4e460f904fbf77408235e6a90, type: 3}
@@ -186,6 +192,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: eedf385ca3092d24db81880d3412b521, type: 3}
   - {fileID: 21300000, guid: a8e5037c0781e6b42a9183731e8d8e34, type: 3}
   - {fileID: 21300000, guid: 730eb38cca94bf641853be6d748fbbe3, type: 3}
+  - {fileID: 21300000, guid: 36ab24bc75fdb66489319527da53f20d, type: 3}
+  - {fileID: 21300000, guid: 6566563dd4b880e4691547a089defe51, type: 3}
   - {fileID: 21300000, guid: 00429a9dcd2e3774dbb57caf7a9f8b92, type: 3}
   - {fileID: 21300000, guid: b7feb9add8ee1e44691a3168035710fc, type: 3}
   - {fileID: 21300000, guid: c27e74cdec75e8f478630be43bcda51a, type: 3}
@@ -202,6 +210,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - "\u6B65\u9AA4\u63D0\u9192_\u6536\u8D77"
   - "\u7ED8\u5236\u8349\u56FE_hover"
+  - jiezhi04
   - "\u6212\u6307LOGO"
   - "\u94F8\u4EF6\u5904\u7406_\u6536\u8D77"
   - "\u94F8\u4EF6\u5904\u7406\u66F4\u591A\u5F39\u7A97_BG"
@@ -220,6 +229,7 @@ SpriteAtlas:
   - "\u5B9E\u9A8C\u62A5\u544A\u6309\u94AE_BG"
   - "\u4E3B\u9875_BG"
   - "\u5E2E\u52A9_hover"
+  - jiezhi01
   - "\u5168\u5C4F"
   - "\u6B65\u9AA4\u63D0\u9192\u4E0B\u62C9\u83DC\u5355_BG_\u56DB\u884C\u6587\u5B57"
   - "\u8BBE\u5907\u8BA4\u77E5\u3001\u5728\u7EBF\u5B9E\u9A8C\u4FA7\u8FB9\u680F\u6309\u94AE"
@@ -270,6 +280,8 @@ SpriteAtlas:
   - "\u52A0\u8F7D\u9875_BG"
   - "\u5168\u5C4F_hover"
   - "\u6212\u6307\u8721"
+  - jiezhi02
+  - jiezhi03
   - "\u5B9E\u9A8C\u8BC4\u4EF7_BG"
   - "\u6B65\u9AA4\u63D0\u9192\u4E0B\u62C9\u83DC\u5355_BG_\u4E24\u884C\u6587\u5B57"
   - "\u6B65\u9AA4\u63D0\u9192_\u6536\u8D7701"

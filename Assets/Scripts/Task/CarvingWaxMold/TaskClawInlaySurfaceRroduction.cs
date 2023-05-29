@@ -57,7 +57,6 @@ namespace LXQJZ.Task
 
 			Step step2 = new Step();
 			step2.objList.Add(GetObj("WeldingWaxMachine_Pen"));
-			step2.objList.Add(GetObj("WeldingWaxMachine_Bottom"));
 			step2.OnClickObj += ClickObj2;
 			step2.CheckState += CheckState2;
 
@@ -144,8 +143,6 @@ namespace LXQJZ.Task
 		void ClickObj2()
 		{
 			RoamCamera.Instance.IsEnable = false;
-			GetObj("WeldingWaxMachine_Bottom").GetComponent<ObjClickEvent>().SelfDestroy();
-
 			StartCoroutine(working2());
 		}
 

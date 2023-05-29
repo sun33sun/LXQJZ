@@ -12,18 +12,6 @@ namespace LXQJZ
 	{
 		public static string LAB_INTRODUCTION_JSON { get { return Application.streamingAssetsPath + "\\LabIntroduction\\description.json"; } }
 
-		#region 设备认知
-		public static List<string> DEVICES_IMAGE
-		{
-			get
-			{
-				return new List<string>() { "DEVICE\\RingWax", "DEVICE\\MeasureTool", "DEVICE\\CuttingTool", "DEVICE\\CarvingTool", "DEVICE\\RepairTool", "DEVICE\\GrindingTool", "DEVICE\\CastingTool", "DEVICE\\PolishingTool" };
-			}
-		}
-		public static string DEVICES_DESCRIPTION_PAHT { get { return Application.streamingAssetsPath + "\\deviceDescripton.json"; } }
-		#endregion
-
-
 		#region 试题
 		public static string EXAM_PAPER_JSON { get { return Application.streamingAssetsPath + "\\ExamPaper.json"; } }
 		public static string EXAM_MULTIPLECHOICETITLE { get { return "Prefabs\\MultipleChoiceTitle"; } }

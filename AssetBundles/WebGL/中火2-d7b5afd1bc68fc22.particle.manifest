@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 662859070
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7c4a9f893f7fbb875fdc72a84c32a1f0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8171f7438823f30be389e38c9130a790
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- "Assets/Resources/Prefabs/Fire_Prefab/\u4E2D\u706B2.prefab"
+Dependencies: []

@@ -1,0 +1,119 @@
+ManifestFileVersion: 0
+CRC: 1865054397
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: uipanelwithimageprefab_prefab
+      Dependencies: {}
+    Info_1:
+      Name: assetobj_prefab
+      Dependencies: {}
+    Info_2:
+      Name: b_png
+      Dependencies: {}
+    Info_3:
+      Name: assetobj 2_prefab
+      Dependencies: {}
+    Info_4:
+      Name: uistackpanel2_prefab
+      Dependencies: {}
+    Info_5:
+      Name: imageprefabb_prefab
+      Dependencies:
+        Dependency_0: b_png
+    Info_6:
+      Name: uibasicpanel_prefab
+      Dependencies: {}
+    Info_7:
+      Name: textureexample1_png
+      Dependencies: {}
+    Info_8:
+      Name: uimultipanel_prefab
+      Dependencies: {}
+    Info_9:
+      Name: c_png
+      Dependencies: {}
+    Info_10:
+      Name: spriteatlas_spriteatlas
+      Dependencies: {}
+    Info_11:
+      Name: assetobj 3_prefab
+      Dependencies: {}
+    Info_12:
+      Name: imageprefabc_prefab
+      Dependencies:
+        Dependency_0: c_png
+    Info_13:
+      Name: sceneres_unity
+      Dependencies: {}
+    Info_14:
+      Name: a_png
+      Dependencies: {}
+    Info_15:
+      Name: assetobj 1_prefab
+      Dependencies: {}
+    Info_16:
+      Name: uistackpanel1_prefab
+      Dependencies: {}
+    Info_17:
+      Name: imageprefaba_prefab
+      Dependencies:
+        Dependency_0: a_png
+    Info_18:
+      Name: assetbundle
+      Dependencies: {}
+    Info_19:
+      Name: deviceatlas_spriteatlas
+      Dependencies:
+        Dependency_0: devices
+    Info_20:
+      Name: devices
+      Dependencies: {}
+    Info_21:
+      Name: "\u4E2D\u706B1-ca53655fdd402319.particle"
+      Dependencies: {}
+    Info_22:
+      Name: "\u4E2D\u706B2-d7b5afd1bc68fc22.particle"
+      Dependencies: {}
+    Info_23:
+      Name: "\u4E2D\u706B3-a7fad1f2b62bd022.particle"
+      Dependencies: {}
+    Info_24:
+      Name: "\u4E2D\u706B4-7a715678218f1c22.particle"
+      Dependencies: {}
+    Info_25:
+      Name: "\u4E2D\u706B5-69b7a60b57013e22.particle"
+      Dependencies: {}
+    Info_26:
+      Name: "\u55B7\u5C04\u706B\u71301-98ac587c2caddc22.particle"
+      Dependencies: {}
+    Info_27:
+      Name: "\u55B7\u5C04\u706B\u71302-d5ae0bb5a27cdc22.particle"
+      Dependencies: {}
+    Info_28:
+      Name: "\u55B7\u5C04\u706B\u71303-785d44edb0c17e22.particle"
+      Dependencies: {}
+    Info_29:
+      Name: "\u55B7\u5C04\u706B\u71304-4905b9a8cb0ddc22.particle"
+      Dependencies: {}
+    Info_30:
+      Name: "\u5927\u706B-a4368f5b3e6ecc22.particle"
+      Dependencies: {}
+    Info_31:
+      Name: "\u5927\u706B2-752584fd9ddc22.particle"
+      Dependencies: {}
+    Info_32:
+      Name: "\u5927\u706B3-6233e75c9f87e422.particle"
+      Dependencies: {}
+    Info_33:
+      Name: "\u5927\u706B4-72110a318dcddc22.particle"
+      Dependencies: {}
+    Info_34:
+      Name: "\u5927\u706B5-567642e870e5dc22.particle"
+      Dependencies: {}
+    Info_35:
+      Name: "\u5C0F\u706B1-dddcd928a60e5c22.particle"
+      Dependencies: {}
+    Info_36:
+      Name: "\u5C0F\u706B2-272a14df8ac2ee22.particle"
+      Dependencies: {}
