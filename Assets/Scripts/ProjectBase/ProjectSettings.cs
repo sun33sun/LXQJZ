@@ -13,9 +13,10 @@ namespace LXQJZ
 		public static string LAB_INTRODUCTION_JSON { get { return Application.streamingAssetsPath + "\\LabIntroduction\\description.json"; } }
 
 		#region 试题
-		public static string EXAM_PAPER_JSON { get { return Application.streamingAssetsPath + "\\ExamPaper.json"; } }
-		public static string EXAM_MULTIPLECHOICETITLE { get { return "Prefabs\\MultipleChoiceTitle"; } }
-		public static string EXAM_SINGLECHOICETITLE { get { return "Prefabs\\SingleChoiceTitle"; } }
+		public static string EXAM_MULTIPLECHOICETITLE { get { return "Prefabs\\Exam_Prefab\\MultipleChoiceTitle"; } }
+		public static string EXAM_SINGLECHOICETITLE { get { return "Prefabs\\Exam_Prefab\\SingleChoiceTitle"; } }
+		public static string PAPER_Knowledge { get { return Application.streamingAssetsPath + "\\PaperKnowledge.json"; } }
+		public static string PAPER_EnterWax { get { return Application.streamingAssetsPath + "\\PaperEnterWax.json"; } }
 		#endregion
 
 

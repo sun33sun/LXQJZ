@@ -58,7 +58,7 @@ namespace LXQJZ.Exam
 			data = source;
 			rightOption = data.rightOption;
 			titleDescription.text = data.titleDescription;
-			titleType.text = data.titleNumber + " . " + data.titleType.ToChinese();
+			titleType.text = data.titleNumber + "." + data.titleType.ToChinese();
 			for (int i = 0; i < optionDescriptionList.Count; i++)
 			{
 				optionDescriptionList[i].text = data.optionDescriptionList[i];

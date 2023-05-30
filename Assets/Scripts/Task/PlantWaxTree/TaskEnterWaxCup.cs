@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿using LXQJZ.Exam;
+using LXQJZ.UI;
+using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LXQJZ.Task
@@ -43,7 +47,14 @@ namespace LXQJZ.Task
 			yield return wait1;
 			GetObj("WaxCup").transform.SetParent(GetObj("WaxTree").transform);
 			AnimStart("WaxCup", "WaxCup_Forward_WaxTree");
+
+			Paper newPaper = ExamManager.GetInstance().GetPaper(ProjectSettings.PAPER_EnterWax);
+			KnowledgeAssessmentPanel.Instance.ShowOnlineLabExam(newPaper, OnConfrimExam);
+		}
+		void OnConfrimExam(int score)
+		{
 			isSuccess1 = true;
+			TaskManager.Instance.totalScore += score;
 		}
 
 		StepState CheckState2()

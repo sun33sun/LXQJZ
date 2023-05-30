@@ -1,4 +1,3 @@
-using LXQJZ.Exam;
 using LXQJZ.Task;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,6 +54,14 @@ namespace LXQJZ.UI
 		[SerializeField] Button btnLabCompleted;
 		[SerializeField] Image imgLabCompleted;
 
+		//四选一
+		[SerializeField] GameObject choice_FourByOne;
+		[SerializeField] List<Toggle> togs;
+		[SerializeField] List<Text> txts;
+		[SerializeField] Text txtFourByOneTip;
+		[SerializeField] Text titleDescription;
+		[SerializeField] Button btnFourByOne;
+
 		void InitListener()
 		{
 			//完成试验后的提示弹窗
@@ -85,8 +92,23 @@ namespace LXQJZ.UI
 				});
 			}
 
+			//在线实验 题目部分
 			togA.onValueChanged.AddListener(OnOnlineLabChoiceA);
 			togB.onValueChanged.AddListener(OnOnlineLabChoiceB);
+
+			//btnFourByOne.onClick.AddListener(() =>
+			//{
+				//if (selectIndex == rightIndex)
+				//{
+				//	selectIndex = 0;
+				//	rightIndex = -1;
+				//	choice_FourByOne.SetActive(false);
+				//	totalScore += 5;
+				//	txtFourByOneTip.gameObject.SetActive(false);
+				//	OnConfirmForByOne?.Invoke();
+				//	OnConfirmForByOne = null;
+				//}
+			//});
 		}
 
 		void OnOnlineLabChoiceA(bool isOn)
@@ -289,6 +311,7 @@ namespace LXQJZ.UI
 			txtOnlineLabTip.gameObject.SetActive(false);
 			onlineLabChoice.SetActive(true);
 		}
+
 		public void HideSingleChoice()
 		{
 			onlineLabChoice.SetActive(false);

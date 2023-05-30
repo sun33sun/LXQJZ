@@ -90,13 +90,17 @@ namespace LXQJZ.Task
 			OnlineLabPanel.Instance.ShowSingleChoice("可以将调配好的石膏液直接凝固用于铸造吗？", "可以", "不可以", false, "正确答案为：B");
 			yield return new WaitUntil(OnlineLabPanel.Instance.CheckOnlinLabChoice);
 			//蜡树进入吸泡机
-			AnimStart("DeaerationMixer", "DeaerationMixer_Open");
+			GameObject DeaerationMixer = GetObj("DeaerationMixer");
+			GameObject PumpTube = GetObj("PumpTube");
+			DeaerationMixer.SetActive(false);
+			PumpTube.SetActive(false);
 			AnimStart("WaxTree", "WaxTree_Enter_DeaerationMixer");
 			yield return wait4;
 			//倒进蜡树里
-			AnimStart("DeaerationMixer", "DeaerationMixer_Open");
 			AnimStart("WaterCup", "WaterCup_Dump_WaxTree");
 			yield return wait3;
+			DeaerationMixer.SetActive(true);
+			PumpTube.SetActive(true);
 			//水杯变色
 			MeshRenderer renderer = GetObj("WaterCupEffect").GetComponent<MeshRenderer>();
 			renderer.material.color = Color.blue;

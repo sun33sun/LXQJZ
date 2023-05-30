@@ -57,6 +57,8 @@ namespace LXQJZ.Task
 			GetObj("RingWaxTubeMarkLine").SetActive(false);
 			GetObj("RingWaxBlock_Smooth").SetActive(false);
 			GetUI<Image>("DeaerationMixer_Slider").gameObject.SetActive(false);
+
+			GetObj("SilverEffect").SetActive(false);
 		}
 
 		public override void RegisterSteps()

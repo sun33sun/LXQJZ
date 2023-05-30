@@ -16,7 +16,7 @@ namespace LXQJZ.Exam
 		{
 			if (paperDic == null)
 			{
-				string json = File.ReadAllText(ProjectSettings.EXAM_PAPER_JSON);
+				string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
 				paperDic = JsonConvert.DeserializeObject<Dictionary<string, Paper>>(json);
 			}
 		}
@@ -33,17 +33,19 @@ namespace LXQJZ.Exam
 		public GameObject CreateTitle(TitleData source)
 		{
 			GameObject newObj = null;
+			ITitle title = null;
 			switch (source.titleType)
 			{
 				case TitleType.SingleChoice:
 					newObj = ResMgr.GetInstance().Load<GameObject>(ProjectSettings.EXAM_SINGLECHOICETITLE);
+					title = newObj.GetComponent<SingleChoiceTitle>();
 					break;
 				case TitleType.MultipleChoice:
 					newObj = ResMgr.GetInstance().Load<GameObject>(ProjectSettings.EXAM_MULTIPLECHOICETITLE);
+					title = newObj.GetComponent<MultipleChoiceTitle>();
 					break;
 			}
-			ITitle tile = newObj.GetComponent<ITitle>();
-			tile.InitTitleData(source);
+			title.InitTitleData(source);
 			return newObj;
 		}
 

@@ -58,8 +58,16 @@ namespace LXQJZ.Task
 		{
 			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
-				.Callback(() => { AnimStart("FlySaucerDril", "FlySaucerDril_Grave_Ring_Polish"); })
-				.Delay(3, () => { isSuccess2 = true; })
+				.Callback(() => { AnimStart("FlySaucerDril", "FlySauceDril_FixedTo_Sander"); })
+				.Delay(0.2f, () => {
+					GetObj("FlySaucerDril").transform.SetParent(GetObj("Sander").transform);
+					AnimStart("Sander", "Sander_Grave_Ring_Polish");
+				})
+				.Delay(3, () => {
+					GameObject FlySaucerDril = GetObj("FlySaucerDril");
+					FlySaucerDril.transform.SetParent(GetObj("Tool").transform);
+					FlySaucerDril.GetComponent<Animator>().Play("FlySauceDril_From_SanderOrigin_To_Origin");
+				}).Delay(0.16f, ()=> { isSuccess2 = true; })
 				.Start(this);
 		}
 

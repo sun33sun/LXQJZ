@@ -7,7 +7,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Drill1_Approach_Sander
-  serializedVersion: 7
+  serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -54,7 +54,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -1.9319, y: 0.387, z: -0.7004}
+        value: {x: -2.1194, y: 0.15237, z: -0.65764}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -64,8 +64,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 2
         value: {x: -1.9969, y: 0.0757, z: -0.3741}
-        inSlope: {x: -0.0046935077, y: -0.10093332, z: 0}
-        outSlope: {x: -0.0046935077, y: -0.10093332, z: 0}
+        inSlope: {x: 0, y: -0.05079, z: 0}
+        outSlope: {x: 0, y: -0.05079, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -134,7 +134,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -1.9319
+        value: -2.1194
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -144,8 +144,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 2
         value: -1.9969
-        inSlope: -0.0046935077
-        outSlope: -0.0046935077
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -171,7 +171,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.387
+        value: 0.15237
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -181,8 +181,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 2
         value: 0.0757
-        inSlope: -0.10093332
-        outSlope: -0.10093332
+        inSlope: -0.05079
+        outSlope: -0.05079
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -208,7 +208,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.7004
+        value: -0.65764
         inSlope: 0
         outSlope: 0
         tangentMode: 136

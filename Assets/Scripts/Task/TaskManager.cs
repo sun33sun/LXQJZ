@@ -11,8 +11,10 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 4;
+		int startIndex = 17;
 		public Action OnLabCompleted;
+
+		public int totalScore = 0;
 
 		void OnNextTask()
 		{

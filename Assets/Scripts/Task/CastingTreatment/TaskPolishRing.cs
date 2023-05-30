@@ -48,6 +48,11 @@ namespace LXQJZ.Task
 			step3.objList.Add(GetObj("MagnetNeedle3"));
 			step3.objList.Add(GetObj("MagnetNeedle4"));
 			step3.objList.Add(GetObj("MagnetNeedle5"));
+			step3.objList.Add(GetObj("MagnetNeedle6"));
+			step3.objList.Add(GetObj("MagnetNeedle7"));
+			step3.objList.Add(GetObj("MagnetNeedle8"));
+			step3.objList.Add(GetObj("MagnetNeedle9"));
+			step3.objList.Add(GetObj("MagnetNeedle10"));
 			step3.OnClickObj += ClickObj3;
 			step3.CheckState += CheckState3;
 

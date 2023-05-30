@@ -3,7 +3,27 @@ guid: fc381ff9c7ae7984b8962168bff8f935
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__blinn517
+    second: {fileID: 2100000, guid: 12ffbe71159e05a4bb98c748cfe06699, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__blinn518
+    second: {fileID: 2100000, guid: 4612288f397b7f94d824572e877f7299, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__blinn519
+    second: {fileID: 2100000, guid: 793cecf6f9a344f499cf2fe52e385550, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__choushuiji
+    second: {fileID: 2100000, guid: c17aee2997eec1b43810c21874ac471e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -31,7 +51,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

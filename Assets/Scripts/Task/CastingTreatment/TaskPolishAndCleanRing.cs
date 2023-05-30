@@ -31,7 +31,7 @@ namespace LXQJZ.Task
 			step1.CheckState += CheckState1;
 
 			Step step2 = new Step();
-			step2.objList.Add(GetObj("UltrasonicCup"));
+			step2.objList.Add(GetObj("hengwenshuiyuguo17"));
 			step2.OnClickObj += ClickObj2;
 			step2.CheckState += CheckState2;
 		}
@@ -61,15 +61,22 @@ namespace LXQJZ.Task
 		void ClickObj2()
 		{
 			ActionKit.Sequence()
-				.Callback(() => { AnimStart("Ring_Diamond", "Ring_Diamond_Enter_UltrasonicCup"); })
-				.Delay(1, () =>{AnimStart("UltrasonicCup", "UltrasonicCup_Clean_Loop");})
+				.Callback(() => {
+					GetObj("hengwenshuiyuguo14").SetActive(false);
+					AnimStart("Ring_Diamond", "Ring_Diamond_Enter_UltrasonicCup");
+				})
+				.Delay(1, () =>{
+					GetObj("hengwenshuiyuguo14").SetActive(true);
+					AnimStart("UltrasonicCup", "UltrasonicCup_Clean_Loop");})
 				.Delay(3, () => 
 				{
+					GetObj("hengwenshuiyuguo14").SetActive(false);
 					AnimStop("UltrasonicCup");
 					AnimStart("Ring_Diamond", "Ring_Diamond_From_UltrasonicCup_To_Up");
 				})
 				.Delay(2,() => 
 				{
+					GetObj("hengwenshuiyuguo14").SetActive(true);
 					isSuccess2 = true;
 					RoamCamera.Instance.MoveToOrigin();
 				})

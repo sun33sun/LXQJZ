@@ -89,9 +89,9 @@ namespace LXQJZ.Exam
 		public void InitTitleData(TitleData source)
 		{
 			data = source;
-			titleType.text = data.titleType.ToChinese();
+			titleType.text = data.titleNumber + "." + data.titleType.ToChinese();
 
-			titleDescription.text = $"{data.titleNumber}.{data.titleDescription}";
+			titleDescription.text = $"{data.titleDescription}";
 
 			for (int i = 0; i < optionDescriptionList.Count; i++)
 			{
