@@ -78,6 +78,7 @@ namespace LXQJZ.UI
 			for (int i = 0; i < togList.Count; i++)
 			{
 				int index = i;
+				Image img = togList[i].GetComponent<Image>();
 				togList[i].onValueChanged.AddListener((isOn) =>
 				{
 					objChildStepFatherList[index].SetActive(isOn);
@@ -163,6 +164,13 @@ namespace LXQJZ.UI
 			objHelp.SetActive(!objHelp.activeInHierarchy);
 		}
 
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				NextTask();
+			}
+		}
 		public void NextTask()
 		{
 			//所有Task都完成
@@ -178,11 +186,13 @@ namespace LXQJZ.UI
 			{
 				togList[fatherIndex].interactable = false;
 				togList[fatherIndex].isOn = false;
+				togList[fatherIndex].GetComponent<Image>().enabled = true;
 				(togList[fatherIndex].transform as RectTransform).sizeDelta = new Vector2(184, 75);
 				objChildStepFatherList[fatherIndex].SetActive(false);
 				fatherIndex++;
 				togList[fatherIndex].interactable = true;
 				(togList[fatherIndex].transform as RectTransform).sizeDelta = new Vector2(240, 80);
+				togList[fatherIndex].GetComponent<Image>().enabled = false;
 
 				LayoutRebuilder.MarkLayoutForRebuild(stepRect);
 			}

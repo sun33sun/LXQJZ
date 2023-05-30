@@ -46,7 +46,7 @@ namespace LXQJZ.Task
 			WaitForSeconds wait2 = new WaitForSeconds(2);
 
 			AnimStart("WaxTree", "WaxTree_Enter_Bucket");
-			yield return new WaitForSeconds(6);
+			yield return new WaitForSeconds(4);
 			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = false;
 			GetObj("Ring_Rough_Silver").SetActive(true);
 			yield return new WaitForSeconds(1);
