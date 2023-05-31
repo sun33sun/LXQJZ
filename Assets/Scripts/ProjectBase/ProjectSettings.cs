@@ -17,6 +17,11 @@ namespace LXQJZ
 		public static string EXAM_SINGLECHOICETITLE { get { return "Prefabs\\Exam_Prefab\\SingleChoiceTitle"; } }
 		public static string PAPER_Knowledge { get { return Application.streamingAssetsPath + "\\PaperKnowledge.json"; } }
 		public static string PAPER_EnterWax { get { return Application.streamingAssetsPath + "\\PaperEnterWax.json"; } }
+		public static string PAPER_PouringGypsum { get { return Application.streamingAssetsPath + "\\PaperPouringGypsum.json"; } }
+		public static string PAPER_RingMaking { get { return Application.streamingAssetsPath + "\\PaperRingMaking.json"; } }
+		public static string PAPER_Dewaxing { get { return Application.streamingAssetsPath + "\\PaperDewaxing.json"; } }
+		public static string PAPER_Pouring { get { return Application.streamingAssetsPath + "\\PaperPouring.json"; } }
+		public static string PAPER_SoakingSO4 { get { return Application.streamingAssetsPath + "\\PaperSoakingSO4"; } }
 		#endregion
 
 

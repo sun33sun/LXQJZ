@@ -23,7 +23,7 @@ namespace LXQJZ.UI
 			InitListener();
 			base.Start();
 
-			StartCoroutine(HideAsync(0.05f));
+			StartCoroutine(HideAsync(0.1f));
 		}
 
 		private void FixedUpdate()
@@ -40,12 +40,13 @@ namespace LXQJZ.UI
 			});
 		}
 
-		public void CreateModuleReport(string moduleName, DateTime moduleStartTime, DateTime moduleEndTime, int moduleScore)
+		public void CreateModuleReport(ModuleReportData newData)
 		{
-			GameObject newReport = ResMgr.GetInstance().Load<GameObject>("ModuleReport");
-			newReport.GetComponent<ModuleReport>().InitData(moduleName, moduleStartTime, moduleEndTime, moduleScore);
+			GameObject newReport = ResMgr.GetInstance().Load<GameObject>("Prefabs\\Exam_Prefab\\ModuleReport");
+			newReport.name = "ModuleReport";
+			newReport.GetComponent<ModuleReport>().InitData(newData);
 			newReport.transform.SetParent(contentTrans);
-			totalScore += moduleScore;
+			totalScore += newData.moduleScore;
 			txtTotalScore.text = "×Ü³É¼¨£º" + totalScore.ToString();
 		}
 

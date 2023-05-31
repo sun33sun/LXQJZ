@@ -40,7 +40,7 @@ namespace LXQJZ
 			gameObject.SetActive(false);
 		}
 
-		public IEnumerator HideAsync(float waitTime)
+		public virtual IEnumerator HideAsync(float waitTime)
 		{
 			yield return new WaitForSeconds(waitTime);
 			Hide();

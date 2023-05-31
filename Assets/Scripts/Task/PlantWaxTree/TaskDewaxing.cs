@@ -1,3 +1,5 @@
+using LXQJZ.Exam;
+using LXQJZ.UI;
 using QFramework;
 using System;
 using System.Collections;
@@ -40,10 +42,6 @@ namespace LXQJZ.Task
 			step3.OnClickObj += ClickObj3;
 			step3.CheckState += CheckState3;
 		}
-
-
-
-
 
 		#region Step1
 		void Prepare1()
@@ -148,8 +146,16 @@ namespace LXQJZ.Task
 			//πÿ±’øæœ‰√≈
 			AnimStart("Oven", "OvenClose");
 			yield return new WaitForSeconds(1);
+
+			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_Dewaxing, OnConfirmExam3);
+		}
+
+		void OnConfirmExam3(int addScore)
+		{
+			TaskManager.Instance.totalScore += addScore;
 			isSuccess3 = true;
 		}
+
 
 		StepState CheckState3()
 		{

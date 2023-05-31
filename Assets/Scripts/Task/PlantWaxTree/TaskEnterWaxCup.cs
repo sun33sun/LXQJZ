@@ -27,7 +27,6 @@ namespace LXQJZ.Task
 			Step step1 = new Step();
 			step1.tips = "将蜡树缓缓放入缠绕着胶带的盅里";
 			step1.objList.Add(GetObj("WaxCup1"));
-			step1.objList.Add(GetObj("WaxCup2"));
 			step1.OnClickObj += ClickObj1;
 			step1.CheckState += CheckState2;
 		}
@@ -35,7 +34,6 @@ namespace LXQJZ.Task
 		#region Step1
 		private void ClickObj1()
 		{
-			GetObj("WaxCup2").GetComponent<ObjClickEvent>().SelfDestroy();
 			StartCoroutine(working2());
 		}
 
@@ -48,10 +46,9 @@ namespace LXQJZ.Task
 			GetObj("WaxCup").transform.SetParent(GetObj("WaxTree").transform);
 			AnimStart("WaxCup", "WaxCup_Forward_WaxTree");
 
-			Paper newPaper = ExamManager.GetInstance().GetPaper(ProjectSettings.PAPER_EnterWax);
-			KnowledgeAssessmentPanel.Instance.ShowOnlineLabExam(newPaper, OnConfrimExam);
+			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_EnterWax, OnConfirmExam);
 		}
-		void OnConfrimExam(int score)
+		void OnConfirmExam(int score)
 		{
 			isSuccess1 = true;
 			TaskManager.Instance.totalScore += score;

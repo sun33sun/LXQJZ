@@ -9,8 +9,10 @@ using QFramework;
 
 namespace LXQJZ
 {
-	public class RoamCamera : SingletonMono<RoamCamera>
+	public class RoamCamera : SingletonMono<RoamCamera>, IActionController
 	{
+		List<IActionController> acList = new List<IActionController>();
+
 		[SerializeField] float horizontalSpeed = 3;
 		[SerializeField] float verticalSpeed = 2;
 		[SerializeField] float rotateSpeed = 3;
@@ -39,6 +41,10 @@ namespace LXQJZ
 				isEnable = value;
 			}
 		}
+
+		public ulong ActionID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public IAction Action { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public bool Paused { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		bool isRotate = false;
 
@@ -159,9 +165,7 @@ namespace LXQJZ
 		}
 		private void OnMouseSliding(Vector2 vec2)
 		{
-			if (!IsEnable)
-				return;
-			if (!isRotate)
+			if (!isRotate || lookAtCamera.Priority > roamCamera.Priority)
 				return;
 			transform.RotateAround(transform.position, Vector3.up, vec2.x * rotateSpeed);
 		}
@@ -217,12 +221,17 @@ namespace LXQJZ
 
 		public void LookAt(Transform target, float followTime)
 		{
+			if(acList.Count > 0)
+			{
+				for (int i = 0; i < acList.Count; i++)
+					acList[i].Deinit();
+			}	
 			lookAtCamera.LookAt = target;
 
 			float firstSpan = Mathf.Min(followTime * 0.33f, 0.1f);
 			float secondSpan = followTime - firstSpan;
 
-			ActionKit.Sequence()
+			var sequence = ActionKit.Sequence()
 			.DelayFrame(1)
 			.Callback(() =>
 			{
@@ -243,6 +252,17 @@ namespace LXQJZ
 				fixedCamera.Priority = 10;
 			})
 			.Start(this);
+			acList.Add(sequence);
+		}
+
+		public void Reset()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Deinit()
+		{
+			throw new NotImplementedException();
 		}
 	}
 

@@ -6,17 +6,26 @@ using UnityEngine.UI;
 
 namespace LXQJZ
 {
+	public class ModuleReportData
+	{
+		public string moduleName;
+		public DateTime startTime;
+		public DateTime endTime;
+		public int moduleScore;
+	}
 	public class ModuleReport : SingletonMono<ModuleReport>
 	{
 		[SerializeField] Text[] txts;
+		ModuleReportData mData;
 
-		public void InitData(string moduleName,DateTime moduleStartTime, DateTime moduleEndTime, int moduleScore)
+		public void InitData(ModuleReportData newData)
 		{
-			txts[0].text = moduleName;
-			txts[1].text = moduleStartTime.ToString("u");
-			txts[2].text = moduleEndTime.ToString("u");
-			txts[3].text = "实验用时：" + (moduleEndTime - moduleStartTime).ToString("mm") + "min";
-			txts[4].text = "实验得分：" + moduleScore.ToString();
+			mData = newData;
+			txts[0].text = mData.moduleName;
+			txts[1].text = mData.startTime.ToString("u");
+			txts[2].text = mData.endTime.ToString("u");
+			txts[3].text = "实验用时：" + (mData.endTime - mData.startTime).ToString("mm") + "min";
+			txts[4].text = "实验得分：" + mData.moduleScore.ToString();
 		}
 	}
 }

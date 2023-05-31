@@ -38,29 +38,10 @@ namespace LXQJZ.UI
 		[SerializeField] Text txtOnlineLabTipHeader;
 		[SerializeField] GameObject objOnlinLabTipContent;
 		[SerializeField] Text txtOnlineLabTipContent;
-		//[SerializeField] bool isNeedTitleTip = true;
-		[Header("实验步骤的一部分")]
-		[SerializeField] InputField inputWaxTubeWidth;
-		[SerializeField] GameObject onlineLabChoice;
-		[SerializeField] Toggle togA;
-		[SerializeField] Text txtA;
-		[SerializeField] Toggle togB;
-		[SerializeField] Text txtB;
-		[SerializeField] Text txtOnlineLabTip;
-		bool isA = false;
-		bool isRight = false;
 
 		//完成实验后的提示弹窗
 		[SerializeField] Button btnLabCompleted;
 		[SerializeField] Image imgLabCompleted;
-
-		//四选一
-		[SerializeField] GameObject choice_FourByOne;
-		[SerializeField] List<Toggle> togs;
-		[SerializeField] List<Text> txts;
-		[SerializeField] Text txtFourByOneTip;
-		[SerializeField] Text titleDescription;
-		[SerializeField] Button btnFourByOne;
 
 		void InitListener()
 		{
@@ -90,61 +71,6 @@ namespace LXQJZ.UI
 				{
 					objChildStepFatherList[index].SetActive(isOn);
 				});
-			}
-
-			//在线实验 题目部分
-			togA.onValueChanged.AddListener(OnOnlineLabChoiceA);
-			togB.onValueChanged.AddListener(OnOnlineLabChoiceB);
-
-			//btnFourByOne.onClick.AddListener(() =>
-			//{
-				//if (selectIndex == rightIndex)
-				//{
-				//	selectIndex = 0;
-				//	rightIndex = -1;
-				//	choice_FourByOne.SetActive(false);
-				//	totalScore += 5;
-				//	txtFourByOneTip.gameObject.SetActive(false);
-				//	OnConfirmForByOne?.Invoke();
-				//	OnConfirmForByOne = null;
-				//}
-			//});
-		}
-
-		void OnOnlineLabChoiceA(bool isOn)
-		{
-			if (isOn)
-			{
-				if (isA)
-				{
-					isRight = true;
-					HideSingleChoice();
-				}
-				else
-				{
-					txtOnlineLabTip.gameObject.SetActive(true);
-				}
-			}
-		}
-
-		public bool CheckOnlinLabChoice()
-		{
-			return isRight;
-		}
-
-		void OnOnlineLabChoiceB(bool isOn)
-		{
-			if (isOn)
-			{
-				if (!isA)
-				{
-					isRight = true;
-					HideSingleChoice();
-				}
-				else
-				{
-					txtOnlineLabTip.gameObject.SetActive(true);
-				}
 			}
 		}
 
@@ -186,13 +112,6 @@ namespace LXQJZ.UI
 			objHelp.SetActive(!objHelp.activeInHierarchy);
 		}
 
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				NextTask();
-			}
-		}
 		public void NextTask()
 		{
 			//所有Task都完成
@@ -270,8 +189,6 @@ namespace LXQJZ.UI
 			objGoBack.SetActive(false);
 			objHelp.SetActive(false);
 			imgSketch.DoHideAnimImmediately(btnSketch.transform.position);
-			inputWaxTubeWidth.text = "";
-			inputWaxTubeWidth.gameObject.SetActive(false);
 
 			imgRetract.transform.localScale = Vector3.one;
 			objOnlinLabTipContent.SetActive(false);
@@ -301,23 +218,6 @@ namespace LXQJZ.UI
 		{
 			objOnlinLabTipHeader.SetActive(false);
 		}
-
-		public void ShowSingleChoice(string strTitle, string strA, string strB, bool isA, string tip)
-		{
-			this.isA = isA;
-			txtA.text = strA;
-			txtB.text = strB;
-			txtOnlineLabTip.text = tip;
-			txtOnlineLabTip.gameObject.SetActive(false);
-			onlineLabChoice.SetActive(true);
-		}
-
-		public void HideSingleChoice()
-		{
-			onlineLabChoice.SetActive(false);
-			txtOnlineLabTip.gameObject.SetActive(false);
-		}
-
 		public override void Show()
 		{
 			base.Show();

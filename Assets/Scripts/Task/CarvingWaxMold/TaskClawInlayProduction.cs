@@ -105,21 +105,24 @@ namespace LXQJZ.Task
 		#region Step2
 		private void ClickObj2()
 		{
-			RoamCamera.Instance.IsEnable = false;
-			AnimCallBack("ClawInlayWaxBlock", null, "ClawInlayWaxBlock_Fixed_Drill");
-			AnimCallBack("Drill1", AnimEnd2, "Drill1_Fixed_ClawInlayBlock");
+			StartCoroutine(working2());
 		}
 
-		private void AnimEnd2()
+		IEnumerator working2()
 		{
-			ParticleCallBack("FireGun_Fire", ParticleEnd2_1, 5);
+			RoamCamera.Instance.IsEnable = false;
+			WaitForSeconds wait3 = new WaitForSeconds(3);
+			AnimStart("Drill1", "Drill1_Fixed_ClawInlayBlock");
+			yield return wait3;
+			ParticleStart("FireGun_Fire", 5);
+			yield return new WaitForSeconds(5);
+			AnimStart("ClawInlayWaxBlock", "ClawInlayWaxBlock_Fixed_Drill");
+			yield return wait3;
 			GetObj("ClawInlayWaxBlock").transform.SetParent(GetObj("Drill1").transform);
 			AnimStart("ClawInlayWaxBlock", "ClawInlayWaxBlock_Forward_Drill1");
-		}
-		private void ParticleEnd2_1()
-		{
 			isSuccess2 = true;
 		}
+
 		private StepState CheckState2()
 		{
 			return CheckState(isSuccess2);
@@ -201,7 +204,7 @@ namespace LXQJZ.Task
 		{
 			RoamCamera.Instance.IsEnable = false;
 
-			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy();
+			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy();	
 			AnimCallBack("DigitalCaliper", AnimEnd6, "DigitalCaliper_Check_ClawInlayWaxBlock_Sander", 5);
 		}
 		void AnimEnd6()

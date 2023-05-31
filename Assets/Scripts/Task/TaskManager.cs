@@ -1,9 +1,11 @@
+using LXQJZ.Exam;
 using LXQJZ.UI;
 using QFramework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace LXQJZ.Task
 {
@@ -11,18 +13,19 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 17;
+		int startIndex = 4;
 		public Action OnLabCompleted;
 
+		//生成实验报告
 		public int totalScore = 0;
+		DateTime startTime;
+
 
 		void OnNextTask()
 		{
+			//在线实验完成
 			if (taskIndex >= taskList.Count - 1)
-			{
-				OnLabCompleted?.Invoke();
-				return;
-			}
+				TaskEndFun();
 
 			taskList[taskIndex].enabled = false;
 			if (taskList[taskIndex].modelName != null)
@@ -38,6 +41,21 @@ namespace LXQJZ.Task
 			StepManager.GetInstance().Start();
 		}
 
+		void TaskEndFun()
+		{
+			OnLabCompleted?.Invoke();
+			//创建实验报告
+			ModuleReportData newData = new ModuleReportData()
+			{
+				moduleName = "在线实验",
+				startTime = this.startTime,
+				endTime = DateTime.Now,
+				moduleScore = totalScore
+			};
+			totalScore = 0;
+			LabReportPanel.Instance.CreateModuleReport(newData);
+			return;
+		}
 
 		protected override void Awake()
 		{
@@ -88,8 +106,19 @@ namespace LXQJZ.Task
 			taskList.Add(GetComponent<TaskDryRing>());
 		}
 
+		public void ShowExam(string paperName,UnityAction<int> callBack)
+		{
+			Paper newPaper = ExamManager.GetInstance().GetPaper(paperName);
+			KnowledgeAssessmentPanel.Instance.ShowOnlineLabExam(newPaper,callBack);
+		}
+		public bool CheckExam()
+		{
+			return KnowledgeAssessmentPanel.Instance.CheckOnlineLabExam();
+		}
+
 		public void StartTask()
 		{
+			startTime = DateTime.Now;
 			taskIndex = startIndex;
 
 			taskList[taskIndex].enabled = true;
@@ -98,7 +127,6 @@ namespace LXQJZ.Task
 			taskList[taskIndex].RegisterSteps();
 			StepManager.GetInstance().Start();
 		}
-
 
 		public void Exit()
 		{

@@ -1,0 +1,14 @@
+{
+	"paperName": "泡酸",
+	"dataList": [
+		{
+			"titleNumber": 0,
+			"optionDescriptionList": ["热水", "温水", "冷水", "污水"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "取出铸模自然冷却15分钟后，放入（）中炸洗",
+			"rightOptionList": null,
+			"rightOption": 2
+		}
+	]
+}

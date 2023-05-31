@@ -42,6 +42,12 @@ namespace LXQJZ.Task
 			GetObj("Ring_Rough_Silver2").GetComponent<ObjClickEvent>().SelfDestroy();
 			AnimStart("Ring_Rough_Silver", "Ring_Rough_Silver_Enter_SO4Cup");
 			yield return new WaitForSeconds(3);
+			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_SoakingSO4, OnConfirmExam1);
+		}
+
+		void OnConfirmExam1(int addScore)
+		{
+			TaskManager.Instance.totalScore += addScore;
 			isSuccess1 = true;
 		}
 

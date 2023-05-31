@@ -142,21 +142,21 @@ namespace LXQJZ.Task
 		#region Step2
 		void ClickObj2()
 		{
-			RoamCamera.Instance.IsEnable = false;
 			StartCoroutine(working2());
 		}
 
 		IEnumerator working2()
 		{
+			RoamCamera.Instance.IsEnable = false;
 			AnimStart("ClawInlayWaxBlock", "ClawInlayWaxBlock_Approach_RingWax_Gap");
 			yield return new WaitForSeconds(3);
 			GetObj("ClawInlayWaxBlock").SetActive(false);
 			GetObj("ClawInlay_Melt").SetActive(true);
 
+			GetObj("WeldingWaxMachine_Bottom").SetActive(false);
 			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_Approach_RingWax_Gap");
 			yield return new WaitForSeconds(5);
-			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_From_RingWax_Gap_To_Origin");
-			yield return new WaitForSeconds(1);
+			GetObj("WeldingWaxMachine_Bottom").SetActive(true);
 			isSuccess2 = true;
 		}
 

@@ -87,19 +87,19 @@ namespace LXQJZ.Task
 			WaitForSeconds wait4 = new WaitForSeconds(4);
 			WaitForSeconds wait3 = new WaitForSeconds(3);
 
-			OnlineLabPanel.Instance.ShowSingleChoice("可以将调配好的石膏液直接凝固用于铸造吗？", "可以", "不可以", false, "正确答案为：B");
-			yield return new WaitUntil(OnlineLabPanel.Instance.CheckOnlinLabChoice);
+			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_PouringGypsum, OnConfirmExam2);
+			yield return new WaitUntil(TaskManager.Instance.CheckExam);
 			//蜡树进入吸泡机
-			GameObject DeaerationMixer = GetObj("DeaerationMixer");
+			GameObject DeaerationMixer1 = GetObj("DeaerationMixer1");
 			GameObject PumpTube = GetObj("PumpTube");
-			DeaerationMixer.SetActive(false);
+			DeaerationMixer1.SetActive(false);
 			PumpTube.SetActive(false);
 			AnimStart("WaxTree", "WaxTree_Enter_DeaerationMixer");
 			yield return wait4;
 			//倒进蜡树里
 			AnimStart("WaterCup", "WaterCup_Dump_WaxTree");
 			yield return wait3;
-			DeaerationMixer.SetActive(true);
+			DeaerationMixer1.SetActive(true);
 			PumpTube.SetActive(true);
 			//水杯变色
 			MeshRenderer renderer = GetObj("WaterCupEffect").GetComponent<MeshRenderer>();
@@ -107,6 +107,11 @@ namespace LXQJZ.Task
 			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = true;
 			GetObj("GypsumEffect").GetComponent<CapsuleCollider>().enabled = true;
 			isSuccess2 = true;
+		}
+
+		void OnConfirmExam2(int addScore)
+		{
+			TaskManager.Instance.totalScore += addScore;
 		}
 
 
@@ -141,10 +146,16 @@ namespace LXQJZ.Task
 			}
 			GetUI<Image>("DeaerationMixer_Slider").gameObject.SetActive(false);
 			//蜡树出吸泡机
-			AnimStart("DeaerationMixer", "DeaerationMixer_Open");
+			GameObject DeaerationMixer1 = GetObj("DeaerationMixer1");
+			GameObject PumpTube = GetObj("PumpTube");
+			DeaerationMixer1.SetActive(false);
+			PumpTube.SetActive(false);
 			AnimStart("WaxTree", "WaxTree_From_DeaerationMixer_To_Origin");
 			yield return wait4;
-			isSuccess3 = true;
+			DeaerationMixer1.SetActive(true);
+			PumpTube.SetActive(true);
+
+
 		}
 
 		StepState CheckState3()

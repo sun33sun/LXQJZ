@@ -18,10 +18,10 @@ namespace LXQJZ.UI
 		[SerializeField] List<GameObject> titleList = new List<GameObject>();
 		[Header("提交按钮")]
 		[SerializeField] Button btnSubmit;
+		[SerializeField] Image imgLogo;
 		//数据
 		Paper nowPaper = null;
 		DateTime startTime;
-		DateTime endTime;
 
 		UnityAction<int> OnOnlineLabSubmit;
 
@@ -30,7 +30,6 @@ namespace LXQJZ.UI
 			StartCoroutine(HideAsync(0.05f));
 
 			InitListener();
-			//StartCoroutine(LoadPaper());
 			base.Start();
 		}
 		private void OnEnable()
@@ -67,19 +66,22 @@ namespace LXQJZ.UI
 
 		public void ShowOnlineLabExam(Paper newPaper, UnityAction<int> callBack)
 		{
+			//持续检查
+			onlineLabExamCompleted = false;
 			//UI显隐
 			Show();
 			GetComponent<Image>().enabled = false;
 			LoadPaper(newPaper);
+			btnExit.gameObject.SetActive(false);
+			imgLogo.gameObject.SetActive(false);
 			//回调订阅
 			OnOnlineLabSubmit += callBack;
 		}
 
-		void TestPaper()
+		bool onlineLabExamCompleted = false;
+		public bool CheckOnlineLabExam()
 		{
-			string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
-			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
-			LoadPaperAsync(nowPaper);
+			return onlineLabExamCompleted;
 		}
 
 		void DestroyPaper()
@@ -107,38 +109,54 @@ namespace LXQJZ.UI
 				int totalScore = 0;
 				for (int i = 0; i < titleList.Count; i++)
 				{
-					switch (nowPaper.dataList[i].titleType)
-					{
-						case TitleType.SingleChoice:
-							totalScore += titleList[i].GetComponent<SingleChoiceTitle>().Score;
-							break;
-						case TitleType.MultipleChoice:
-							totalScore += titleList[i].GetComponent<MultipleChoiceTitle>().Score;
-							break;
-					}
+					ITitle title = titleList[i].GetComponent<ITitle>();
+					totalScore += title.Score;
 				}
 				OnOnlineLabSubmit.Invoke(totalScore);
 				OnOnlineLabSubmit = null;
 				//UI显隐
 				Hide();
 				GetComponent<Image>().enabled = true;
-				DestroyPaper();
+				for (int i = titleList.Count - 1; i >= 0; i--)
+				{
+					Destroy(titleList[i]);
+					titleList.RemoveAt(i);
+				}
+				titleList.Clear();
+				btnExit.gameObject.SetActive(true);
+				imgLogo.gameObject.SetActive(true);
+				//状态调整
+				onlineLabExamCompleted = true;
 				return;
 			}
+			else
+			{
+				int totalScore = 0;
+				for (int i = 0; i < titleList.Count; i++)
+				{
+					ITitle title = titleList[i].GetComponent<ITitle>();
+					if (title.IsRight)
+						totalScore += title.Score;
+				}
+				ModuleReportData newData = new ModuleReportData()
+				{
+					moduleName = "知识考核",
+					startTime = this.startTime,
+					endTime = DateTime.Now,
+					moduleScore = totalScore
+				};
+				LabReportPanel.Instance.Show();
+				LabReportPanel.Instance.CreateModuleReport(newData);
+				Hide();
+			}
+		}
 
-			//endTime = DateTime.Now;
-			//int score = 0;
-			//for (int i = 0; i < titleList.Count; i++)
-			//{
-			//	ITitle title = titleList[i].GetComponent<ITitle>();
-			//	if (title.IsRight)
-			//		score += title.Score;
-			//}
-			LabReportPanel.Instance.Show();
-			//LabReportPanel.Instance.CreateModuleReport("知识考核", startTime, endTime, score);
+		public override IEnumerator HideAsync(float waitTime)
+		{
+			string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
+			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
+			yield return LoadPaperAsync(nowPaper);
 			Hide();
-
-
 		}
 	}
 }

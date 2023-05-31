@@ -5052,8 +5052,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.110771075, y: 0.0061946902, z: 0.0070655867}
-  m_Center: {x: -0.0330055, y: -1.1641539e-10, z: -0.00038766183}
+  m_Size: {x: 0.110771075, y: 0.013947001, z: 0.011389663}
+  m_Center: {x: -0.0330055, y: -0.00078734936, z: 0.0017743777}
 --- !u!23 &262950101
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5270,7 +5270,6 @@ GameObject:
   - component: {fileID: 317525803}
   - component: {fileID: 317525805}
   - component: {fileID: 317525804}
-  - component: {fileID: 317525806}
   m_Layer: 0
   m_Name: WeldingWaxMachine_Bottom
   m_TagString: Untagged
@@ -5339,19 +5338,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317525802}
   m_Mesh: {fileID: 5566927782392388505, guid: 5355c305f84f6cc44b43f97e45280090, type: 3}
---- !u!65 &317525806
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317525802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06292852, y: 0.030200215, z: 0.028285176}
-  m_Center: {x: -0.012201846, y: 4.0195647e-16, z: 0.014142588}
 --- !u!1 &318680453
 GameObject:
   m_ObjectHideFlags: 0

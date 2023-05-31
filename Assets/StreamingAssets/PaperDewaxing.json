@@ -1,0 +1,14 @@
+{
+	"paperName": "脱蜡",
+	"dataList": [
+		{
+			"titleNumber": 0,
+			"optionDescriptionList": ["0-100", "50-150", "100-200", "150-250"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "石膏烘干过程中，升温的速度应控制在（）每小时",
+			"rightOptionList": null,
+			"rightOption": 1
+		}
+	]
+}

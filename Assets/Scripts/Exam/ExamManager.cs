@@ -9,24 +9,21 @@ namespace LXQJZ.Exam
 	public class ExamManager : BaseManager<ExamManager>
 	{
 		List<ITitle> nowTitle = new List<ITitle>();
-		Dictionary<string, Paper> paperDic = null;
 		Paper nowPaper = null;
 
-		private void InitPaperDic()
-		{
-			if (paperDic == null)
-			{
-				string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
-				paperDic = JsonConvert.DeserializeObject<Dictionary<string, Paper>>(json);
-			}
-		}
+		//private void InitPaper(string papaerName)
+		//{
+		//	if (paperDic == null)
+		//	{
+		//		string json = File.ReadAllText(papaerName);
+		//		paperDic = JsonConvert.DeserializeObject<Dictionary<string, Paper>>(json);
+		//	}
+		//}
 
 		public Paper GetPaper(string paperName)
 		{
-			InitPaperDic();
-			if (!paperDic.ContainsKey(paperName))
-				return null;
-			nowPaper = paperDic[paperName];
+			string json = File.ReadAllText(paperName);
+			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
 			return nowPaper;
 		}
 

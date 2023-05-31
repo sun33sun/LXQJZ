@@ -43,10 +43,18 @@ namespace LXQJZ.Task
 			yield return wait1;
 			ParticleStart("FireGun_Fire", 2);
 			yield return wait2;
+			GetObj("SilverEffect").SetActive(true);
+			GetObj("SilverCube").SetActive(false);
 			AnimStart("Ladle_Metal", "Ladle_Metal_Pour_WaxTree");
 			yield return wait1;
 			GetObj("SilverEffect").SetActive(false);
 			yield return wait1;
+			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_Pouring, OnConfirmExam1);
+		}
+
+		void OnConfirmExam1(int addScore)
+		{
+			TaskManager.Instance.totalScore += addScore;
 			isSuccess1 = true;
 		}
 

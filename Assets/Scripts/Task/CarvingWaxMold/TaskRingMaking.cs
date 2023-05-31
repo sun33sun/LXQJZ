@@ -1,3 +1,4 @@
+using LXQJZ.Exam;
 using LXQJZ.UI;
 using LXQJZ.UI.Effect;
 using QFramework;
@@ -14,8 +15,6 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<GameObject> objHide;
 		[SerializeField] List<Sprite> sketchs;
-		[Header(" ‰»Î¿Øπ‹øÌ∂»")]
-		float rightWidth = 4;
 
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
@@ -30,13 +29,6 @@ namespace LXQJZ.Task
 			base.Awake();
 		}
 
-		private void OnDestroy()
-		{
-			GetUI<InputField>("inputWaxTubeWidth")?.gameObject.SetActive(false);
-			GetUI<Image>("imgWaxTubeWidth")?.gameObject.SetActive(false);
-			GetUI<Text>("txtWaxWidthTip")?.gameObject.SetActive(false);
-		}
-
 		protected override void OnDisable()
 		{
 			isSuccess1 = false;
@@ -49,10 +41,6 @@ namespace LXQJZ.Task
 
 		void HideSomething()
 		{
-			GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(false);
-			GetUI<InputField>("inputWaxTubeWidth").gameObject.SetActive(false);
-			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
-
 			ParticleManager.Stop(GetObj("FireGun_Fire"));
 			GetObj("RingWaxTubeMarkLine").SetActive(false);
 			GetObj("RingWaxBlock_Smooth").SetActive(false);
@@ -98,39 +86,28 @@ namespace LXQJZ.Task
 		#region Step1
 		private void Prepare1()
 		{
-			GetUI<Button>("btnConfirm").onClick.AddListener(() =>
-			{
-				InputField input = GetUI<InputField>("inputWaxTubeWidth");
-				if (input == null || GetUI<InputField>("inputWaxTubeWidth").text == "" || int.Parse(GetUI<InputField>("inputWaxTubeWidth").text) != rightWidth)
-				{
-					GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(true);
-				}
-				else
-				{
-					input.gameObject.SetActive(false);
-					GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(false);
-					GetUI<Text>("txtWaxWidthTip").gameObject.SetActive(false);
-					AnimCallBack("RingWaxTube", AnimEnd1, "RingWaxTube_Up");
-				}
-			});
-			ActionKit.Delay(0.5f, ()=> { OnlineLabPanel.Instance.ShowSketch(sketchs); }).Start(this);
+			ActionKit.Delay(0.5f, () => { OnlineLabPanel.Instance.ShowSketch(sketchs); }).Start(this);
 		}
 
 		private void ClickObj1()
 		{
-			RoamCamera.Instance.IsEnable = false;
 			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy(false);
-			GetUI<InputField>("inputWaxTubeWidth").gameObject.SetActive(true);
-			GetUI<Image>("imgWaxTubeWidth").gameObject.SetActive(true);
+			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_RingMaking, OnConfirmExam1);
 		}
 
-		void AnimEnd1()
+		void OnConfirmExam1(int addScore)
 		{
-			AnimCallBack("DigitalCaliper", AnimEnd1_1, "DigitalCaliper_Check_RingWaxBlock");
+			TaskManager.Instance.totalScore += addScore;
+			RoamCamera.Instance.IsEnable = false;
+			StartCoroutine(working1());
 		}
 
-		void AnimEnd1_1()
+		IEnumerator working1()
 		{
+			AnimStart("RingWaxTube", "RingWaxTube_Up");
+			yield return new WaitForSeconds(3);
+			AnimStart("DigitalCaliper", "DigitalCaliper_Check_RingWaxBlock");
+			yield return new WaitForSeconds(1);
 			isSuccess1 = true;
 		}
 

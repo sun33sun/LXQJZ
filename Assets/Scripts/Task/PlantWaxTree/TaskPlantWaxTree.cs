@@ -46,10 +46,12 @@ namespace LXQJZ.Task
 			//¹Ì¶¨À¯½ä
 			AnimStart("TreatedRing2", "TreatedRing2_Approach_WaxTree");
 			yield return wait1;
+			GetObj("WeldingWaxMachine_Bottom").SetActive(false);
 			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_Weld_WaxTree");
 			yield return wait05;
 			yield return wait2;
 			yield return wait05;
+			GetObj("WeldingWaxMachine_Bottom").SetActive(true);
 			GetObj("TreatedRing2").transform.SetParent(GetObj("GypsumEffect").transform);
 			AnimStart("TreatedRing2", "TreatedRing2_Forward_GypsumEffect");
 			isSuccess1 = true;

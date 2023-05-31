@@ -6,7 +6,7 @@ namespace LXQJZ.Exam
 {
 	public enum Option
 	{
-		A, B, C, D
+		A, B, C, D, None
 	}
 	public interface ITitle
 	{

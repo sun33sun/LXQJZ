@@ -1,146 +1,125 @@
 {
-    "paperName": "测试",
-    "dataList": [
-        {
-            "titleNumber": 0,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 0,
-            "titleType": 1,
-            "titleDescription": "题目0描述",
-            "rightOptionList": [
-                0,
-                1
-            ],
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 1,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 1,
-            "titleType": 0,
-            "titleDescription": "题目1描述",
-            "rightOptionList": null,
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 2,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 2,
-            "titleType": 1,
-            "titleDescription": "题目2描述",
-            "rightOptionList": [
-                0,
-                1
-            ],
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 3,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 3,
-            "titleType": 0,
-            "titleDescription": "题目3描述",
-            "rightOptionList": null,
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 4,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 4,
-            "titleType": 1,
-            "titleDescription": "题目4描述",
-            "rightOptionList": [
-                0,
-                1
-            ],
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 5,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 5,
-            "titleType": 0,
-            "titleDescription": "题目5描述",
-            "rightOptionList": null,
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 6,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 6,
-            "titleType": 1,
-            "titleDescription": "题目6描述",
-            "rightOptionList": [
-                0,
-                1
-            ],
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 7,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 7,
-            "titleType": 0,
-            "titleDescription": "题目7描述",
-            "rightOptionList": null,
-            "rightOption": 0
-        },
-        {
-            "titleNumber": 8,
-            "optionDescriptionList": [
-                "选项 A 的描述",
-                "选项 B 的描述",
-                "选项 C 的描述",
-                "选项 D 的描述"
-            ],
-            "score": 8,
-            "titleType": 1,
-            "titleDescription": "题目8描述",
-            "rightOptionList": [
-                0,
-                1
-            ],
-            "rightOption": 0
-        }
-    ]
+	"paperName": "知识考核",
+	"dataList": [
+		{
+			"titleNumber": 0,
+			"optionDescriptionList": ["一次", "两次", "三次", "四次"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "失蜡铸造投资大、工艺技术复杂，实质是围绕阳模和阴模（）转换翻制的过程。",
+			"rightOptionList": null,
+			"rightOption": 1
+		},
+		{
+			"titleNumber": 1,
+			"optionDescriptionList": [
+				"较为严格",
+				"特别严格",
+				"相对标准",
+				"较为模糊"
+			],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "失蜡铸造工艺是以原模为基础模型的重复生产，原样上任何一点不理想的疵点，都会给以后的加工制作带来极大的困难，有的可能会增加某一工序的工作量，有的甚至影响到成品的整体美感效果，所以对原模的质量要求（）。",
+			"rightOptionList": null,
+			"rightOption": 1
+		},
+		{
+			"titleNumber": 2,
+			"optionDescriptionList": [
+				"需要参考",
+				"特别严格",
+				"相对标准",
+				"较为模糊"
+			],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "3.对原模的质量要求：原模整体造型（）图样或实样的规格要求，造型美观，主体突出，立体感强。做工精细，沟凹部分线条流畅，主石镶口周正，小石镶口及花饰、哑面（沙地）等布局合理，清晰明快。主石镶口与配饰整体协调，美观大方。",
+			"rightOptionList": null,
+			"rightOption": 1
+		},
+		{
+			"titleNumber": 3,
+			"optionDescriptionList": ["粗糙", "毛糙", "光洁", "坑坑洼洼"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "原样不留焊缝、焊疤、锉痕、划痕，保持表面（），圆滑有度，棱角分明。正面的凹陷部分、原模的背面（即反面）等属制模、抛光工艺的“死角区”，不能有任何夹杂及缺陷。",
+			"rightOptionList": null,
+			"rightOption": 2
+		},
+		{
+			"titleNumber": 4,
+			"optionDescriptionList": [
+				"注蜡嘴与原模",
+				"注蜡嘴与蜡树",
+				"原模与蜡树",
+				"蜡树与橡胶模"
+			],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "完全符合造型设计要求制作的原模，只需焊上一水口，就可用来压制橡胶模子。所谓水口，是指连接（）的一段金属线（棍）。",
+			"rightOptionList": null,
+			"rightOption": 0
+		},
+		{
+			"titleNumber": 5,
+			"optionDescriptionList": ["松弛", "稳固", "较好", "松散"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "水口的焊接要（），不能焊歪或虚焊，否则将造成橡胶模内的水路变窄或堵塞，影响下一工序的工作及制品质量。",
+			"rightOptionList": null,
+			"rightOption": 1
+		},
+		{
+			"titleNumber": 6,
+			"optionDescriptionList": [
+				"加热、加湿",
+				"加温、祛湿",
+				"加压、加温",
+				"加压、加湿"
+			],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "压模是指：把原模埋入生胶片内，通过（）使生橡胶硫化固结成熟橡胶的过程。",
+			"rightOptionList": null,
+			"rightOption": 2
+		},
+		{
+			"titleNumber": 7,
+			"optionDescriptionList": ["减少", "增加", "保持不变", "稍微减少"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "开模：开像胶膜并不是将原模从橡胶模中取出来就行了，而是一种至关重要的技术操作，胶膜切割的质量好，不仅能保持原模的原型，而且使用寿命长，注出的蜡模修整工作量也会大大（）。",
+			"rightOptionList": null,
+			"rightOption": 0
+		},
+		{
+			"titleNumber": 8,
+			"optionDescriptionList": [
+				"温度和气压",
+				"蜡温和气压",
+				"湿度和气压",
+				"温度和湿度"
+			],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "注蜡：由于注蜡是通过气泵加压使蜡熔体从注蜡机的出蜡嘴喷射挤压进入胶膜后获得所需蜡的，所以，对于注蜡机内的（）要求比较严格。",
+			"rightOptionList": null,
+			"rightOption": 1
+		},
+		{
+			"titleNumber": 9,
+			"optionDescriptionList": [
+				"整体修复",
+				"局部修复",
+				"联动修复",
+				"重新制蜡"
+			],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "修蜡模：对于缺陷小的蜡模，可采用（）的办法，使蜡模保持原模的形状。",
+			"rightOptionList": null,
+			"rightOption": 1
+		}
+	]
 }

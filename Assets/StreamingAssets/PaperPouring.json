@@ -1,0 +1,14 @@
+{
+	"paperName": "脱蜡",
+	"dataList": [
+		{
+			"titleNumber": 0,
+			"optionDescriptionList": ["50", "100", "150", "200"],
+			"score": 5,
+			"titleType": 0,
+			"titleDescription": "窑炉的温度一般比金属熔点高（）摄氏度",
+			"rightOptionList": null,
+			"rightOption": 1
+		}
+	]
+}
