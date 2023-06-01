@@ -13,10 +13,6 @@ namespace LXQJZ.Task
 			isSuccess1 = false;
 			base.OnDisable();
 		}
-		void OnEnable()
-		{
-			ParticleManager.Stop(GetObj("FireGun_Fire"));
-		}
 
 		public override void RegisterSteps()
 		{

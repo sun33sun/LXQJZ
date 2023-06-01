@@ -14,6 +14,8 @@ namespace LXQJZ
 
         public static T Instance { get { return instance; } }
 
+        public bool needDestroy = false;
+
         protected virtual void Awake()
         {
             if (instance != null)
@@ -23,7 +25,8 @@ namespace LXQJZ
 			else
 			{
                 instance = this as T;
-                DontDestroyOnLoadManager.Add(gameObject);
+                if(!needDestroy)
+                    DontDestroyOnLoadManager.Add(gameObject);
             }
         }
         protected virtual void OnDestory()

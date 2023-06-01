@@ -21,7 +21,7 @@ namespace LXQJZ
 		public static string PAPER_RingMaking { get { return Application.streamingAssetsPath + "\\PaperRingMaking.json"; } }
 		public static string PAPER_Dewaxing { get { return Application.streamingAssetsPath + "\\PaperDewaxing.json"; } }
 		public static string PAPER_Pouring { get { return Application.streamingAssetsPath + "\\PaperPouring.json"; } }
-		public static string PAPER_SoakingSO4 { get { return Application.streamingAssetsPath + "\\PaperSoakingSO4"; } }
+		public static string PAPER_SoakingSO4 { get { return Application.streamingAssetsPath + "\\PaperSoakingSO4.json"; } }
 		#endregion
 
 

@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
-using DG.Tweening;
 using Cinemachine;
 using QFramework;
+
 
 namespace LXQJZ
 {
@@ -21,11 +20,12 @@ namespace LXQJZ
 
 		Rigidbody rig = null;
 		CinemachineVirtualCamera roamCamera = null;
-		[SerializeField] CinemachineVirtualCamera fixedCamera = null;
 		[SerializeField] CinemachineVirtualCamera lookAtCamera = null;
+		[SerializeField] CinemachineVirtualCamera followCamera = null;
 
 		Vector3 originPos;
 		Vector3 originAngle;
+		float originFieldOfView;
 		Vector3 nowPos;
 		bool isEnable = true;
 		public bool IsEnable
@@ -36,8 +36,6 @@ namespace LXQJZ
 			}
 			set
 			{
-				//if (value == false)
-				//	BackOrigin();
 				isEnable = value;
 			}
 		}
@@ -48,16 +46,21 @@ namespace LXQJZ
 
 		bool isRotate = false;
 
+		protected override void Awake()
+		{
+			needDestroy = true;
+			base.Awake();
+		}
+
 		private void Start()
 		{
 			//查找组件
-			if (rig == null)
-				rig = GetComponent<Rigidbody>();
-			if (roamCamera == null)
-				roamCamera = GetComponent<CinemachineVirtualCamera>();
+			rig = GetComponent<Rigidbody>();
+			roamCamera = GetComponent<CinemachineVirtualCamera>();
 			//记录初始位置
 			originPos = transform.position;
 			originAngle = transform.rotation.eulerAngles;
+			originFieldOfView = roamCamera.m_Lens.FieldOfView;
 
 
 			InputMgr.GetInstance().StartOrEndCheck(true);
@@ -80,18 +83,8 @@ namespace LXQJZ
 			EventCenter.GetInstance().AddEventListener(KeyCode.Space + "保持", OnSpaceState);
 
 			EventCenter.GetInstance().AddEventListener<float>("鼠标滚轮", OnMouseScrollWheel);
-		}
 
-		private void BackOrigin()
-		{
-			if (rig == null)
-				rig = GetComponent<Rigidbody>();
-			rig.MovePosition(originPos);
-			rig.constraints = 0;
-			Quaternion quaternion = transform.rotation;
-			quaternion.eulerAngles = originAngle;
-			rig.MoveRotation(quaternion);
-			rig.constraints = RigidbodyConstraints.FreezeRotation;
+			ActionKit.Delay(1, () => { gameObject.SetActive(false); });
 		}
 
 		#region 按键响应事件
@@ -195,16 +188,22 @@ namespace LXQJZ
 		}
 		#endregion
 
-		public void MoveTo(Vector3 targetPos)
+		public void BackToOrigin()
 		{
-			//transform.DOMove(targetPos, 2);
-
-			StartCoroutine(MoveToAsync(targetPos));
-		}
-		public void MoveToOrigin()
-		{
+			for (int i = acList.Count - 1; i > -1; i--)
+			{
+				acList[i].Deinit();
+				acList.RemoveAt(i);
+			}
 			StopAllCoroutines();
 			StartCoroutine(MoveToAsync(originPos));
+			roamCamera.m_Lens.FieldOfView = originFieldOfView;
+
+			roamCamera.Priority = 12;
+			lookAtCamera.Priority = 11;
+			lookAtCamera.LookAt = null;
+			followCamera.Priority = 10;
+			followCamera.Follow = null;
 		}
 
 		IEnumerator MoveToAsync(Vector3 targetPos)
@@ -237,32 +236,88 @@ namespace LXQJZ
 			{
 				lookAtCamera.Priority = 12;
 				roamCamera.Priority = 11;
-				fixedCamera.Priority = 10;
+				followCamera.Priority = 10;
 			})
 			.Delay(followTime, () =>
 			{
 				lookAtCamera.LookAt = null;
 				roamCamera.transform.position = lookAtCamera.transform.position;
 				roamCamera.transform.rotation = lookAtCamera.transform.rotation;
-			}).DelayFrame(2)
-			.Callback(() =>
-			{
 				roamCamera.Priority = 12;
 				lookAtCamera.Priority = 11;
-				fixedCamera.Priority = 10;
+				followCamera.Priority = 10;
+				roamCamera.m_Lens.FieldOfView = lookAtCamera.m_Lens.FieldOfView;
 			})
 			.Start(this);
 			acList.Add(sequence);
 		}
+		public void LookAt(Transform target)
+		{
+			if(target != null)
+			{
+				lookAtCamera.LookAt = target;
+				lookAtCamera.Priority = 12;
+				roamCamera.Priority = 11;
+				followCamera.Priority = 10;
+			}
+			else
+			{
+				lookAtCamera.LookAt = null;
+				roamCamera.Priority = 12;
+				lookAtCamera.Priority = 11;
+				followCamera.Priority = 10;
+			}
+		}
+
+		public void Follow(Transform target)
+		{
+			if (target != null)
+			{
+				followCamera.Follow = target;
+				followCamera.Priority = 12;
+				roamCamera.Priority = 11;
+				lookAtCamera.Priority = 10;
+			}
+			else
+			{
+				followCamera.Follow = null;
+				roamCamera.Priority = 12;
+				followCamera.Priority = 11;
+				lookAtCamera.Priority = 10;
+			}
+		}
+
 
 		public void Reset()
 		{
-			throw new NotImplementedException();
 		}
 
 		public void Deinit()
 		{
 			throw new NotImplementedException();
+		}
+
+		private void OnDestroy()
+		{
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.W + "保持", OnWState);
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.A + "保持", OnAState);
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.S + "保持", OnSState);
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.D + "保持", OnDState);
+									 
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.W + "抬起", OnWUp);
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.A + "抬起", OnAUp);
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.S + "抬起", OnSUp);
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.D + "抬起", OnDUp);
+									  
+			EventCenter.GetInstance().RemoveEventListener("鼠标右键按下", OnMouseRightDown);
+			EventCenter.GetInstance().RemoveEventListener("鼠标右键抬起", OnMouseRightUp);
+			EventCenter.GetInstance().RemoveEventListener<Vector2>("鼠标滑动", OnMouseSliding);
+									  
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.LeftControl + "保持", OnLeftControlState);
+									  
+			EventCenter.GetInstance().RemoveEventListener(KeyCode.Space + "保持", OnSpaceState);
+
+			EventCenter.GetInstance().RemoveEventListener<float>("鼠标滚轮", OnMouseScrollWheel);
 		}
 	}
 

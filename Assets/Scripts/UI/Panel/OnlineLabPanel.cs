@@ -47,7 +47,8 @@ namespace LXQJZ.UI
 		{
 			//完成试验后的提示弹窗
 			btnLabCompleted.onClick.AddListener(() => { imgLabCompleted.gameObject.SetActive(false); });
-			TaskManager.Instance.OnLabCompleted += () => { imgLabCompleted.gameObject.SetActive(true); };
+
+			EventCenter.GetInstance().AddEventListener("在线实验结束", () => { imgLabCompleted.gameObject.SetActive(true); });
 			//步骤父物体组件记录
 			stepRect = stepObj.transform as RectTransform;
 			//步骤提示
@@ -84,6 +85,7 @@ namespace LXQJZ.UI
 
 		void ShowMainPanel()
 		{
+			RoamCamera.Instance.gameObject.SetActive(false);
 			StartCoroutine(DoShowMainPanel());
 		}
 

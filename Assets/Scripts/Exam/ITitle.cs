@@ -15,5 +15,9 @@ namespace LXQJZ.Exam
 		GameObject gameObject { get; }
 
 		void InitTitleData(TitleData source);
+
+		void ShowTip();
+
+		void SetInteractive(bool isInteractive);
 	}
 }

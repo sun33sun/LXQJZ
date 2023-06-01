@@ -36,6 +36,7 @@ namespace LXQJZ.UI
 		private void OnEnable()
 		{
 			startTime = DateTime.Now;
+			clickSubmitCount = 0;
 		}
 
 		void InitListener()
@@ -62,6 +63,7 @@ namespace LXQJZ.UI
 				titleList.Add(newObj.GetComponent<ITitle>());
 				newObj.transform.SetParent(titleFather);
 			}
+			btnSubmit.transform.SetAsLastSibling();
 			LayoutRebuilder.ForceRebuildLayoutImmediate(titleFather);
 			yield return null;
 		}
@@ -112,8 +114,21 @@ namespace LXQJZ.UI
 			yield return null;
 		}
 
+		int clickSubmitCount = 0;
 		void SubmitPaper()
 		{
+			clickSubmitCount++;
+			if(clickSubmitCount < 2)
+			{
+				for (int i = 0; i < titleList.Count; i++)
+				{
+					titleList[i].ShowTip();
+					titleList[i].SetInteractive(false);
+				}
+				return;
+			}
+			
+			clickSubmitCount = 0;
 			//在线实验考核部分
 			if (OnOnlineLabSubmit != null)
 			{

@@ -90,5 +90,15 @@ namespace LXQJZ.Exam
 			data = source;
 			rightOptionList = data.rightOptionList;
 		}
+
+		public void ShowTip()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetInteractive(bool isInteractive)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

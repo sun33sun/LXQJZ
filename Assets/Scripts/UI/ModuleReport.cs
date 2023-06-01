@@ -13,7 +13,7 @@ namespace LXQJZ
 		public DateTime endTime;
 		public int moduleScore;
 	}
-	public class ModuleReport : SingletonMono<ModuleReport>
+	public class ModuleReport : MonoBehaviour
 	{
 		[SerializeField] Text[] txts;
 		public ModuleReportData mData;
@@ -26,6 +26,17 @@ namespace LXQJZ
 			txts[2].text = mData.endTime.ToString("u");
 			txts[3].text = "实验用时：" + (mData.endTime - mData.startTime).ToString("mm") + "min";
 			txts[4].text = "实验得分：" + mData.moduleScore.ToString();
+		}
+
+		private void OnDisable()
+		{
+			Debug.Log(name + "被Disable");
+		}
+
+		private void OnDestroy()
+		{
+			Debug.Log(name + " 被销毁");
+			Debug.Log("请查看");
 		}
 	}
 }

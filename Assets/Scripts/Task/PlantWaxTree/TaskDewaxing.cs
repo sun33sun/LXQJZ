@@ -51,8 +51,6 @@ namespace LXQJZ.Task
 
 		private void ClickObj1()
 		{
-			GetObj("WaxCup1").GetComponent<BoxCollider>().enabled = false;
-			RoamCamera.Instance.IsEnable = false;
 			StartCoroutine(working1());
 		}
 
@@ -62,12 +60,14 @@ namespace LXQJZ.Task
 			WaitForSeconds wait01 = new WaitForSeconds(0.1f);
 			WaitForSeconds wait1 = new WaitForSeconds(1);
 
+			GetObj("WaxCup1").GetComponent<BoxCollider>().enabled = false;
+			RoamCamera.Instance.IsEnable = false;
 			//石膏模放入烤炉
-			AnimStart("Oven", "OvenOpen");
-			AnimStart("WaxTree", "WaxTree_Enter_Oven");
+			AnimStart("Oven", "OvenOpen", ViewType.None);
+			AnimStart("WaxTree", "WaxTree_Enter_Oven", ViewType.Follow);
 			yield return wait4;
 			//关闭烤箱门
-			AnimStart("Oven", "OvenClose");
+			AnimStart("Oven", "OvenClose", ViewType.None);
 			yield return wait1;
 			//显示进度条
 			GetUI<Image>("DeaerationMixer_Slider").gameObject.SetActive(true);
@@ -85,9 +85,6 @@ namespace LXQJZ.Task
 			imgFill.fillAmount = 0;
 			txtSlider.text = "";
 			GetUI<Image>("DeaerationMixer_Slider").gameObject.SetActive(false);
-			//相机返回原点
-			RoamCamera.Instance.MoveToOrigin();
-			yield return wait4;
 			isSuccess1 = true;
 		}
 
@@ -110,7 +107,7 @@ namespace LXQJZ.Task
 			WaitForSeconds wait1 = new WaitForSeconds(1);
 
 			//打开烤箱门
-			AnimStart("Oven", "OvenOpen");
+			AnimStart("Oven", "OvenOpen",ViewType.None);
 			yield return wait1;
 
 			isSuccess2 = true;
@@ -135,18 +132,18 @@ namespace LXQJZ.Task
 			GameObject WaxTree = GetObj("WaxTree");
 
 			//取出石膏模
-			AnimStart("Tongs", "Tongs_Enter_Oven");
+			AnimStart("Tongs", "Tongs_Enter_Oven",ViewType.Follow);
 			yield return new WaitForSeconds(2.2f);
 			WaxTree.transform.SetParent(GetObj("Tongs").transform);
 			AnimStart("WaxTree", "WaxTree_Forward_Tongs");
 			yield return new WaitForSeconds(1.8f);
 			WaxTree.transform.SetParent(GetObj("Tool").transform);
-			AnimStart("WaxTree", "WaxTree_Enter_GypsumTile");
+			AnimStart("WaxTree", "WaxTree_Enter_GypsumTile",ViewType.Follow);
 			yield return new WaitForSeconds(1);
 			//关闭烤箱门
-			AnimStart("Oven", "OvenClose");
+			AnimStart("Oven", "OvenClose",ViewType.None);
 			yield return new WaitForSeconds(1);
-
+			RoamCamera.Instance.BackToOrigin();
 			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_Dewaxing, OnConfirmExam3);
 		}
 

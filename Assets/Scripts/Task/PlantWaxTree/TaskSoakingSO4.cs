@@ -27,7 +27,6 @@ namespace LXQJZ.Task
 			step1.objList.Add(GetObj("Ring_Rough_Silver2"));
 			step1.OnClickObj += ClickObj1;
 			step1.CheckState += CheckState1;
-
 		}
 
 		#region Step1

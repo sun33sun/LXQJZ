@@ -11,6 +11,11 @@ using UnityEngine.UI;
 
 namespace LXQJZ
 {
+	public enum ViewType
+	{
+		None, LookAt, Follow
+	}
+
 	public abstract class TaskBase : MonoBehaviour
 	{
 		ResLoader mResLoader = ResLoader.Allocate();
@@ -83,13 +88,24 @@ namespace LXQJZ
 		}
 
 
-		protected void AnimStart(string objName, string clipName)
+		protected void AnimStart(string objName, string clipName, ViewType viewType = ViewType.LookAt)
 		{
 			GameObject animObj = GetObj(objName);
 			Animator animator = animObj.GetComponent<Animator>();
 			animator.speed = 1;
 			animator.Play(clipName, 0, 0);
-			RoamCamera.Instance.LookAt(animObj.transform,1);
+
+			switch (viewType)
+			{
+				case ViewType.None:
+					break;
+				case ViewType.LookAt:
+					RoamCamera.Instance.LookAt(animObj.transform, 1);
+					break;
+				case ViewType.Follow:
+					RoamCamera.Instance.Follow(animObj.transform);
+					break;
+			}
 		}
 
 		protected void AnimStop(string objName)

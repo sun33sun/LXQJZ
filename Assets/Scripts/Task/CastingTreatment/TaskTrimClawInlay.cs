@@ -60,9 +60,14 @@ namespace LXQJZ.Task
 		void ClickObj2()
 		{
 			RoamCamera.Instance.IsEnable = false;
+			Transform Ring_Polish = GetObj("Ring_Polish").transform;
 			ActionKit.Sequence()
-				.Callback(() => { AnimStart("Ring_Polish", "Ring_Polish_Approach_Turntable2"); })
-				.Delay(3.1f, () =>{RoamCamera.Instance.MoveToOrigin();})
+				.Callback(() => {
+					AnimStart("Ring_Polish", "Ring_Polish_Approach_Turntable2", ViewType.Follow);
+				})
+				.Delay(3.1f, () =>{
+					RoamCamera.Instance.BackToOrigin();
+				})
 				.Delay(2, () => { isSuccess2 = true; })
 				.Start(this);
 		}

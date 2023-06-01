@@ -38,8 +38,6 @@ namespace LXQJZ.Exam
 					{
 						if (togSelected == togList[index])
 						{
-							selectedTip.text = "";
-							selectedTip.color = Color.white;
 							togSelected = null;
 							selectedOption = Option.None;
 							isRight = false;
@@ -51,18 +49,12 @@ namespace LXQJZ.Exam
 						if (togSelected != null)
 							togSelected.isOn = false;
 						selectedOption = nowOption;
-						selectedTip.gameObject.SetActive(true);
 						if (selectedOption == rightOption)
 						{
-							selectedTip.text = "回答正确！";
-							selectedTip.color = Color.green;
 							isRight = true;
 						}
 						else
 						{
-							selectedTip.text = "回答错误！正确答案为 " + rightOption;
-							selectedTip.color = Color.red;
-
 							isRight = false;
 						}
 						togSelected = togList[index];
@@ -80,6 +72,28 @@ namespace LXQJZ.Exam
 			for (int i = 0; i < optionDescriptionList.Count; i++)
 			{
 				optionDescriptionList[i].text = data.optionDescriptionList[i];
+			}
+		}
+
+		public void ShowTip()
+		{
+			if (isRight)
+			{
+				selectedTip.text = "回答正确！";
+				selectedTip.color = Color.green;
+			}
+			else
+			{
+				selectedTip.text = "回答错误！正确答案为 " + rightOption;
+				selectedTip.color = Color.red;
+			}
+		}
+
+		public void SetInteractive(bool isInteractive)
+		{
+			for (int i = 0; i < togList.Count; i++)
+			{
+				togList[i].interactable = isInteractive;
 			}
 		}
 	}

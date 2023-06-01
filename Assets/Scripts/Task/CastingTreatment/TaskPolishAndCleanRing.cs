@@ -34,17 +34,20 @@ namespace LXQJZ.Task
 			step2.objList.Add(GetObj("hengwenshuiyuguo17"));
 			step2.OnClickObj += ClickObj2;
 			step2.CheckState += CheckState2;
+			step2.Prepare += Prepare2;
 		}
 
 		#region Step1
 
 		void ClickObj1()
 		{
-			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
-				.Callback(() => { AnimStart("BoilCup", "BoilCup_Pour_Turntable2"); })
-				.Delay(2, () =>{ AnimStart("Ring_Diamond", "Ring_Diamond_Approach_Turntable2"); })
-				.Delay(3.1f, () => { isSuccess1 = true; })
+				.Callback(() => { AnimStart("BoilCup", "BoilCup_Pour_Turntable2",ViewType.Follow); })
+				.Delay(1, () => { RoamCamera.Instance.Follow(GetObj("Ring_Diamond").transform); })
+				.Delay(2, () =>{ AnimStart("Ring_Diamond", "Ring_Diamond_Approach_Turntable2",ViewType.None); })
+				.Delay(3.1f, () => {
+					RoamCamera.Instance.Follow(null);
+					isSuccess1 = true; })
 				.Start(this);
 		}
 
@@ -58,27 +61,34 @@ namespace LXQJZ.Task
 		#endregion
 
 		#region Step2
+		void Prepare2()
+		{
+			RoamCamera.Instance.Follow(GetObj("hengwenshuiyuguo17").transform);
+		}
+
 		void ClickObj2()
 		{
 			ActionKit.Sequence()
 				.Callback(() => {
 					GetObj("hengwenshuiyuguo14").SetActive(false);
-					AnimStart("Ring_Diamond", "Ring_Diamond_Enter_UltrasonicCup");
+					AnimStart("Ring_Diamond", "Ring_Diamond_Enter_UltrasonicCup",ViewType.None);
 				})
 				.Delay(1, () =>{
 					GetObj("hengwenshuiyuguo14").SetActive(true);
-					AnimStart("UltrasonicCup", "UltrasonicCup_Clean_Loop");})
+					AnimStart("UltrasonicCup", "UltrasonicCup_Clean_Loop",ViewType.None);
+					RoamCamera.Instance.Follow(GetObj("Ring_Diamond").transform);
+				})
 				.Delay(3, () => 
 				{
 					GetObj("hengwenshuiyuguo14").SetActive(false);
 					AnimStop("UltrasonicCup");
-					AnimStart("Ring_Diamond", "Ring_Diamond_From_UltrasonicCup_To_Up");
+					AnimStart("Ring_Diamond", "Ring_Diamond_From_UltrasonicCup_To_Up",ViewType.None);
 				})
 				.Delay(2,() => 
 				{
 					GetObj("hengwenshuiyuguo14").SetActive(true);
 					isSuccess2 = true;
-					RoamCamera.Instance.MoveToOrigin();
+					RoamCamera.Instance.BackToOrigin();
 				})
 				.Start(this);
 		}

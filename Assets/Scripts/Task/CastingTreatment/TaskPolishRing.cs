@@ -1,5 +1,6 @@
 ﻿using QFramework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LXQJZ.Task
@@ -12,6 +13,7 @@ namespace LXQJZ.Task
 		bool isSuccess4 = false;
 		bool isSuccess5 = false;
 
+		[SerializeField] Sprite OnPolishSprite;
 
 		protected override void OnDisable()
 		{
@@ -72,72 +74,82 @@ namespace LXQJZ.Task
 		void ClickObj1()
 		{
 			RoamCamera.Instance.IsEnable = false;
+			GameObject Ring_Detail = GetObj("Ring_Detail");
+
 			ActionKit.Sequence()
-				//240
-				.Callback(() => { AnimStart("SanderStick240", "SanderStick240_FixedTo_Sander"); })
-				.Delay(1, () => {
-					GetObj("SanderStick240").transform.SetParent(GetObj("Sander").transform);
-					AnimStart("SanderStick240", "SanderStick240_Forward_Sander");
-					AnimStart("Sander", "Sander_Polish_Ring_Detail");
-				})
-				.Delay(6, () => 
-				{
-					GetObj("SanderStick240").transform.SetParent(GetObj("Tool").transform);
-					AnimStart("SanderStick240", "SanderStick240_From_Sander_To_Origin");
-				})
-				//800
-				.Delay(1, () => { AnimStart("SanderStick800", "SanderStick800_FixedTo_Sander"); })
-				.Delay(1, () => {
-					GetObj("SanderStick800").transform.SetParent(GetObj("Sander").transform);
-					AnimStart("SanderStick800", "SanderStick800_Forward_Sander");
-					AnimStart("Sander", "Sander_Polish_Ring_Detail");
-				})
-				.Delay(6, () => 
-				{
-					GetObj("SanderStick800").transform.SetParent(GetObj("Tool").transform);
-					AnimStart("SanderStick800", "SanderStick800_From_Sander_To_Origin");
-				})
-				//2000
-				.Delay(1, () => { AnimStart("SanderStick2000", "SanderStick2000_FixedTo_Sander"); })
-				.Delay(1, () => 
-				{
-					GetObj("SanderStick2000").transform.SetParent(GetObj("Sander").transform);
-					AnimStart("SanderStick2000", "SanderStick2000_Forward_Sander");
-					AnimStart("Sander", "Sander_Polish_Ring_Detail");
-				})
-				.Delay(6, () => 
-				{
-					GetObj("SanderStick2000").transform.SetParent(GetObj("Tool").transform);
-					AnimStart("SanderStick2000", "SanderStick2000_From_Sander_To_Origin");
-				})
-				//7000
-				.Delay(1, () => { AnimStart("SanderStick7000", "SanderStick7000_FixedTo_Sander"); })
-				.Delay(1, () => 
-				{
-					GetObj("SanderStick7000").transform.SetParent(GetObj("Sander").transform);
-					AnimStart("SanderStick7000", "SanderStick7000_Forward_Sander");
-					AnimStart("Sander", "Sander_Polish_Ring_Detail");
-				})
-				.Delay(6, () => 
-				{
-					GetObj("SanderStick7000").transform.SetParent(GetObj("Tool").transform);
-					AnimStart("SanderStick7000", "SanderStick7000_From_Sander_To_Origin"); 
-				})
-				//10000
-				.Delay(1, () => { AnimStart("SanderStick10000", "SanderStick10000_FixedTo_Sander"); })
-				.Delay(1, () => 
-				{
-					GetObj("SanderStick10000").transform.SetParent(GetObj("Sander").transform);
-					AnimStart("SanderStick10000", "SanderStick10000_Forward_Sander");
-					AnimStart("Sander", "Sander_Polish_Ring_Detail"); 
-				})
-				.Delay(6, () => 
-				{
-					GetObj("SanderStick10000").transform.SetParent(GetObj("Tool").transform);
-					AnimStart("SanderStick10000", "SanderStick10000_From_Sander_To_Origin");
-					isSuccess1 = true;
-				})
-				.Start(this);
+			//240
+			.Callback(() => { AnimStart("SanderStick240", "SanderStick240_FixedTo_Sander"); })
+			.Delay(1, () =>
+			{
+				//ms.material
+				GetObj("SanderStick240").transform.SetParent(GetObj("Sander").transform);
+				AnimStart("SanderStick240", "SanderStick240_Forward_Sander");
+				AnimStart("Sander", "Sander_Polish_Ring_Detail");
+				if(OnPolishSprite != null)
+					Ring_Detail.GetComponent<MeshRenderer>().material.SetTexture("BaseMap", OnPolishSprite.texture);
+			})
+			.Delay(6, () =>
+			{
+				GetObj("SanderStick240").transform.SetParent(GetObj("Tool").transform);
+				AnimStart("SanderStick240", "SanderStick240_From_Sander_To_Origin");
+			})
+			//800
+			.Delay(1, () => { AnimStart("SanderStick800", "SanderStick800_FixedTo_Sander"); })
+			.Delay(1, () =>
+			{
+				GetObj("SanderStick800").transform.SetParent(GetObj("Sander").transform);
+				AnimStart("SanderStick800", "SanderStick800_Forward_Sander");
+				AnimStart("Sander", "Sander_Polish_Ring_Detail");
+			})
+			.Delay(6, () =>
+			{
+				GetObj("SanderStick800").transform.SetParent(GetObj("Tool").transform);
+				AnimStart("SanderStick800", "SanderStick800_From_Sander_To_Origin");
+			})
+			//2000
+			.Delay(1, () => { AnimStart("SanderStick2000", "SanderStick2000_FixedTo_Sander"); })
+			.Delay(1, () =>
+			{
+				GetObj("SanderStick2000").transform.SetParent(GetObj("Sander").transform);
+				AnimStart("SanderStick2000", "SanderStick2000_Forward_Sander");
+				AnimStart("Sander", "Sander_Polish_Ring_Detail");
+			})
+			.Delay(6, () =>
+			{
+				GetObj("SanderStick2000").transform.SetParent(GetObj("Tool").transform);
+				AnimStart("SanderStick2000", "SanderStick2000_From_Sander_To_Origin");
+			})
+			//7000
+			.Delay(1, () => { AnimStart("SanderStick7000", "SanderStick7000_FixedTo_Sander"); })
+			.Delay(1, () =>
+			{
+				GetObj("SanderStick7000").transform.SetParent(GetObj("Sander").transform);
+				AnimStart("SanderStick7000", "SanderStick7000_Forward_Sander");
+				AnimStart("Sander", "Sander_Polish_Ring_Detail");
+			})
+			.Delay(6, () =>
+			{
+				GetObj("SanderStick7000").transform.SetParent(GetObj("Tool").transform);
+				AnimStart("SanderStick7000", "SanderStick7000_From_Sander_To_Origin");
+			})
+			//10000
+			.Delay(1, () => { AnimStart("SanderStick10000", "SanderStick10000_FixedTo_Sander"); })
+			.Delay(1, () =>
+			{
+				GetObj("SanderStick10000").transform.SetParent(GetObj("Sander").transform);
+				AnimStart("SanderStick10000", "SanderStick10000_Forward_Sander");
+				AnimStart("Sander", "Sander_Polish_Ring_Detail");
+				//显示抛光后的戒指
+				Ring_Detail.GetComponent<MeshRenderer>().enabled = false;
+				GetObj("Ring_Polish").SetActive(true);
+			})
+			.Delay(6, () =>
+			{
+				GetObj("SanderStick10000").transform.SetParent(GetObj("Tool").transform);
+				AnimStart("SanderStick10000", "SanderStick10000_From_Sander_To_Origin");
+				isSuccess1 = true;
+			})
+			.Start(this);
 		}
 
 		StepState CheckState1()
@@ -150,7 +162,7 @@ namespace LXQJZ.Task
 		void ClickObj2()
 		{
 			RoamCamera.Instance.IsEnable = false;
-			ActionKit.Sequence().Callback(()=> { AnimStart("Ring_Detail", "Ring_Detail_Enter_WashCup"); })
+			ActionKit.Sequence().Callback(() => { AnimStart("Ring_Detail", "Ring_Detail_Enter_WashCup"); })
 			.Delay(1, () =>
 			{
 				isSuccess2 = true;
@@ -167,10 +179,11 @@ namespace LXQJZ.Task
 		void ClickObj3()
 		{
 			RoamCamera.Instance.IsEnable = false;
-			GetObj("MagnetNeedle2").GetComponent<ObjClickEvent>().SelfDestroy();
-			GetObj("MagnetNeedle3").GetComponent<ObjClickEvent>().SelfDestroy();
-			GetObj("MagnetNeedle4").GetComponent<ObjClickEvent>().SelfDestroy();
-			GetObj("MagnetNeedle5").GetComponent<ObjClickEvent>().SelfDestroy();
+
+			ObjClickEvent[] clickEvents = GetObj("MagnetNeedle").GetComponentsInChildren<ObjClickEvent>();
+			for (int i = clickEvents.Length - 1; i >= 1; i--)
+				clickEvents[i].SelfDestroy();
+
 			ActionKit.Sequence().Callback(() => { AnimStart("MagnetNeedle", "MagnetNeedle_Enter_WashCup"); })
 			.Delay(1, () =>
 			{
@@ -208,17 +221,17 @@ namespace LXQJZ.Task
 			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
 			.Callback(() => { AnimStart("Drill1", "Drill1_FixedTo_Sander"); })
-			.Delay(1,() => 
-			{
-				GetObj("Drill1").transform.SetParent(GetObj("Sander").transform);
-				AnimStart("Drill1", "Drill1_Forward_Sander");
-				AnimStart("Sander", "Sander_Polish_Ring_Detail");
-			})
+			.Delay(1, () =>
+			 {
+				 GetObj("Drill1").transform.SetParent(GetObj("Sander").transform);
+				 AnimStart("Drill1", "Drill1_Forward_Sander");
+				 AnimStart("Sander", "Sander_Polish_Ring_Detail");
+			 })
 			.Delay(6, () =>
 			{
 				GetObj("Drill1").transform.SetParent(GetObj("Tool").transform);
 				AnimStart("Drill1", "Drill1_From_OriginSander_To_Origin");
-			}).Delay(1,()=> { isSuccess5 = true; })
+			}).Delay(1, () => { isSuccess5 = true; })
 			.Start(this);
 		}
 

@@ -57,8 +57,6 @@ namespace LXQJZ.Task
 
 			AnimStart("Gypsum", "Gypsum_Enter_WaterCup");
 			yield return wait1;
-			GetObj("Gypsum").GetComponent<MeshRenderer>().enabled = false;
-			GetObj("Gypsum").GetComponent<Animator>().Play("Gypsum_From_OriginWaterCup_To_Origin");
 			//搅拌水杯
 			AnimStart("Stirrer", "Stirrer_Stir_WaterCup");
 			yield return wait3;
@@ -154,8 +152,7 @@ namespace LXQJZ.Task
 			yield return wait4;
 			DeaerationMixer1.SetActive(true);
 			PumpTube.SetActive(true);
-
-
+			isSuccess3 = true;
 		}
 
 		StepState CheckState3()

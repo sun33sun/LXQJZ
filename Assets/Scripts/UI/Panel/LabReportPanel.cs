@@ -11,13 +11,16 @@ namespace LXQJZ.UI
 		[SerializeField] Button btnExit;
 		[Header("面板下需要隐藏的子物体")]
 		[SerializeField] GameObject[] childObjs;
-		[SerializeField] Transform contentTrans;
 		[Header("当前日期")]
 		[SerializeField] Text txtNowDate;
 		[Header("总成绩")]
 		[SerializeField] Text txtTotalScore;
 		int totalScore = 0;
 		[SerializeField] Dictionary<string, ModuleReport> reportDic = new Dictionary<string, ModuleReport>();
+		[SerializeField] Button btnSubmit;
+		[SerializeField] InputField inputEvaluate;
+		[SerializeField] RectTransform Grid;
+		[SerializeField] RectTransform Content;
 
 		protected override void Start()
 		{
@@ -49,7 +52,9 @@ namespace LXQJZ.UI
 				//设置Obj
 				GameObject newObj = ResMgr.GetInstance().Load<GameObject>("Prefabs\\Exam_Prefab\\ModuleReport");
 				newObj.name = newData.moduleName;
-				newObj.transform.SetParent(contentTrans);
+				newObj.transform.SetParent(Grid);
+				LayoutRebuilder.ForceRebuildLayoutImmediate(Grid);
+				LayoutRebuilder.ForceRebuildLayoutImmediate(Content);
 				//Report
 				newReoprt = newObj.GetComponent<ModuleReport>();
 				reportDic.Add(newData.moduleName, newReoprt);

@@ -21,7 +21,6 @@ namespace LXQJZ.Task
 		{
 			modelName = "MetalDemolding";
 			base.InitState();
-			ParticleManager.Stop(GetObj("FireGun_Fire"));
 			GetObj("Ring_Rough_Silver").SetActive(false);
 		}
 
@@ -45,7 +44,7 @@ namespace LXQJZ.Task
 		{
 			WaitForSeconds wait2 = new WaitForSeconds(2);
 
-			AnimStart("WaxTree", "WaxTree_Enter_Bucket");
+			AnimStart("WaxTree", "WaxTree_Enter_Bucket",ViewType.Follow);
 			yield return new WaitForSeconds(4);
 			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = false;
 			GetObj("Ring_Rough_Silver").SetActive(true);

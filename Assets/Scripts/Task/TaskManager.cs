@@ -13,19 +13,20 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 4;
-		public Action OnLabCompleted;
+		int startIndex = 17;
 
 		//生成实验报告
 		public int totalScore = 0;
 		DateTime startTime;
 
-
 		void OnNextTask()
 		{
 			//在线实验完成
 			if (taskIndex >= taskList.Count - 1)
+			{
 				TaskEndFun();
+				return;
+			}
 
 			taskList[taskIndex].enabled = false;
 			if (taskList[taskIndex].modelName != null)
@@ -43,7 +44,7 @@ namespace LXQJZ.Task
 
 		void TaskEndFun()
 		{
-			OnLabCompleted?.Invoke();
+			EventCenter.GetInstance().EventTrigger("在线实验结束");
 			//创建实验报告
 			ModuleReportData newData = new ModuleReportData()
 			{
@@ -54,7 +55,6 @@ namespace LXQJZ.Task
 			};
 			totalScore = 0;
 			LabReportPanel.Instance.CreateModuleReport(newData);
-			return;
 		}
 
 		protected override void Awake()
