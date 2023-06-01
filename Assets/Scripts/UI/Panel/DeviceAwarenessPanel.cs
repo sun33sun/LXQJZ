@@ -86,8 +86,10 @@ namespace LXQJZ.UI
 			{
 				string key = string.Copy(togList[i].name);
 				RectTransform rect = togList[i].transform as RectTransform;
+				GameObject objBk = togList[i].transform.GetChild(0).gameObject;
 				togList[i].onValueChanged.AddListener((isOn) =>
 				{
+					objBk.SetActive(!isOn);
 					if (isOn)
 					{
 						rect.sizeDelta = new Vector2(264, 104);
@@ -134,6 +136,7 @@ namespace LXQJZ.UI
 		{
 			togList[0].isOn = true;
 			ChangeTextAndImage(togList[0].name);
+			togList[0].transform.GetChild(0).gameObject.SetActive(false);
 		}
 	}
 }

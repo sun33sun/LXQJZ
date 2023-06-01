@@ -12,6 +12,8 @@ namespace LXQJZ.Exam
 	{
 		int Score { get; }
 		bool IsRight { get; }
+		GameObject gameObject { get; }
+
 		void InitTitleData(TitleData source);
 	}
 }

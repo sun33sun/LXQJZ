@@ -109,7 +109,7 @@ namespace LXQJZ.Task
 		public void ShowExam(string paperName,UnityAction<int> callBack)
 		{
 			Paper newPaper = ExamManager.GetInstance().GetPaper(paperName);
-			KnowledgeAssessmentPanel.Instance.ShowOnlineLabExam(newPaper,callBack);
+			KnowledgeAssessmentPanel.Instance.ShowOnlineLabPaper(newPaper,callBack);
 		}
 		public bool CheckExam()
 		{

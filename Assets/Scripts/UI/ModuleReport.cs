@@ -16,7 +16,7 @@ namespace LXQJZ
 	public class ModuleReport : SingletonMono<ModuleReport>
 	{
 		[SerializeField] Text[] txts;
-		ModuleReportData mData;
+		public ModuleReportData mData;
 
 		public void InitData(ModuleReportData newData)
 		{

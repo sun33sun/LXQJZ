@@ -10,7 +10,7 @@ namespace LXQJZ.Exam
 		MultipleChoice,
 	}
 
-	public class TitleData
+	public class TitleData : Object
 	{
 		public int titleNumber = 0;
 		public List<string> optionDescriptionList;

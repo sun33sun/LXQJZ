@@ -34,6 +34,7 @@ namespace LXQJZ.UI
 			{
 				gameObject.SetActive(false);
 				KnowledgeAssessmentPanel.Instance.Show();
+				KnowledgeAssessmentPanel.Instance.ShowKnowledgePaper();
 			});
 			btnList[4].onClick.AddListener(()=>
 			{

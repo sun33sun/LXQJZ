@@ -14,8 +14,8 @@ namespace LXQJZ.UI
 	{
 		[SerializeField] Button btnExit;
 		[Header("考试题部分UI")]
-		[SerializeField] GameObject titleFather;
-		[SerializeField] List<GameObject> titleList = new List<GameObject>();
+		[SerializeField] RectTransform titleFather;
+		[SerializeField] List<ITitle> titleList = new List<ITitle>();
 		[Header("提交按钮")]
 		[SerializeField] Button btnSubmit;
 		[SerializeField] Image imgLogo;
@@ -32,6 +32,7 @@ namespace LXQJZ.UI
 			InitListener();
 			base.Start();
 		}
+
 		private void OnEnable()
 		{
 			startTime = DateTime.Now;
@@ -47,36 +48,51 @@ namespace LXQJZ.UI
 			});
 		}
 
-		public void LoadPaper(Paper newPaper)
-		{
-			StartCoroutine(LoadPaperAsync(newPaper));
-		}
-
 		IEnumerator LoadPaperAsync(Paper newPaper)
 		{
+			for (int i = titleList.Count - 1; i > -1; i--)
+			{
+				Destroy(titleList[i].gameObject);
+				titleList.RemoveAt(i);
+			}
 			nowPaper = newPaper;
 			for (int i = 0; i < nowPaper.dataList.Count; i++)
 			{
 				GameObject newObj = ExamManager.GetInstance().CreateTitle(nowPaper.dataList[i]);
-				titleList.Add(newObj);
-				newObj.transform.SetParent(titleFather.transform);
+				titleList.Add(newObj.GetComponent<ITitle>());
+				newObj.transform.SetParent(titleFather);
 			}
+			LayoutRebuilder.ForceRebuildLayoutImmediate(titleFather);
 			yield return null;
 		}
 
-		public void ShowOnlineLabExam(Paper newPaper, UnityAction<int> callBack)
+		#region 加载题目
+		public void ShowOnlineLabPaper(Paper newPaper, UnityAction<int> callBack)
 		{
 			//持续检查
 			onlineLabExamCompleted = false;
 			//UI显隐
 			Show();
 			GetComponent<Image>().enabled = false;
-			LoadPaper(newPaper);
+			StartCoroutine(LoadPaperAsync(newPaper));
 			btnExit.gameObject.SetActive(false);
 			imgLogo.gameObject.SetActive(false);
 			//回调订阅
 			OnOnlineLabSubmit += callBack;
 		}
+		
+		public void ShowKnowledgePaper()
+		{
+			StartCoroutine(ShowKnowledgePaperAsync());
+		}
+		IEnumerator ShowKnowledgePaperAsync()
+		{
+			string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
+			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
+			yield return LoadPaperAsync(nowPaper);
+		}
+		#endregion
+
 
 		bool onlineLabExamCompleted = false;
 		public bool CheckOnlineLabExam()
@@ -84,17 +100,12 @@ namespace LXQJZ.UI
 			return onlineLabExamCompleted;
 		}
 
-		void DestroyPaper()
-		{
-			StartCoroutine(DestroyPaperAsync());
-		}
-
 		IEnumerator DestroyPaperAsync()
 		{
 
 			for (int i = 0; i < titleList.Count; i++)
 			{
-				Destroy(titleList[i]);
+				Destroy(titleList[i].gameObject);
 				titleList.RemoveAt(i);
 			}
 			titleList.Clear();
@@ -109,7 +120,7 @@ namespace LXQJZ.UI
 				int totalScore = 0;
 				for (int i = 0; i < titleList.Count; i++)
 				{
-					ITitle title = titleList[i].GetComponent<ITitle>();
+					ITitle title = titleList[i];
 					totalScore += title.Score;
 				}
 				OnOnlineLabSubmit.Invoke(totalScore);
@@ -119,7 +130,7 @@ namespace LXQJZ.UI
 				GetComponent<Image>().enabled = true;
 				for (int i = titleList.Count - 1; i >= 0; i--)
 				{
-					Destroy(titleList[i]);
+					Destroy(titleList[i].gameObject);
 					titleList.RemoveAt(i);
 				}
 				titleList.Clear();
@@ -134,7 +145,7 @@ namespace LXQJZ.UI
 				int totalScore = 0;
 				for (int i = 0; i < titleList.Count; i++)
 				{
-					ITitle title = titleList[i].GetComponent<ITitle>();
+					ITitle title = titleList[i];
 					if (title.IsRight)
 						totalScore += title.Score;
 				}
@@ -153,9 +164,7 @@ namespace LXQJZ.UI
 
 		public override IEnumerator HideAsync(float waitTime)
 		{
-			string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
-			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
-			yield return LoadPaperAsync(nowPaper);
+			yield return ShowKnowledgePaperAsync();
 			Hide();
 		}
 	}

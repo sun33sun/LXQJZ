@@ -17,6 +17,7 @@ namespace LXQJZ.UI
 		[Header("总成绩")]
 		[SerializeField] Text txtTotalScore;
 		int totalScore = 0;
+		[SerializeField] Dictionary<string, ModuleReport> reportDic = new Dictionary<string, ModuleReport>();
 
 		protected override void Start()
 		{
@@ -42,11 +43,25 @@ namespace LXQJZ.UI
 
 		public void CreateModuleReport(ModuleReportData newData)
 		{
-			GameObject newReport = ResMgr.GetInstance().Load<GameObject>("Prefabs\\Exam_Prefab\\ModuleReport");
-			newReport.name = "ModuleReport";
-			newReport.GetComponent<ModuleReport>().InitData(newData);
-			newReport.transform.SetParent(contentTrans);
-			totalScore += newData.moduleScore;
+			ModuleReport newReoprt = null;
+			if (!reportDic.ContainsKey(newData.moduleName))
+			{
+				//设置Obj
+				GameObject newObj = ResMgr.GetInstance().Load<GameObject>("Prefabs\\Exam_Prefab\\ModuleReport");
+				newObj.name = newData.moduleName;
+				newObj.transform.SetParent(contentTrans);
+				//Report
+				newReoprt = newObj.GetComponent<ModuleReport>();
+				reportDic.Add(newData.moduleName, newReoprt);
+			}
+			else
+			{
+				newReoprt = reportDic[newData.moduleName];
+				totalScore -= newReoprt.mData.moduleScore;
+			}
+			newReoprt.InitData(newData);
+
+			totalScore += newReoprt.mData.moduleScore;
 			txtTotalScore.text = "总成绩：" + totalScore.ToString();
 		}
 

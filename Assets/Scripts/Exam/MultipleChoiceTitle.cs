@@ -12,7 +12,6 @@ namespace LXQJZ.Exam
 	{
 		TitleData data;
 		public int Score => data.score;
-
 		public bool IsRight => isRight;
 
 		[SerializeField] MultipleToggle mt;
@@ -25,18 +24,6 @@ namespace LXQJZ.Exam
 		[SerializeField] List<Option> rightOptionList = new List<Option>();
 		[SerializeField] List<Option> selectedOptionList = new List<Option>();
 		[SerializeField] bool isRight = false;
-
-
-
-		private void Start()
-		{
-			InitListener();
-		}
-
-		void InitListener()
-		{
-			mt.onValueGroupChanged += OnGroupValueChanged;
-		}
 
 		void OnGroupValueChanged(List<int> valueGroup)
 		{
@@ -75,7 +62,6 @@ namespace LXQJZ.Exam
 				selectedTip.text = "";
 				selectedTip.color = Color.black;
 			}
-
 		}
 
 		public List<Option> IntListToOptionList(List<int> intList)
@@ -88,15 +74,20 @@ namespace LXQJZ.Exam
 
 		public void InitTitleData(TitleData source)
 		{
-			data = source;
+			//1、初始化UI状态
+			selectedTip.text = "";
+			selectedTip.color = Color.black;
 			titleType.text = data.titleNumber + "." + data.titleType.ToChinese();
-
 			titleDescription.text = $"{data.titleDescription}";
-
 			for (int i = 0; i < optionDescriptionList.Count; i++)
-			{
 				optionDescriptionList[i].text = data.optionDescriptionList[i];
-			}
+			//2、订阅事件
+			mt.onValueGroupChanged -= OnGroupValueChanged;
+			mt.onValueGroupChanged += OnGroupValueChanged;
+			//3、设置数据
+			if (data != null && data != source)//想要重置题目状态时会将自己持有的数据传入
+				Destroy(data);
+			data = source;
 			rightOptionList = data.rightOptionList;
 		}
 	}
