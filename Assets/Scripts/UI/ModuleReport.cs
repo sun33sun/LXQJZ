@@ -8,10 +8,18 @@ namespace LXQJZ
 {
 	public class ModuleReportData
 	{
-		public string moduleName;
+		public int seq;
+		public string title;
 		public DateTime startTime;
 		public DateTime endTime;
-		public int moduleScore;
+		public TimeSpan expectTime;
+		public int maxScore;
+		public int score;
+		public int repeatCount;
+		public string evaluation;
+		public string scoringModel;
+		public string remarks;
+		public string ext_data;
 	}
 	public class ModuleReport : MonoBehaviour
 	{
@@ -21,11 +29,11 @@ namespace LXQJZ
 		public void InitData(ModuleReportData newData)
 		{
 			mData = newData;
-			txts[0].text = mData.moduleName;
+			txts[0].text = mData.title;
 			txts[1].text = mData.startTime.ToString("u");
 			txts[2].text = mData.endTime.ToString("u");
 			txts[3].text = "实验用时：" + (mData.endTime - mData.startTime).ToString("mm") + "min";
-			txts[4].text = "实验得分：" + mData.moduleScore.ToString();
+			txts[4].text = "实验得分：" + mData.score.ToString();
 		}
 
 		private void OnDisable()

@@ -149,7 +149,7 @@ namespace LXQJZ.Task
 
 		void OnConfirmExam3(int addScore)
 		{
-			TaskManager.Instance.totalScore += addScore;
+			TaskManager.Instance.score += addScore;
 			isSuccess3 = true;
 		}
 

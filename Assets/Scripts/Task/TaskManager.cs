@@ -16,7 +16,9 @@ namespace LXQJZ.Task
 		int startIndex = 12;
 
 		//生成实验报告
-		public int totalScore = 0;
+		public int maxScore = 50;
+		public int score = 0;
+		public int repeatCount = 0;
 		DateTime startTime;
 
 		void OnNextTask()
@@ -44,16 +46,32 @@ namespace LXQJZ.Task
 
 		void TaskEndFun()
 		{
+			repeatCount++;
 			EventCenter.GetInstance().EventTrigger("在线实验结束");
 			//创建实验报告
+			string evaluation;
+			float percentage = score / maxScore;
+			if (percentage > 0.8)
+				evaluation = "优";
+			else if (percentage > 0.6)
+				evaluation = "良";
+			else
+				evaluation = "差";
 			ModuleReportData newData = new ModuleReportData()
 			{
-				moduleName = "在线实验",
+				seq = 0,
+				title = "在线实验",
 				startTime = this.startTime,
 				endTime = DateTime.Now,
-				moduleScore = totalScore
+				expectTime = new TimeSpan(0, 10, 0),
+				score = score,
+				repeatCount = this.repeatCount,
+				evaluation = evaluation,
+				scoringModel = "赋分模型",
+				remarks = "在线实验的备注",
+				ext_data = "这个数据的意义是啥？"
 			};
-			totalScore = 0;
+			score = 0;
 			LabReportPanel.Instance.CreateModuleReport(newData);
 		}
 
@@ -106,10 +124,10 @@ namespace LXQJZ.Task
 			taskList.Add(GetComponent<TaskDryRing>());
 		}
 
-		public void ShowExam(string paperName,UnityAction<int> callBack)
+		public void ShowExam(string paperName, UnityAction<int> callBack)
 		{
 			Paper newPaper = ExamManager.GetInstance().GetPaper(paperName);
-			KnowledgeAssessmentPanel.Instance.ShowOnlineLabPaper(newPaper,callBack);
+			KnowledgeAssessmentPanel.Instance.ShowOnlineLabPaper(newPaper, callBack);
 		}
 		public bool CheckExam()
 		{

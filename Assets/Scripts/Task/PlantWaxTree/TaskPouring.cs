@@ -50,7 +50,7 @@ namespace LXQJZ.Task
 
 		void OnConfirmExam1(int addScore)
 		{
-			TaskManager.Instance.totalScore += addScore;
+			TaskManager.Instance.score += addScore;
 			isSuccess1 = true;
 		}
 

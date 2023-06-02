@@ -22,6 +22,8 @@ namespace LXQJZ.UI
 		//数据
 		Paper nowPaper = null;
 		DateTime startTime;
+		public int repeatCount = 0;
+		public int maxScore = 50;
 
 		UnityAction<int> OnOnlineLabSubmit;
 
@@ -82,7 +84,7 @@ namespace LXQJZ.UI
 			//回调订阅
 			OnOnlineLabSubmit += callBack;
 		}
-		
+
 		public void ShowKnowledgePaper()
 		{
 			StartCoroutine(ShowKnowledgePaperAsync());
@@ -118,7 +120,7 @@ namespace LXQJZ.UI
 		void SubmitPaper()
 		{
 			clickSubmitCount++;
-			if(clickSubmitCount < 2)
+			if (clickSubmitCount < 2)
 			{
 				for (int i = 0; i < titleList.Count; i++)
 				{
@@ -127,7 +129,7 @@ namespace LXQJZ.UI
 				}
 				return;
 			}
-			
+
 			clickSubmitCount = 0;
 			//在线实验考核部分
 			if (OnOnlineLabSubmit != null)
@@ -157,19 +159,36 @@ namespace LXQJZ.UI
 			}
 			else
 			{
-				int totalScore = 0;
+				int score = 0;
 				for (int i = 0; i < titleList.Count; i++)
 				{
 					ITitle title = titleList[i];
 					if (title.IsRight)
-						totalScore += title.Score;
+						score += title.Score;
 				}
+				string evaluation;
+				float percentage = score / maxScore;
+				if (percentage > 0.8)
+					evaluation = "优";
+				else if (percentage > 0.6)
+					evaluation = "良";
+				else
+					evaluation = "差";
+				repeatCount++;
 				ModuleReportData newData = new ModuleReportData()
 				{
-					moduleName = "知识考核",
+					seq = 1,
+					title = "知识考核",
 					startTime = this.startTime,
 					endTime = DateTime.Now,
-					moduleScore = totalScore
+					expectTime = new TimeSpan(0, 10, 0),
+					score = score,
+					maxScore = titleList.Count * 5,
+					repeatCount = repeatCount,
+					evaluation = evaluation,
+					scoringModel = "赋分模型",
+					remarks = "知识考核的备注",
+					ext_data = "这是啥啊？"
 				};
 				LabReportPanel.Instance.Show();
 				LabReportPanel.Instance.CreateModuleReport(newData);

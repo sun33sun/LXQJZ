@@ -51,7 +51,7 @@ namespace LXQJZ.Task
 		void OnConfirmExam(int score)
 		{
 			isSuccess1 = true;
-			TaskManager.Instance.totalScore += score;
+			TaskManager.Instance.score += score;
 		}
 
 		StepState CheckState2()
