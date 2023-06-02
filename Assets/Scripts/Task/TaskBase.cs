@@ -91,10 +91,6 @@ namespace LXQJZ
 		protected void AnimStart(string objName, string clipName, ViewType viewType = ViewType.LookAt)
 		{
 			GameObject animObj = GetObj(objName);
-			Animator animator = animObj.GetComponent<Animator>();
-			animator.speed = 1;
-			animator.Play(clipName, 0, 0);
-
 			switch (viewType)
 			{
 				case ViewType.None:
@@ -106,6 +102,12 @@ namespace LXQJZ
 					RoamCamera.Instance.Follow(animObj.transform);
 					break;
 			}
+
+			Animator animator = animObj.GetComponent<Animator>();
+			animator.speed = 1;
+			animator.Play(clipName, 0, 0);
+
+
 		}
 
 		protected void AnimStop(string objName)

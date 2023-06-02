@@ -181,7 +181,7 @@ namespace LXQJZ.Task
 			RoamCamera.Instance.IsEnable = false;
 
 			ObjClickEvent[] clickEvents = GetObj("MagnetNeedle").GetComponentsInChildren<ObjClickEvent>();
-			for (int i = clickEvents.Length - 1; i >= 1; i--)
+			for (int i = clickEvents.Length - 1; i >= 0; i--)
 				clickEvents[i].SelfDestroy();
 
 			ActionKit.Sequence().Callback(() => { AnimStart("MagnetNeedle", "MagnetNeedle_Enter_WashCup"); })
@@ -202,10 +202,18 @@ namespace LXQJZ.Task
 		{
 			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence().Callback(() => { AnimStart("WashingPowderCup", "WashingPowderCup_Pour_WashCup"); })
+			.Delay(2, () =>
+			{
+				RoamCamera.Instance.Follow(GetObj("MagneticPolish_Cylinder").transform);
+				AnimStart("Ring_Detail", "Ring_Detail_Rotate_WashCup", ViewType.None);
+			})
 			.Delay(3, () =>
 			{
-				AnimStart("Ring_Detail", "Ring_Detail_From_WashCup_To_Up");
-			}).Delay(1, () => { isSuccess4 = true; })
+				AnimStop("Ring_Detail");
+				RoamCamera.Instance.Follow(GetObj("Ring_Detail").transform);
+			})
+			.Delay(1, () => { AnimStart("Ring_Detail", "Ring_Detail_From_WashCup_To_Up"); })
+			.Delay(1, () => { isSuccess4 = true; })
 			.Start(this);
 		}
 

@@ -13,7 +13,7 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 17;
+		int startIndex = 12;
 
 		//生成实验报告
 		public int totalScore = 0;

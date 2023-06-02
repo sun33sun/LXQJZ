@@ -3931,8 +3931,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 639955510}
-  - component: {fileID: 639955513}
-  - component: {fileID: 639955512}
   - component: {fileID: 639955511}
   m_Layer: 5
   m_Name: Scrollbar Vertical
@@ -4009,43 +4007,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &639955512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639955509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &639955513
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639955509}
-  m_CullTransparentMesh: 1
 --- !u!1 &659484123
 GameObject:
   m_ObjectHideFlags: 0
@@ -5984,7 +5945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5587e120d72deee46ae87063c4375d84, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93c6c3ea1943fc448a54d96f01f4f4e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

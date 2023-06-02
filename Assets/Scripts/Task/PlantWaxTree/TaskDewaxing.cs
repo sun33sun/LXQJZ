@@ -60,8 +60,8 @@ namespace LXQJZ.Task
 			WaitForSeconds wait01 = new WaitForSeconds(0.1f);
 			WaitForSeconds wait1 = new WaitForSeconds(1);
 
-			GetObj("WaxCup1").GetComponent<BoxCollider>().enabled = false;
 			RoamCamera.Instance.IsEnable = false;
+			GetObj("WaxCup1").GetComponent<BoxCollider>().enabled = false;
 			//石膏模放入烤炉
 			AnimStart("Oven", "OvenOpen", ViewType.None);
 			AnimStart("WaxTree", "WaxTree_Enter_Oven", ViewType.Follow);
@@ -86,6 +86,7 @@ namespace LXQJZ.Task
 			txtSlider.text = "";
 			GetUI<Image>("DeaerationMixer_Slider").gameObject.SetActive(false);
 			isSuccess1 = true;
+			RoamCamera.Instance.BackToOrigin();
 		}
 
 		StepState CheckState1()
@@ -98,7 +99,6 @@ namespace LXQJZ.Task
 		#region Step2
 		private void ClickObj2()
 		{
-			RoamCamera.Instance.IsEnable = false;
 			StartCoroutine(working2());
 		}
 
@@ -107,7 +107,7 @@ namespace LXQJZ.Task
 			WaitForSeconds wait1 = new WaitForSeconds(1);
 
 			//打开烤箱门
-			AnimStart("Oven", "OvenOpen",ViewType.None);
+			AnimStart("Oven", "OvenOpen", ViewType.None);
 			yield return wait1;
 
 			isSuccess2 = true;
@@ -132,16 +132,16 @@ namespace LXQJZ.Task
 			GameObject WaxTree = GetObj("WaxTree");
 
 			//取出石膏模
-			AnimStart("Tongs", "Tongs_Enter_Oven",ViewType.Follow);
+			AnimStart("Tongs", "Tongs_Enter_Oven", ViewType.Follow);
 			yield return new WaitForSeconds(2.2f);
 			WaxTree.transform.SetParent(GetObj("Tongs").transform);
 			AnimStart("WaxTree", "WaxTree_Forward_Tongs");
 			yield return new WaitForSeconds(1.8f);
 			WaxTree.transform.SetParent(GetObj("Tool").transform);
-			AnimStart("WaxTree", "WaxTree_Enter_GypsumTile",ViewType.Follow);
+			AnimStart("WaxTree", "WaxTree_Enter_GypsumTile", ViewType.Follow);
 			yield return new WaitForSeconds(1);
 			//关闭烤箱门
-			AnimStart("Oven", "OvenClose",ViewType.None);
+			AnimStart("Oven", "OvenClose", ViewType.None);
 			yield return new WaitForSeconds(1);
 			RoamCamera.Instance.BackToOrigin();
 			TaskManager.Instance.ShowExam(ProjectSettings.PAPER_Dewaxing, OnConfirmExam3);
