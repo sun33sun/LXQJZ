@@ -14,5 +14,7 @@ namespace LXQJZ.Exam
 		public string accountNumber;
 		//实验信息Json
 		public string contextJson;
+		public string remoteUrl;
+		public int type;
 	}
 }

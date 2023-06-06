@@ -24,10 +24,14 @@ namespace LXQJZ.Task
 			isSuccess5 = false;
 			base.OnDisable();
 		}
-		public override void InitState()
+
+		public override void BeforeInitState()
 		{
 			modelName = "PolishRing";
-			base.InitState();
+		}
+
+		public override void AfterInitState()
+		{
 			GetObj("Ring_Polish").SetActive(false);
 		}
 

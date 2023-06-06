@@ -13,10 +13,9 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "SoakingSO4";
-			base.InitState();
 		}
 
 		public override void RegisterSteps()

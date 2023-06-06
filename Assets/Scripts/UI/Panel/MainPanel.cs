@@ -1,3 +1,4 @@
+using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace LXQJZ.UI
 		protected override void Start()
 		{
 			InitListener();
+			ResKit.InitAsync();
 		}
 
 		void InitListener()

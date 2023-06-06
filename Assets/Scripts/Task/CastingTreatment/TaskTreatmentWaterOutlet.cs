@@ -15,10 +15,13 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "TreatmentWaterOutlet";
-			base.InitState();
+		}
+		
+		public override void AfterInitState()
+		{
 			GetObj("Ring_Pre_Detail").SetActive(false);
 		}
 

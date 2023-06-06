@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace LXQJZ.UI
@@ -47,6 +48,7 @@ namespace LXQJZ.UI
 				MainPanel.Instance.Show();
 				Hide();
 			});
+			btnSubmit.onClick.AddListener(Submit);
 		}
 
 		public void CreateModuleReport(ModuleReportData newData)
@@ -101,10 +103,10 @@ namespace LXQJZ.UI
 				{
 					seq = item.Value.mData.seq,
 					title = item.Value.mData.title,
-					startTime = item.Value.mData.startTime,
-					endTime = item.Value.mData.endTime,
-					timeUsed = item.Value.mData.startTime - item.Value.mData.endTime,
-					expectTime = item.Value.mData.expectTime,
+					startTime = item.Value.mData.startTime.ToString("u"),
+					endTime = item.Value.mData.endTime.ToString("u"),
+					timeUsed = (item.Value.mData.startTime - item.Value.mData.endTime).ToString(),
+					expectTime = item.Value.mData.expectTime.ToString(),
 					maxScore = item.Value.mData.maxScore,
 					score = item.Value.mData.score,
 					repeatCout = item.Value.mData.repeatCount,
@@ -115,20 +117,20 @@ namespace LXQJZ.UI
 				};
 				steps.Add(newStep);
 			}
-			Context newContext = new Context()
+			ContextJson newContext = new ContextJson()
 			{
 				username = "username",
 				title = "蜡雕镶嵌戒指",
 				status = 1,
 				score = totalScore,
-				startTime = startTime,
-				endTIme = DateTime.Now,
-				timeUsed = startTime - DateTime.Now,
+				startTime = startTime.ToString(),
+				endTIme = DateTime.Now.ToString(),
+				timeUsed = (startTime - DateTime.Now).ToString(),
 				appid = 100001,
 				originId = 1,
 				group_id = 1,
 				group_name = "分组名称",
-				role_in_group ="学生，教师",
+				role_in_group = "学生，教师",
 				steps = steps
 			};
 
@@ -139,6 +141,18 @@ namespace LXQJZ.UI
 				contextJson = JsonConvert.SerializeObject(newContext)
 			};
 			return submitData;
+		}
+		/// <summary>
+		/// 目前总共18道题，每道题3分，共54分
+		/// 剩余分数是在线实验的操作分，只要做了就能拿到
+		/// </summary>
+		public void Submit()
+		{
+			EventCenter.GetInstance().EventTrigger("提交数据");
+			SubmitData submitData = CreateSubmitData();
+			HttpManager.GetInstance().Post(submitData);
+			//清空数据
+			totalScore = 0;
 		}
 	}
 }

@@ -35,16 +35,5 @@ namespace LXQJZ
 			txts[3].text = "实验用时：" + (mData.endTime - mData.startTime).ToString("mm") + "min";
 			txts[4].text = "实验得分：" + mData.score.ToString();
 		}
-
-		private void OnDisable()
-		{
-			Debug.Log(name + "被Disable");
-		}
-
-		private void OnDestroy()
-		{
-			Debug.Log(name + " 被销毁");
-			Debug.Log("请查看");
-		}
 	}
 }

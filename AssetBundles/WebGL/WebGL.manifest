@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1865054397
+CRC: 3813517414
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -60,14 +60,14 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: a_png
     Info_18:
-      Name: assetbundle
-      Dependencies: {}
-    Info_19:
       Name: deviceatlas_spriteatlas
       Dependencies:
         Dependency_0: devices
-    Info_20:
+    Info_19:
       Name: devices
+      Dependencies: {}
+    Info_20:
+      Name: task_prefab
       Dependencies: {}
     Info_21:
       Name: "\u4E2D\u706B1-ca53655fdd402319.particle"

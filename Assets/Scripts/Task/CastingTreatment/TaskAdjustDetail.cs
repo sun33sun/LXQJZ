@@ -12,10 +12,10 @@ namespace LXQJZ.Task
 			isSuccess1 = false;
 			base.OnDisable();
 		}
-		public override void InitState()
+
+		public override void BeforeInitState()
 		{
 			modelName = "AdjustDetail";
-			base.InitState();
 		}
 
 		public override void RegisterSteps()

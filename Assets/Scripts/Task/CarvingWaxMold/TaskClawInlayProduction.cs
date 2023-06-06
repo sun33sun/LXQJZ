@@ -70,10 +70,10 @@ namespace LXQJZ.Task
 			step7.CheckState += CheckState7;
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "ClawInlayProduction";
-			base.InitState();
+
 		}
 
 		#region Step1

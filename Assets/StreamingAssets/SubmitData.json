@@ -1,0 +1,7 @@
+{
+	"customName": "华东大学",
+	"accountNumber": "test",
+	"contextJson": "{\"username\":\"username\",\"title\":\"蜡雕镶嵌戒指\",\"status\":1,\"score\":6,\"startTime\":\"2023/6/6 16:10:44\",\"endTIme\":\"2023/6/6 16:11:04\",\"timeUsed\":\"-00:00:19.7640004\",\"appid\":100001,\"originId\":1,\"group_id\":1,\"group_name\":\"分组名称\",\"role_in_group\":\"学生，教师\",\"group_members\":null,\"steps\":[{\"seq\":1,\"title\":\"知识考核\",\"startTime\":\"2023-06-06T16:10:45.8194979+08:00\",\"endTime\":\"2023-06-06T16:11:01.2184456+08:00\",\"timeUsed\":\"-00:00:15.3989477\",\"expectTime\":\"00:10:00\",\"maxScore\":50,\"score\":6,\"repeatCout\":1,\"evaluation\":\"差\",\"scoringModel\":null,\"remarks\":null,\"ext_data\":null}]}",
+	"remoteUrl": null,
+	"type": 0
+}

@@ -17,11 +17,6 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		public override void InitState()
-		{
-			base.InitState();
-		}
-
 		public override void RegisterSteps()
 		{
 			Step step1 = new Step();

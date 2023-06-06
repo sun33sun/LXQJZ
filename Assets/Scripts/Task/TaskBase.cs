@@ -151,15 +151,35 @@ namespace LXQJZ
 				return StepState.Running;
 		}
 
+
+		public virtual void BeforeInitState()
+		{
+
+		}
+
 		public virtual void InitState()
 		{
+			BeforeInitState();
 			if (modelName == null || modelName.Equals(""))
 				return;
 			if (modelPrefab == null)
 			{
 				ResKit.Init();
-				modelPrefab = mResLoader.LoadSync<GameObject>(modelName);
+				mResLoader.Add2Load("Task_Prefab", modelName);
+				mResLoader.LoadAsync(() =>
+				{
+					modelPrefab = mResLoader.LoadSync<GameObject>(modelName);
+					LoadPrefabCallBack();
+				});
 			}
+			else
+			{
+				LoadPrefabCallBack();
+			}
+		}
+
+		void LoadPrefabCallBack()
+		{
 			modelInstance = Instantiate(modelPrefab);
 			modelInstance.name = modelName;
 			modelInstance.SetActive(true);
@@ -176,6 +196,12 @@ namespace LXQJZ
 			{
 				objDic.Add(transArray[i].name, transArray[i].gameObject);
 			}
+			AfterInitState();
+		}
+
+		public virtual void AfterInitState()
+		{
+
 		}
 
 		public virtual void RegisterSteps()

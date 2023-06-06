@@ -14,10 +14,9 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "DryRing";
-			base.InitState();
 		}
 
 		public override void RegisterSteps()

@@ -1,0 +1,14 @@
+{
+	"paperName": "制作蜡戒",
+	"dataList": [
+		{
+			"titleNumber": 0,
+			"optionDescriptionList": ["4cm", "4mm", "3cm", "3mm"],
+			"score": 3,
+			"titleType": 0,
+			"titleDescription": "需要切割的蜡管宽度是多少？",
+			"rightOptionList": null,
+			"rightOption": 1
+		}
+	]
+}

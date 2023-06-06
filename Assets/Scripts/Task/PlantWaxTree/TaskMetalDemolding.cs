@@ -17,10 +17,13 @@ namespace LXQJZ.Task
 				GypsumEffect.GetComponent<MeshRenderer>().enabled = true;
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "MetalDemolding";
-			base.InitState();
+		}
+
+		public override void AfterInitState()
+		{
 			GetObj("Ring_Rough_Silver").SetActive(false);
 		}
 

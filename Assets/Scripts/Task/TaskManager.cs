@@ -13,10 +13,10 @@ namespace LXQJZ.Task
 	{
 		[SerializeField] List<TaskBase> taskList = new List<TaskBase>();
 		int taskIndex = 0;
-		int startIndex = 12;
+		int startIndex = 0;
 
 		//生成实验报告
-		public int maxScore = 50;
+		public int maxScore = 70;
 		public int score = 0;
 		public int repeatCount = 0;
 		DateTime startTime;
@@ -24,10 +24,15 @@ namespace LXQJZ.Task
 		void OnNextTask()
 		{
 			//在线实验完成
+			StartCoroutine(NextTaskAsync());
+		}
+
+		IEnumerator NextTaskAsync()
+		{
 			if (taskIndex >= taskList.Count - 1)
 			{
 				TaskEndFun();
-				return;
+				yield break;
 			}
 
 			taskList[taskIndex].enabled = false;
@@ -40,12 +45,15 @@ namespace LXQJZ.Task
 			taskList[taskIndex].enabled = true;
 			if (taskList[taskIndex].modelName != null)
 				taskList[taskIndex].InitState();
+			yield return new WaitUntil(() => { return taskList[taskIndex].modelPrefab != null || taskList[taskIndex].modelName == null || taskList[taskIndex].modelName == ""; });
 			taskList[taskIndex].RegisterSteps();
 			StepManager.GetInstance().Start();
 		}
 
+
 		void TaskEndFun()
 		{
+			score += 46;
 			repeatCount++;
 			EventCenter.GetInstance().EventTrigger("在线实验结束");
 			//创建实验报告
@@ -67,9 +75,9 @@ namespace LXQJZ.Task
 				score = score,
 				repeatCount = this.repeatCount,
 				evaluation = evaluation,
-				scoringModel = "赋分模型",
-				remarks = "在线实验的备注",
-				ext_data = "这个数据的意义是啥？"
+				scoringModel = null,
+				remarks = null,
+				ext_data = null
 			};
 			score = 0;
 			LabReportPanel.Instance.CreateModuleReport(newData);
@@ -122,11 +130,17 @@ namespace LXQJZ.Task
 			taskList.Add(GetComponent<TaskPolishAndCleanRing>());
 			//烘干戒指17
 			taskList.Add(GetComponent<TaskDryRing>());
+
+		}
+
+		private void Start()
+		{
+			EventCenter.GetInstance().AddEventListener("提交数据", () => { score = 0; });
 		}
 
 		public void ShowExam(string paperName, UnityAction<int> callBack)
 		{
-			Paper newPaper = ExamManager.GetInstance().GetPaper(paperName);
+			Paper newPaper = ExamManager.instance.GetPaper(paperName);
 			KnowledgeAssessmentPanel.Instance.ShowOnlineLabPaper(newPaper, callBack);
 		}
 		public bool CheckExam()

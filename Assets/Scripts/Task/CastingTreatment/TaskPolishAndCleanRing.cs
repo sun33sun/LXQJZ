@@ -16,10 +16,9 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "PolishAndCleanRing";
-			base.InitState();
 		}
 
 		public override void RegisterSteps()

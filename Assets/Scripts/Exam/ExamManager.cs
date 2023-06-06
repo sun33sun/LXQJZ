@@ -6,25 +6,45 @@ using UnityEngine;
 
 namespace LXQJZ.Exam
 {
-	public class ExamManager : BaseManager<ExamManager>
+	public class ExamManager : SingletonMono<ExamManager>
 	{
+		[SerializeField] GameObject singleTitle;
+		[SerializeField] List<TextAsset> paperList;
+		Dictionary<string, Paper> paperDic = null;
+
 		List<ITitle> nowTitle = new List<ITitle>();
 		Paper nowPaper = null;
 
-		//private void InitPaper(string papaerName)
-		//{
-		//	if (paperDic == null)
-		//	{
-		//		string json = File.ReadAllText(papaerName);
-		//		paperDic = JsonConvert.DeserializeObject<Dictionary<string, Paper>>(json);
-		//	}
-		//}
+		private void Start()
+		{
+			InitDic();
+		}
+
+		private void InitDic()
+		{
+			if (paperDic == null)
+			{
+				paperDic = new Dictionary<string, Paper>();
+				for (int i = 0; i < paperList.Count; i++)
+				{
+					Paper newPaper = JsonConvert.DeserializeObject<Paper>(paperList[i].text);
+					paperDic.Add(paperList[i].name, newPaper);
+				}
+			}
+
+		}
 
 		public Paper GetPaper(string paperName)
 		{
-			string json = File.ReadAllText(paperName);
-			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
-			return nowPaper;
+			if (paperDic == null)
+				InitDic();
+			if (paperDic.ContainsKey(paperName))
+			{
+				nowPaper = paperDic[paperName];
+				return nowPaper;
+			}
+			else
+				return null;
 		}
 
 		public GameObject CreateTitle(TitleData source)
@@ -34,21 +54,12 @@ namespace LXQJZ.Exam
 			switch (source.titleType)
 			{
 				case TitleType.SingleChoice:
-					newObj = ResMgr.GetInstance().Load<GameObject>(ProjectSettings.EXAM_SINGLECHOICETITLE);
+					newObj = Instantiate(singleTitle);
 					title = newObj.GetComponent<SingleChoiceTitle>();
-					break;
-				case TitleType.MultipleChoice:
-					newObj = ResMgr.GetInstance().Load<GameObject>(ProjectSettings.EXAM_MULTIPLECHOICETITLE);
-					title = newObj.GetComponent<MultipleChoiceTitle>();
 					break;
 			}
 			title.InitTitleData(source);
 			return newObj;
-		}
-
-		public void SaveTotalScore(List<TitleData> source)
-		{
-
 		}
 	}
 }

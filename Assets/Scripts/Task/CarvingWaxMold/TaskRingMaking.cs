@@ -22,11 +22,9 @@ namespace LXQJZ.Task
 		bool isSuccess4 = false;
 		bool isSuccess5 = false;
 
-
-		protected override void Awake()
+		public override void BeforeInitState()
 		{
 			modelName = "RingMaking";
-			base.Awake();
 		}
 
 		protected override void OnDisable()
@@ -49,9 +47,18 @@ namespace LXQJZ.Task
 			GetObj("SilverEffect").SetActive(false);
 		}
 
-		public override void RegisterSteps()
+		public override void AfterInitState()
 		{
 			HideSomething();
+		}
+
+		bool isFirst = true;
+		public override void RegisterSteps()
+		{
+			if (!isFirst)
+			{
+				HideSomething();
+			}
 
 			Step step1 = new Step();
 			step1.objList.Add(GetObj("Caliper_1"));

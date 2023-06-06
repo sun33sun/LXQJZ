@@ -10,10 +10,10 @@ namespace LXQJZ.Exam
 	{
 		public int seq;
 		public string title;
-		public DateTime startTime;
-		public DateTime endTime;
-		public TimeSpan timeUsed;
-		public TimeSpan expectTime;
+		public string startTime;
+		public string endTime;
+		public string timeUsed;
+		public string expectTime;
 		public int maxScore;
 		public int score;
 		public int repeatCout;
@@ -21,6 +21,5 @@ namespace LXQJZ.Exam
 		public string scoringModel;
 		public string remarks;
 		public string ext_data;
-
 	}
 }

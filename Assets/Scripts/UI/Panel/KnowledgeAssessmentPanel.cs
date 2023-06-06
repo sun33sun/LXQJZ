@@ -7,6 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System;
 using UnityEngine.Events;
+using QFramework;
 
 namespace LXQJZ.UI
 {
@@ -61,7 +62,7 @@ namespace LXQJZ.UI
 			nowPaper = newPaper;
 			for (int i = 0; i < nowPaper.dataList.Count; i++)
 			{
-				GameObject newObj = ExamManager.GetInstance().CreateTitle(nowPaper.dataList[i]);
+				GameObject newObj = ExamManager.Instance.CreateTitle(nowPaper.dataList[i]);
 				titleList.Add(newObj.GetComponent<ITitle>());
 				newObj.transform.SetParent(titleFather);
 			}
@@ -91,8 +92,7 @@ namespace LXQJZ.UI
 		}
 		IEnumerator ShowKnowledgePaperAsync()
 		{
-			string json = File.ReadAllText(ProjectSettings.PAPER_Knowledge);
-			nowPaper = JsonConvert.DeserializeObject<Paper>(json);
+			nowPaper = ExamManager.Instance.GetPaper(ProjectSettings.PAPER_Knowledge);
 			yield return LoadPaperAsync(nowPaper);
 		}
 		#endregion
@@ -186,9 +186,9 @@ namespace LXQJZ.UI
 					maxScore = titleList.Count * 5,
 					repeatCount = repeatCount,
 					evaluation = evaluation,
-					scoringModel = "赋分模型",
-					remarks = "知识考核的备注",
-					ext_data = "这是啥啊？"
+					scoringModel = null,
+					remarks = null,
+					ext_data = null
 				};
 				LabReportPanel.Instance.Show();
 				LabReportPanel.Instance.CreateModuleReport(newData);

@@ -27,13 +27,12 @@ namespace LXQJZ.Task
 			base.OnDisable();
 		}
 
-		public override void InitState()
+		public override void BeforeInitState()
 		{
 			modelName = "ClawInlaySurfaceRroduction";
-			base.InitState();
 		}
 
-		public override void RegisterSteps()
+		public override void AfterInitState()
 		{
 			GetObj("ClawInlay_Melt").SetActive(false);
 			GetObj("RingWax_Gap_Melt").SetActive(false);
@@ -47,7 +46,26 @@ namespace LXQJZ.Task
 			GetObj("TreatedRing").SetActive(false);
 			GetObj("TreatedRing1").SetActive(false);
 			GetObj("TreatedRing2").SetActive(false);
+		}
 
+		bool isFirst = true;
+		public override void RegisterSteps()
+		{
+			if (!isFirst)
+			{
+				GetObj("ClawInlay_Melt").SetActive(false);
+				GetObj("RingWax_Gap_Melt").SetActive(false);
+				GetObj("RingWax_Gap").SetActive(false);
+				GetObj("ClawInlaySurface_Grind").SetActive(false);
+				GetObj("ClawInlaySurface_Wireframe").SetActive(false);
+				GetObj("ClawInlaySurface_Groove1").SetActive(false);
+				GetObj("ClawInlaySurface_Groove2").SetActive(false);
+				GetObj("ClawInlayRing1").SetActive(false);
+				GetObj("ClawInlayRing2").SetActive(false);
+				GetObj("TreatedRing").SetActive(false);
+				GetObj("TreatedRing1").SetActive(false);
+				GetObj("TreatedRing2").SetActive(false);
+			}
 			Step step1 = new Step();
 			step1.tips = "在戒圈蜡块上磨出一个放置爪镶蜡块的缺口，将戒圈和爪镶蜡块熔接在一起，并将接口多余的蜡打磨平整";
 			step1.objList.Add(GetObj("Sander"));

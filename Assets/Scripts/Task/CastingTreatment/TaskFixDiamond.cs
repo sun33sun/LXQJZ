@@ -16,10 +16,10 @@ namespace LXQJZ.Task
 			isSuccess2 = false;
 			base.OnDisable();
 		}
-		public override void InitState()
+
+		public override void BeforeInitState()
 		{
 			modelName = "FixDiamond";
-			base.InitState();
 		}
 
 		public override void RegisterSteps()
