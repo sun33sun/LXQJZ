@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System;
 using System.Text;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace LXQJZ.Exam
 {
@@ -15,6 +16,9 @@ namespace LXQJZ.Exam
 		public bool IsBusy = false;
 
 		public string url = null;
+
+		[DllImport("__Internal")]
+		private static extern string StringReturnValueFunction();
 
 		public HttpManager()
 		{
@@ -30,7 +34,7 @@ namespace LXQJZ.Exam
 				Debug.LogWarning("获取配置信息失败：" + request.error);
 				yield break;
 			}
-			url = request.downloadHandler.text;
+			url = request.downloadHandler.text + "/experiment/addExperiment";
 			Debug.Log(url);
 		}
 
@@ -40,10 +44,11 @@ namespace LXQJZ.Exam
 			if (!IsBusy)
 			{
 				IsBusy = true;
+				submitData.remoteUrl = StringReturnValueFunction();
 				string submitJson = JsonConvert.SerializeObject(submitData);
-				File.WriteAllText(Application.streamingAssetsPath + "/SubmitData.json", submitJson);
-				//byte[] submitBytes = GetBytes(submitJson);
-				//MonoMgr.GetInstance().StartCoroutine(Post(submitBytes));
+				Debug.Log("打印数据提交数据：" + submitJson);
+				byte[] submitBytes = GetBytes(submitJson);
+				MonoMgr.GetInstance().StartCoroutine(PostAsync(submitBytes));
 			}
 			else
 			{
@@ -64,7 +69,7 @@ namespace LXQJZ.Exam
 			return submitBytes;
 		}
 
-		IEnumerator Post(byte[] postBytes)
+		IEnumerator PostAsync(byte[] postBytes)
 		{
 			yield return new WaitUntil(() => { return url != null; });
 			UnityWebRequest request = new UnityWebRequest(url, "POST");//method传输方式，默认为Get
@@ -74,16 +79,16 @@ namespace LXQJZ.Exam
 			//request.SetRequestHeader("Content-Type", "Access-Control-Allow-Origin");//更改内容类型
 			yield return request.SendWebRequest();//发送请求
 			Debug.Log("Status Code: " + request.responseCode);//获得返回值
+			if (request.responseCode == 200)//检验是否成功
+			{
+				string text = request.downloadHandler.text;//打印获得值
+				Debug.Log("提交成功，内容为：" + text);
+			}
 			if (!string.IsNullOrEmpty(request.error))
 			{
 				Debug.LogWarning(request.error);
 			}
 			IsBusy = false;
-			if (request.responseCode == 200)//检验是否成功
-			{
-				string text = request.downloadHandler.text;//打印获得值
-				Debug.Log(text);
-			}
 		}
 	}
 }

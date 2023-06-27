@@ -93,7 +93,7 @@ namespace LXQJZ.UI
 		{
 			StepManager.GetInstance().ClearStep();
 			TaskManager.Instance.Exit();
-			yield return SceneManager.UnloadSceneAsync(2);
+			yield return SceneManager.UnloadSceneAsync(1);
 			MainPanel.Instance.Show();
 			Hide();
 		}
@@ -228,7 +228,7 @@ namespace LXQJZ.UI
 
 		IEnumerator LoadOnlineLabScene()
 		{
-			yield return SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+			yield return SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 			yield return new WaitWhile(() => { return TaskToolManager.Instance == null; });
 			TaskManager.Instance.StartTask();
 		}

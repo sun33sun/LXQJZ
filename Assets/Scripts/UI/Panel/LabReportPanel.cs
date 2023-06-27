@@ -140,6 +140,7 @@ namespace LXQJZ.UI
 				accountNumber = "test",
 				contextJson = JsonConvert.SerializeObject(newContext)
 			};
+			Debug.Log(submitData.contextJson);
 			return submitData;
 		}
 		/// <summary>
