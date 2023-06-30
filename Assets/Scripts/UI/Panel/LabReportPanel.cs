@@ -19,6 +19,7 @@ namespace LXQJZ.UI
 		[Header("×Ü³É¼¨")]
 		[SerializeField] Text txtTotalScore;
 		public int totalScore = 0;
+		[SerializeField] List<ModuleReport> reportList = new List<ModuleReport>();
 		[SerializeField] Dictionary<string, ModuleReport> reportDic = new Dictionary<string, ModuleReport>();
 		[SerializeField] Button btnSubmit;
 		[SerializeField] InputField inputEvaluate;
@@ -31,8 +32,9 @@ namespace LXQJZ.UI
 		{
 			startTime = DateTime.Now;
 			InitListener();
+			for (int i = 0; i < reportList.Count; i++)
+				reportDic.Add(reportList[i].name, reportList[i]);
 			base.Start();
-
 			StartCoroutine(HideAsync(0.1f));
 		}
 

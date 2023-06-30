@@ -33,6 +33,7 @@ namespace LXQJZ.UI
 			StartCoroutine(HideAsync(0.05f));
 
 			InitListener();
+
 			base.Start();
 		}
 

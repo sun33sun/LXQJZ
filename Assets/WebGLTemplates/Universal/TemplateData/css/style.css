@@ -55,11 +55,12 @@ canvas {
 }
 
 .logo {
-    height: 25vh;
+    height: auto;
     width: auto;
     display: block;
-    margin: auto;
-    margin-top: 2vh;
+    /* margin: auto;
+     margin-top: 2vh; */
+    margin-bottom: 25vh;
 }
 
 #loadingBlock,
@@ -127,6 +128,13 @@ canvas {
     max-width: 770px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.projectName{
+    position: relative;
+    height: auto;
+    width: auto;
+    left: 26.5%;
 }
 
 

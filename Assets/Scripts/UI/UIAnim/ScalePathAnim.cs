@@ -13,12 +13,12 @@ namespace LXQJZ
 
 		private void Awake()
 		{
-			showPos = transform.position;
+			showPos = transform.localPosition;
 		}
 		public void DoHideAnim(Vector3 pos)
 		{
 			transform.DOScale(new Vector3(0, 0, 1), 0.5f);
-			transform.DOMove(pos, 0.5f);
+			transform.DOLocalMove(pos, 0.5f);
 			isShow = false; 
 		}
 
@@ -32,7 +32,7 @@ namespace LXQJZ
 		public void DoShowAnim()
 		{
 			transform.DOScale(new Vector3(1, 1, 1), 0.5f);
-			transform.DOMove(showPos, 0.5f);
+			transform.DOLocalMove(showPos, 0.5f);
 			isShow = true;
 		}
 	}

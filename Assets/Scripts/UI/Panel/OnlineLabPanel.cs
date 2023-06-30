@@ -154,7 +154,7 @@ namespace LXQJZ.UI
 		void SwitchSketch()
 		{
 			if (imgSketch.isShow)
-				imgSketch.DoHideAnim(btnSketch.transform.position);
+				imgSketch.DoHideAnim(btnSketch.transform.localPosition);
 			else
 				imgSketch.DoShowAnim();
 		}

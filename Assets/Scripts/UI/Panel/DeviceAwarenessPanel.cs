@@ -109,7 +109,6 @@ namespace LXQJZ.UI
 		private void ChangeTextAndImage(string key)
 		{
 			//É¾³ýÔàÍ¼Æ¬
-
 			if (childs != null && childs.Count > 0)
 			{
 				for (int i = childs.Count - 1; i > -1; i--)
