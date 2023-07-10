@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using QFramework;
+using System;
+using LXQJZ.UI;
 
 namespace LXQJZ.Task
 {
@@ -14,6 +16,8 @@ namespace LXQJZ.Task
 		bool isSuccess5 = false;
 		bool isSuccess6 = false;
 		bool isSuccess7 = false;
+
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -30,6 +34,7 @@ namespace LXQJZ.Task
 		public override void BeforeInitState()
 		{
 			modelName = "ClawInlaySurfaceRroduction";
+			startTime = DateTime.Now;
 		}
 
 		public override void AfterInitState()
@@ -223,7 +228,7 @@ namespace LXQJZ.Task
 		void ClickObj4()
 		{
 			RoamCamera.Instance.IsEnable = false;
-			AnimCallBack("RingStick", AnimEnd4, "RingStick_Check_ClawInlaySurface", 4);
+			AnimCallBack("RingStick", AnimEnd4, "RingStick_Check_ClawInlaySurface", 8);
 		}
 
 		void AnimEnd4()
@@ -379,6 +384,14 @@ namespace LXQJZ.Task
 			GetObj("Drill_Small").transform.SetParent(GetObj("Tool").transform);
 			AnimStart("Drill_Small", "Drill_Small_From_OriginSander_To_Origin");
 			yield return wait1;
+			ModuleReportData report = new ModuleReportData()
+			{
+				title = "雕刻蜡模_爪镶戒面制作",
+				score = 3,
+				startTime = this.startTime,
+				endTime = DateTime.Now
+			};
+			LabReportPanel.Instance.CreateModuleReport(report);
 			isSuccess7 = true;
 		}
 

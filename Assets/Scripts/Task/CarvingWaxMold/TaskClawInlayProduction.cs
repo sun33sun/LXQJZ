@@ -1,4 +1,5 @@
 using LXQJZ.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace LXQJZ.Task
 		bool isSuccess5 = false;
 		bool isSuccess6 = false;
 		bool isSuccess7 = false;
+
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -73,7 +76,7 @@ namespace LXQJZ.Task
 		public override void BeforeInitState()
 		{
 			modelName = "ClawInlayProduction";
-
+			startTime = DateTime.Now;
 		}
 
 		#region Step1
@@ -204,7 +207,7 @@ namespace LXQJZ.Task
 		{
 			RoamCamera.Instance.IsEnable = false;
 
-			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy();	
+			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy(false);	
 			AnimCallBack("DigitalCaliper", AnimEnd6, "DigitalCaliper_Check_ClawInlayWaxBlock_Sander", 5);
 		}
 		void AnimEnd6()
@@ -242,6 +245,14 @@ namespace LXQJZ.Task
 		}
 		void AnimEnd7_1()
 		{
+			ModuleReportData report = new ModuleReportData()
+			{
+				title = "µñ¿ÌÀ¯Ä£_×¦ÏâÖÆ×÷",
+				score = 3,
+				startTime = this.startTime,
+				endTime = DateTime.Now
+			};
+			LabReportPanel.Instance.CreateModuleReport(report);
 			isSuccess7 = true;
 		}
 		StepState CheckState7()

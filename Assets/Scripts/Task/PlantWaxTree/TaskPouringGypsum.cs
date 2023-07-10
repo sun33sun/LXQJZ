@@ -13,7 +13,7 @@ namespace LXQJZ.Task
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
 		bool isSuccess3 = false;
-
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -25,6 +25,7 @@ namespace LXQJZ.Task
 
 		public override void RegisterSteps()
 		{
+			startTime = DateTime.Now;
 			Step step1 = new Step();
 			step1.tips = "将石膏，倒入刚刚的铁皮圆桶中";
 			step1.objList.Add(GetObj("WaterCup"));
@@ -52,17 +53,17 @@ namespace LXQJZ.Task
 
 		IEnumerator working1()
 		{
-			WaitForSeconds wait3 = new WaitForSeconds(3);
-			WaitForSeconds wait1 = new WaitForSeconds(1);
+			WaitForSeconds wait6 = new WaitForSeconds(6);
+			WaitForSeconds wait2 = new WaitForSeconds(2);
 
 			AnimStart("Gypsum", "Gypsum_Enter_WaterCup");
-			yield return wait1;
+			yield return wait2;
 			//搅拌水杯
 			AnimStart("Stirrer", "Stirrer_Stir_WaterCup");
-			yield return wait3;
+			yield return wait6;
 			//水杯变色
 			MeshRenderer renderer = GetObj("WaterCupEffect").GetComponent<MeshRenderer>();
-			renderer.material.color = Color.white;
+			renderer.material.color = new Color(1,1,1,0.7f);
 
 			isSuccess1 = true;
 		}
@@ -96,12 +97,12 @@ namespace LXQJZ.Task
 			yield return wait4;
 			//倒进蜡树里
 			AnimStart("WaterCup", "WaterCup_Dump_WaxTree");
-			yield return wait3;
+			yield return wait4;
 			DeaerationMixer1.SetActive(true);
 			PumpTube.SetActive(true);
 			//水杯变色
 			MeshRenderer renderer = GetObj("WaterCupEffect").GetComponent<MeshRenderer>();
-			renderer.material.color = Color.blue;
+			renderer.enabled = false;
 			GetObj("GypsumEffect").GetComponent<MeshRenderer>().enabled = true;
 			GetObj("GypsumEffect").GetComponent<CapsuleCollider>().enabled = true;
 			isSuccess2 = true;
@@ -109,7 +110,14 @@ namespace LXQJZ.Task
 
 		void OnConfirmExam2(int addScore)
 		{
-			TaskManager.Instance.score += addScore;
+			ModuleReportData report = new ModuleReportData()
+			{
+				title = "失蜡铸造_浇筑石膏",
+				score = 3 + addScore,
+				startTime = this.startTime,
+				endTime = DateTime.Now
+			};
+			LabReportPanel.Instance.CreateModuleReport(report);
 		}
 
 
@@ -152,6 +160,7 @@ namespace LXQJZ.Task
 			yield return wait4;
 			DeaerationMixer1.SetActive(true);
 			PumpTube.SetActive(true);
+
 			isSuccess3 = true;
 		}
 

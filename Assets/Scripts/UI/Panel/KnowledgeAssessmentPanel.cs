@@ -84,6 +84,7 @@ namespace LXQJZ.UI
 			btnExit.gameObject.SetActive(false);
 			imgLogo.gameObject.SetActive(false);
 			//回调订阅
+			OnOnlineLabSubmit = null;
 			OnOnlineLabSubmit += callBack;
 		}
 
@@ -123,77 +124,63 @@ namespace LXQJZ.UI
 			clickSubmitCount++;
 			if (clickSubmitCount < 2)
 			{
-				for (int i = 0; i < titleList.Count; i++)
-				{
-					titleList[i].ShowTip();
-					titleList[i].SetInteractive(false);
-				}
+				FirstSubmit();
 				return;
 			}
-
 			clickSubmitCount = 0;
-			//在线实验考核部分
+			SecondSubmit();
+		}
+
+		void FirstSubmit()
+		{
+			//检查题目
+			for (int i = 0; i < titleList.Count; i++)
+			{
+				titleList[i].ShowTip();
+				titleList[i].SetInteractive(false);
+			}
+			//计算分数
+			int totalScore = 0;
+			for (int i = 0; i < titleList.Count; i++)
+			{
+				ITitle title = titleList[i];
+				if (title.IsRight)
+					totalScore += title.Score;
+			}
+			//提交试卷
 			if (OnOnlineLabSubmit != null)
 			{
-				int totalScore = 0;
-				for (int i = 0; i < titleList.Count; i++)
-				{
-					ITitle title = titleList[i];
-					totalScore += title.Score;
-				}
-				OnOnlineLabSubmit.Invoke(totalScore);
-				OnOnlineLabSubmit = null;
-				//UI显隐
-				Hide();
-				GetComponent<Image>().enabled = true;
-				for (int i = titleList.Count - 1; i >= 0; i--)
-				{
-					Destroy(titleList[i].gameObject);
-					titleList.RemoveAt(i);
-				}
-				titleList.Clear();
-				btnExit.gameObject.SetActive(true);
-				imgLogo.gameObject.SetActive(true);
-				//状态调整
-				onlineLabExamCompleted = true;
+				OnOnlineLabSubmit?.Invoke(totalScore);
 				return;
 			}
 			else
 			{
-				int score = 0;
-				for (int i = 0; i < titleList.Count; i++)
-				{
-					ITitle title = titleList[i];
-					if (title.IsRight)
-						score += title.Score;
-				}
-				string evaluation;
-				float percentage = score / maxScore;
-				if (percentage > 0.8)
-					evaluation = "优";
-				else if (percentage > 0.6)
-					evaluation = "良";
-				else
-					evaluation = "差";
-				repeatCount++;
 				ModuleReportData newData = new ModuleReportData()
 				{
-					seq = 1,
 					title = "知识考核",
 					startTime = this.startTime,
 					endTime = DateTime.Now,
-					expectTime = new TimeSpan(0, 10, 0),
-					score = score,
-					maxScore = titleList.Count * 5,
-					repeatCount = repeatCount,
-					evaluation = evaluation,
-					scoringModel = null,
-					remarks = null,
-					ext_data = null
+					score = totalScore,
 				};
-				LabReportPanel.Instance.Show();
 				LabReportPanel.Instance.CreateModuleReport(newData);
-				Hide();
+			}
+		}
+
+		void SecondSubmit()
+		{
+			Hide();
+			if (OnOnlineLabSubmit != null)
+			{
+				OnOnlineLabSubmit = null;
+				GetComponent<Image>().enabled = true;
+				btnExit.gameObject.SetActive(true);
+				imgLogo.gameObject.SetActive(true);
+				//状态调整
+				onlineLabExamCompleted = true;
+			}
+			else
+			{
+				LabReportPanel.Instance.Show();
 			}
 		}
 

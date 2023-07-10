@@ -10,30 +10,30 @@ namespace LXQJZ
 	{
 		public int seq;
 		public string title;
-		public DateTime startTime;
-		public DateTime endTime;
-		public TimeSpan expectTime;
-		public int maxScore;
-		public int score;
-		public int repeatCount;
-		public string evaluation;
-		public string scoringModel;
-		public string remarks;
-		public string ext_data;
+		public DateTime startTime = default(DateTime);
+		public DateTime endTime = default(DateTime);
+		public TimeSpan expectTime = new TimeSpan(0, 5, 0);
+		public int maxScore = 0;
+		public int score = 0;
+		public int repeatCount = 1;
+		public string evaluation = null;
+		public string scoringModel = null;
+		public string remarks = null;
+		public string ext_data = null;
 	}
 	public class ModuleReport : MonoBehaviour
 	{
 		[SerializeField] Text[] txts;
-		public ModuleReportData mData;
+		public ModuleReportData mData = new ModuleReportData();
 
 		public void InitData(ModuleReportData newData)
 		{
 			mData = newData;
 			txts[0].text = mData.title;
-			txts[1].text = mData.startTime.ToString("u");
-			txts[2].text = mData.endTime.ToString("u");
-			txts[3].text = "实验用时：" + (mData.endTime - mData.startTime).ToString("mm") + "min";
-			txts[4].text = "实验得分：" + mData.score.ToString();
+			txts[1].text = "开始：" + mData.startTime.ToString("M/d-H:m");
+			txts[2].text = "结束：" + mData.endTime.ToString("M/d-H:m");
+			txts[3].text = "用时：" + (mData.endTime - mData.startTime).ToString(@"mm\:ss");
+			txts[4].text = "得分：" + mData.score.ToString();
 		}
 	}
 }

@@ -15,12 +15,6 @@ namespace LXQJZ.Task
 		int taskIndex = 0;
 		int startIndex = 0;
 
-		//生成实验报告
-		public int maxScore = 70;
-		public int score = 0;
-		public int repeatCount = 0;
-		DateTime startTime;
-
 		void OnNextTask()
 		{
 			//在线实验完成
@@ -34,7 +28,6 @@ namespace LXQJZ.Task
 				TaskEndFun();
 				yield break;
 			}
-
 			taskList[taskIndex].enabled = false;
 			if (taskList[taskIndex].modelName != null)
 				Destroy(taskList[taskIndex].modelInstance);
@@ -50,37 +43,9 @@ namespace LXQJZ.Task
 			StepManager.GetInstance().Start();
 		}
 
-
 		void TaskEndFun()
 		{
-			score += 46;
-			repeatCount++;
 			EventCenter.GetInstance().EventTrigger("在线实验结束");
-			//创建实验报告
-			string evaluation;
-			float percentage = score / maxScore;
-			if (percentage > 0.8)
-				evaluation = "优";
-			else if (percentage > 0.6)
-				evaluation = "良";
-			else
-				evaluation = "差";
-			ModuleReportData newData = new ModuleReportData()
-			{
-				seq = 0,
-				title = "在线实验",
-				startTime = this.startTime,
-				endTime = DateTime.Now,
-				expectTime = new TimeSpan(0, 10, 0),
-				score = score,
-				repeatCount = this.repeatCount,
-				evaluation = evaluation,
-				scoringModel = null,
-				remarks = null,
-				ext_data = null
-			};
-			score = 0;
-			LabReportPanel.Instance.CreateModuleReport(newData);
 		}
 
 		protected override void Awake()
@@ -133,16 +98,12 @@ namespace LXQJZ.Task
 
 		}
 
-		private void Start()
-		{
-			EventCenter.GetInstance().AddEventListener("提交数据", () => { score = 0; });
-		}
-
 		public void ShowExam(string paperName, UnityAction<int> callBack)
 		{
 			Paper newPaper = ExamManager.instance.GetPaper(paperName);
 			KnowledgeAssessmentPanel.Instance.ShowOnlineLabPaper(newPaper, callBack);
 		}
+
 		public bool CheckExam()
 		{
 			return KnowledgeAssessmentPanel.Instance.CheckOnlineLabExam();
@@ -150,12 +111,17 @@ namespace LXQJZ.Task
 
 		public void StartTask()
 		{
-			startTime = DateTime.Now;
+			StartCoroutine(StartTaskAsync());
+		}
+
+		IEnumerator StartTaskAsync()
+		{
 			taskIndex = startIndex;
 
 			taskList[taskIndex].enabled = true;
 			if (taskList[taskIndex].modelName != null)
 				taskList[taskIndex].InitState();
+			yield return new WaitUntil(() => { return taskList[taskIndex].modelPrefab != null || taskList[taskIndex].modelName == null || taskList[taskIndex].modelName == ""; });
 			taskList[taskIndex].RegisterSteps();
 			StepManager.GetInstance().Start();
 		}

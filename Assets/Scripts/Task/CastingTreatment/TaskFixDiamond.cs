@@ -1,4 +1,6 @@
-﻿using QFramework;
+﻿using LXQJZ.UI;
+using QFramework;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +10,7 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
-
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -24,6 +26,7 @@ namespace LXQJZ.Task
 
 		public override void RegisterSteps()
 		{
+			startTime = DateTime.Now;
 			Step step1 = new Step();
 			step1.tips = "将钻石放在开好槽的爪镶底托上，准备开始镶嵌。";
 			step1.objList.Add(GetObj("Diamond"));
@@ -59,11 +62,19 @@ namespace LXQJZ.Task
 		void ClickObj2()
 		{
 			RoamCamera.Instance.IsEnable = false;
-			GetObj("NeedleNosePlier2").GetComponent<ObjClickEvent>().SelfDestroy();
+			GetObj("NeedleNosePlier2").GetComponent<ObjClickEvent>().SelfDestroy(false);
 			ActionKit.Sequence()
 				.Callback(() => { AnimStart("NeedleNosePlier", "NeedleNosePlier_Fix_Diamond"); })
-				.Delay(6, () =>
+				.Delay(12, () =>
 				{
+					ModuleReportData report = new ModuleReportData()
+					{
+						title = "铸件处理_固定钻石",
+						score = 2,
+						startTime = this.startTime,
+						endTime = DateTime.Now
+					};
+					LabReportPanel.Instance.CreateModuleReport(report);
 					isSuccess2 = true;
 				}).Start(this);
 		}

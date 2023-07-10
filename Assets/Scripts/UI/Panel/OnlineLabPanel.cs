@@ -12,7 +12,7 @@ namespace LXQJZ.UI
 	public class OnlineLabPanel : BasePanel<OnlineLabPanel>
 	{
 		[Header("右上角按钮")]
-		[SerializeField] Button btnGoBack;
+		public Button btnGoBack;
 		[SerializeField] Button btnSketch;
 		[SerializeField] Button btnHelp;
 		[SerializeField] Button btnFullScreen;
@@ -21,6 +21,7 @@ namespace LXQJZ.UI
 		[SerializeField] Button btnGoBackConfirm;
 		[SerializeField] Button btnGoBackCancle;
 		[SerializeField] ScalePathAnim imgSketch;
+		[SerializeField] Button btnCloseSketch;
 		[SerializeField] List<Image> imgSketchs;
 		[SerializeField] GameObject objHelp;
 		[Header("步骤Toggle")]
@@ -63,6 +64,7 @@ namespace LXQJZ.UI
 			btnGoBackCancle.onClick.AddListener(HideObjGoBack);
 			//绘制草图按钮
 			btnSketch.onClick.AddListener(SwitchSketch);
+			btnCloseSketch.onClick.AddListener(() => { imgSketch.DoHideAnim(btnSketch.transform.localPosition); });
 			//展开收起Toggle
 			for (int i = 0; i < togList.Count; i++)
 			{
@@ -85,6 +87,8 @@ namespace LXQJZ.UI
 
 		void ShowMainPanel()
 		{
+			AnimManager.GetInstance().StopAll();
+			StepManager.GetInstance().ClearStep();
 			RoamCamera.Instance.gameObject.SetActive(false);
 			StartCoroutine(DoShowMainPanel());
 		}

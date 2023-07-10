@@ -1,4 +1,5 @@
 using LXQJZ.Task;
+using LXQJZ.UI;
 using QFramework;
 using System;
 using System.Collections;
@@ -87,6 +88,11 @@ namespace LXQJZ
 			RoamCamera.Instance.LookAt(obj.transform, waitTime);
 		}
 
+		IEnumerator Delay(float waitTime,Action callBack)
+		{
+			yield return new WaitForSeconds(waitTime);
+			callBack?.Invoke();
+		}
 
 		protected void AnimStart(string objName, string clipName, ViewType viewType = ViewType.LookAt)
 		{
@@ -106,8 +112,6 @@ namespace LXQJZ
 			Animator animator = animObj.GetComponent<Animator>();
 			animator.speed = 1;
 			animator.Play(clipName, 0, 0);
-
-
 		}
 
 		protected void AnimStop(string objName)
@@ -123,13 +127,11 @@ namespace LXQJZ
 				ParticleManager.particleList.Remove(particle);
 			ParticleManager.particleList.Add(particle);
 			particle.Play();
-			ActionKit.Sequence()
-				.Delay(waitTime,
-				() =>
-				{
-					ParticleManager.particleList.Remove(particle);
-					particle.Stop();
-				}).Start(this);
+			MonoMgr.GetInstance().StartCoroutine(Delay(waitTime, () =>
+			{
+				ParticleManager.particleList.Remove(particle);
+				particle.Stop();
+			}));
 		}
 
 		protected virtual void ParticleCallBack(string objName, UnityAction callBack, int time)

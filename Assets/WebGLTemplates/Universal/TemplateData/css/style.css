@@ -43,44 +43,43 @@ canvas {
 }
 
 .subtitle {
-    color: #6e426d;
-    font-size: 5vh;
+    color: #000000;
+    font-size: 2vh;
     padding-bottom: 3vh;
-    padding-top: 3vh;
+    padding-top: 58vh;
     display: block;
-    height: 15vh;
+    height: 5vh;
     width: 40vw;
     margin: auto;
     text-align: center;
 }
 
 .logo {
-    height: auto;
+    height: 25vh;
     width: auto;
     display: block;
-    /* margin: auto;
-     margin-top: 2vh; */
-    margin-bottom: 25vh;
+    margin: auto;
+    margin-top: 2vh;
 }
 
 #loadingBlock,
 #errorBrowserBlock {
-    background-image: url("../img/background1.png");
+    background-image: url("../img/background.png");
     background-size: cover;
 }
 
 #emptyBar {
-    background: url("../img/progressEmpty1.png") no-repeat right;
+    background: url("../img/progressEmpty.png") no-repeat right;
     float: right;
-    width: 50%;
+    width: 60%;
     height: 100%;
     display: inline-block;
 }
 
 #fullBar {
-    background: url("../img/progressFull1.png") no-repeat left;
+    background: url("../img/progressFull.png") no-repeat right;
     float: left;
-    width: 50%;
+    width: 40%;
     height: 100%;
     display: inline-block;
 }
@@ -96,9 +95,9 @@ canvas {
 }
 
 #progressBar {
-    height: 8vh;
+    height: 1vh;
     color: #666666;
-    font-size: 2vh;
+    font-size: 4vh;
 }
 
 #warningBrowserBlock,
@@ -125,129 +124,170 @@ canvas {
 
 .centered {
     height: 100%;
-    max-width: 770px;
+    max-width: 620px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.projectName{
+.projectName {
     position: relative;
-    height: auto;
-    width: auto;
-    left: 26.5%;
+    margin-top: 20%;
+}
+
+.txt1 {
+    position: relative;
+    margin-top:22%;
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.txt2 {
+    position: relative;
+    width: 50%;
+    margin-top: 18%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.newLogo {
+    position: relative;
+    margin-bottom: 20%;
 }
 
 
 /* When aspect-ratio is smaller than 4/3*/
 
-@media (max-aspect-ratio: 4/3){
-	
-	.webgl-content{
-		-webkit-transform: translate(0%, 0%); transform: translate(0%, 0%);
-		-webkit-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.15);
-		-moz-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.15);
-		box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.15);
-	}
-	
-	.keepRatio{
-		width:100%;
-		padding-top: 75%;
-		position: relative;
-		top: 50%;
-		transform: translateY(-50%);
-	}
+@media (max-aspect-ratio: 4/3) {
 
-	.webgl-content,#loadingBlock,#errorBrowserBlock{
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-	}
+    .webgl-content {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.15);
+    }
 
-	.logo{
-		width:25vw;
-		height:auto;
-		margin-top:1vh;
-	}
-	
-	.subtitle{
-		font-size:2vw;
-		height:10vw;
-		padding-bottom:1vw;
-		padding-top: 1vw;
-	}
+    .keepRatio {
+        width: 100%;
+        padding-top: 75%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
-	.subtitle,#progressBar,#warningBrowserBlock,#warningMobileBlock,#errorContent{
-		width:80vw;
-	}
-	
-	#progressBar{
-		height:6vw;
-		margin-top: 2vw;
-		font-size:3vw;
-	}
-	
-	#emptyBar,#fullBar{
-		height: 2vw; 
-	}
-	
-	#warningBrowserBlock,#warningMobileBlock,#errorContent{
-		margin-top:3vw;
-		font-size:2vw;
-	}
-	
-	.browserIcons{
-		margin-top:1vw;
-	}
-	
-	.browserIcons a{
-		width:15vw;
-	}
-	
-	.browserIcons a img{
-		width:8vw;
-	}
-	
-	.webgl-content,#loadingBlock,#errorBrowserBlock{
-		border:1px solid #c6c9ca;
-		width:calc(100% - 2px);
-		height:auto;
-	}
+    .webgl-content,
+    #loadingBlock,
+    #errorBrowserBlock {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .logo {
+        width: auto;
+        height: auto;
+        margin-top: 1vh;
+    }
+
+    .subtitle {
+        font-size: 2vw;
+        height: 10vw;
+        padding-bottom: 1vw;
+        padding-top: 1vw;
+    }
+
+    .subtitle,
+    #progressBar,
+    #warningBrowserBlock,
+    #warningMobileBlock,
+    #errorContent {
+        width: 80vw;
+    }
+
+    #progressBar {
+        height: 6vw;
+        margin-top: 2vw;
+        font-size: 3vw;
+    }
+
+    #emptyBar,
+    #fullBar {
+        height: 2vw;
+    }
+
+    #warningBrowserBlock,
+    #warningMobileBlock,
+    #errorContent {
+        margin-top: 3vw;
+        font-size: 2vw;
+    }
+
+    .browserIcons {
+        margin-top: 1vw;
+    }
+
+    .browserIcons a {
+        width: 15vw;
+    }
+
+    .browserIcons a img {
+        width: 8vw;
+    }
+
+    .webgl-content,
+    #loadingBlock,
+    #errorBrowserBlock {
+        border: 1px solid #c6c9ca;
+        width: calc(100% - 2px);
+        height: auto;
+    }
 }
 
 
 /* When aspect-ratio is bigger than 16/9*/
 
-@media (min-aspect-ratio: 16/9){
-	body{
-		display:flex;
-		flex-wrap:wrap;
-		justify-content:space-between;
-	}
-	
-	.keepRatio{
-		width:178vh;
-		height:100%;
-		margin:0 auto;
-	}
-	
-	.webgl-content,#gameContainer,canvas,#loadingBlock,#errorBrowserBlock{
-		width: inherit;
-	}
-	
-	.webgl-content{
-	-webkit-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.15);
-		-moz-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.15);
-		box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.15);
-	}
-	
-	.subtitle,#progressBar,#warningBrowserBlock,#warningMobileBlock,#errorContent{
-		width:100vh;
-	}
-	
-	.webgl-content,#loadingBlock,#errorBrowserBlock{
-		border:1px solid #c6c9ca;
-		height:calc(100% - 2px);
-	}
+@media (min-aspect-ratio: 16/9) {
+    body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .keepRatio {
+        width: 178vh;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .webgl-content,
+    #gameContainer,
+    canvas,
+    #loadingBlock,
+    #errorBrowserBlock {
+        width: inherit;
+    }
+
+    .webgl-content {
+        -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    .subtitle,
+    #progressBar,
+    #warningBrowserBlock,
+    #warningMobileBlock,
+    #errorContent {
+        width: 100vh;
+    }
+
+    .webgl-content,
+    #loadingBlock,
+    #errorBrowserBlock {
+        border: 1px solid #c6c9ca;
+        height: calc(100% - 2px);
+    }
 }

@@ -22,8 +22,15 @@ namespace LXQJZ.Task
 		bool isSuccess4 = false;
 		bool isSuccess5 = false;
 
+		DateTime startTime1;
+		DateTime startTime2;
+		ModuleReportData reportSketch = new ModuleReportData();
+		ModuleReportData reportRingMaking = new ModuleReportData();
+
 		public override void BeforeInitState()
 		{
+			startTime1 = DateTime.Now;
+
 			modelName = "RingMaking";
 		}
 
@@ -49,6 +56,7 @@ namespace LXQJZ.Task
 
 		public override void AfterInitState()
 		{
+			startTime1 = DateTime.Now;
 			HideSomething();
 		}
 
@@ -104,7 +112,16 @@ namespace LXQJZ.Task
 
 		void OnConfirmExam1(int addScore)
 		{
-			TaskManager.Instance.score += addScore;
+			reportSketch.title = "»æÖÆ²ÝÍ¼";
+			reportSketch.score = 3;
+			reportSketch.startTime = startTime1;
+			reportSketch.endTime = DateTime.Now;
+			LabReportPanel.Instance.CreateModuleReport(reportSketch);
+
+			reportRingMaking.title = "µñ¿ÌÀ¯Ä£_½äÈ¦ÖÆ×÷";
+			reportRingMaking.score = 3+ addScore;
+			reportRingMaking.startTime = DateTime.Now;
+
 			RoamCamera.Instance.IsEnable = false;
 			StartCoroutine(working1());
 		}
@@ -217,10 +234,12 @@ namespace LXQJZ.Task
 
 		IEnumerator working5()
 		{
-			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy();
+			GetObj("Caliper_2").GetComponent<ObjClickEvent>().SelfDestroy(false);
 			AnimStart("DigitalCaliper", "DigitalCaliper_Check_RingWaxBlock");
 			yield return new WaitForSeconds(2);
 			AnimStart("DigitalCaliper", "DigitalCaliper_Back_Origin");
+			reportRingMaking.endTime = DateTime.Now;
+			LabReportPanel.Instance.CreateModuleReport(reportRingMaking);
 			isSuccess5 = true;
 		}
 		private StepState CheckState5()

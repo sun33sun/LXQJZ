@@ -21,6 +21,7 @@ namespace LXQJZ
 		Rigidbody rig = null;
 		CinemachineVirtualCamera roamCamera = null;
 		[SerializeField] CinemachineVirtualCamera lookAtCamera = null;
+		public CinemachineVirtualCamera lookAtCamera2 = null;
 		[SerializeField] CinemachineVirtualCamera followCamera = null;
 
 		Vector3 originPos;
@@ -224,11 +225,8 @@ namespace LXQJZ
 			{
 				for (int i = 0; i < acList.Count; i++)
 					acList[i].Deinit();
-			}	
+			}
 			lookAtCamera.LookAt = target;
-
-			float firstSpan = Mathf.Min(followTime * 0.33f, 0.1f);
-			float secondSpan = followTime - firstSpan;
 
 			var sequence = ActionKit.Sequence()
 			.DelayFrame(1)
@@ -251,6 +249,7 @@ namespace LXQJZ
 			.Start(this);
 			acList.Add(sequence);
 		}
+		
 		public void LookAt(Transform target)
 		{
 			if(target != null)
@@ -266,6 +265,20 @@ namespace LXQJZ
 				roamCamera.Priority = 12;
 				lookAtCamera.Priority = 11;
 				followCamera.Priority = 10;
+			}
+		}
+
+		public void LookAt2(Transform target)
+		{
+			if (target != null)
+			{
+				lookAtCamera2.LookAt = target;
+				lookAtCamera2.Priority = 13;
+			}
+			else
+			{
+				lookAtCamera2.LookAt = null;
+				lookAtCamera2.Priority = 10;
 			}
 		}
 

@@ -1,4 +1,6 @@
-﻿using QFramework;
+﻿using LXQJZ.UI;
+using QFramework;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +10,7 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
-
+		DateTime startTime;
 		protected override void OnDisable()
 		{
 			isSuccess1 = false;
@@ -23,6 +25,7 @@ namespace LXQJZ.Task
 
 		public override void RegisterSteps()
 		{
+			startTime = DateTime.Now;
 			Step step1 = new Step();
 			step1.tips = "将选好的钻石放在爪镶上，确认一下钻石的腰部大概在爪子的什么位置。";
 			step1.objList.Add(GetObj("Diamond"));
@@ -42,7 +45,7 @@ namespace LXQJZ.Task
 			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
 				.Callback(() => { AnimStart("Diamond", "Diamond_Approach_Ring_Polish"); })
-				.Delay(2, () => { isSuccess1 = true; })
+				.Delay(4, () => { isSuccess1 = true; })
 				.Start(this);
 		}
 
@@ -58,15 +61,24 @@ namespace LXQJZ.Task
 			RoamCamera.Instance.IsEnable = false;
 			ActionKit.Sequence()
 				.Callback(() => { AnimStart("FlySaucerDril", "FlySauceDril_FixedTo_Sander"); })
-				.Delay(0.2f, () => {
+				.Delay(0.5f, () => {
 					GetObj("FlySaucerDril").transform.SetParent(GetObj("Sander").transform);
 					AnimStart("Sander", "Sander_Grave_Ring_Polish");
 				})
-				.Delay(3, () => {
+				.Delay(6, () => {
 					GameObject FlySaucerDril = GetObj("FlySaucerDril");
 					FlySaucerDril.transform.SetParent(GetObj("Tool").transform);
 					FlySaucerDril.GetComponent<Animator>().Play("FlySauceDril_From_SanderOrigin_To_Origin");
-				}).Delay(0.16f, ()=> { isSuccess2 = true; })
+				}).Delay(0.4f, ()=> {
+					ModuleReportData report = new ModuleReportData()
+					{
+						title = "铸件处理_准备镶嵌钻石",
+						score = 2,
+						startTime = this.startTime,
+						endTime = DateTime.Now
+					};
+					LabReportPanel.Instance.CreateModuleReport(report);
+					isSuccess2 = true; })
 				.Start(this);
 		}
 

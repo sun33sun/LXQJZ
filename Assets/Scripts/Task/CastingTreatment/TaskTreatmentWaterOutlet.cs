@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using LXQJZ.UI;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace LXQJZ.Task
@@ -7,6 +9,7 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -17,6 +20,7 @@ namespace LXQJZ.Task
 
 		public override void BeforeInitState()
 		{
+			startTime = DateTime.Now;
 			modelName = "TreatmentWaterOutlet";
 		}
 		
@@ -48,10 +52,12 @@ namespace LXQJZ.Task
 
 		IEnumerator working1()
 		{
-			AnimStart("Ring_Rough_Silver", "Ring_Rough_Silver_Table1_Up");
-			yield return new WaitForSeconds(1);
+			AnimStart("Ring_Rough_Silver", "Ring_Rough_Silver_SO4Cup_Up");
+			yield return new WaitForSeconds(2);
+			GetObj("DeaerationMixer1").gameObject.SetActive(true);
+			GetObj("PumpTube").gameObject.SetActive(true);
 			AnimStart("WoodenHandleSaw", "WoodenHandleSaw_Cut_Ring_Rough_Silver");
-			yield return new WaitForSeconds(3);
+			yield return new WaitForSeconds(6);
 			GetObj("Ring_Rough_Silver2").SetActive(false);
 			isSuccess1 = true;
 		}
@@ -73,9 +79,17 @@ namespace LXQJZ.Task
 		IEnumerator working2()
 		{
 			AnimStart("HalfMoonFile", "HalfMoonFile_Grind_Ring_Rough_Silver1");
-			yield return new WaitForSeconds(7);
+			yield return new WaitForSeconds(14);
 			GetObj("Ring_Rough_Silver1").SetActive(false);
 			GetObj("Ring_Pre_Detail").SetActive(true);
+			ModuleReportData report = new ModuleReportData()
+			{
+				title = "铸件处理_处理水口",
+				score = 2,
+				startTime = this.startTime,
+				endTime = DateTime.Now
+			};
+			LabReportPanel.Instance.CreateModuleReport(report);
 			isSuccess2 = true;
 		}
 

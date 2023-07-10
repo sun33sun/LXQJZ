@@ -1,4 +1,6 @@
-﻿using QFramework;
+﻿using LXQJZ.UI;
+using QFramework;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ namespace LXQJZ.Task
 	{
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -23,11 +26,13 @@ namespace LXQJZ.Task
 
 		public override void RegisterSteps()
 		{
+			startTime = DateTime.Now;
 			Step step1 = new Step();
 			step1.tips = "在打磨轮盘上涂抛光蜡，将戒指进行整体抛光。";
 			step1.objList.Add(GetObj("Turntable2"));
 			step1.OnClickObj += ClickObj1;
 			step1.CheckState += CheckState1;
+			step1.Prepare += Prepare1;
 
 			Step step2 = new Step();
 			step2.objList.Add(GetObj("hengwenshuiyuguo17"));
@@ -37,16 +42,28 @@ namespace LXQJZ.Task
 		}
 
 		#region Step1
+		void Prepare1()
+		{
+			ActionKit.Delay(1.1f, () =>
+			{
+				RoamCamera.Instance.LookAt2(GetObj("Turntable2").transform);
+			}).Start(this);
+		}
 
 		void ClickObj1()
 		{
+			RoamCamera.Instance.LookAt2(null);
 			ActionKit.Sequence()
-				.Callback(() => { AnimStart("BoilCup", "BoilCup_Pour_Turntable2",ViewType.Follow); })
-				.Delay(1, () => { RoamCamera.Instance.Follow(GetObj("Ring_Diamond").transform); })
-				.Delay(2, () =>{ AnimStart("Ring_Diamond", "Ring_Diamond_Approach_Turntable2",ViewType.None); })
-				.Delay(3.1f, () => {
+				.Callback(() => { RoamCamera.Instance.Follow(GetObj("BoilCup").transform); })
+				.Delay(2, () => { AnimStart("BoilCup", "BoilCup_Pour_Turntable2", ViewType.None); })
+				.Delay(3, () => { RoamCamera.Instance.BackToOrigin(); })
+				.Delay(3, () => { RoamCamera.Instance.Follow(GetObj("Ring_Diamond").transform); })
+				.Delay(2, () => { AnimStart("Ring_Diamond", "Ring_Diamond_Approach_Turntable2", ViewType.None); })
+				.Delay(5.1f, () =>
+				{
 					RoamCamera.Instance.Follow(null);
-					isSuccess1 = true; })
+					isSuccess1 = true;
+				})
 				.Start(this);
 		}
 
@@ -68,27 +85,37 @@ namespace LXQJZ.Task
 		void ClickObj2()
 		{
 			ActionKit.Sequence()
-				.Callback(() => {
+				.Callback(() =>
+				{
 					GetObj("hengwenshuiyuguo14").SetActive(false);
-					AnimStart("Ring_Diamond", "Ring_Diamond_Enter_UltrasonicCup",ViewType.None);
+					AnimStart("Ring_Diamond", "Ring_Diamond_Enter_UltrasonicCup", ViewType.None);
 				})
-				.Delay(1, () =>{
+				.Delay(3, () =>
+				{
 					GetObj("hengwenshuiyuguo14").SetActive(true);
-					AnimStart("UltrasonicCup", "UltrasonicCup_Clean_Loop",ViewType.None);
+					AnimStart("UltrasonicCup", "UltrasonicCup_Clean_Loop", ViewType.None);
 					RoamCamera.Instance.Follow(GetObj("Ring_Diamond").transform);
 				})
-				.Delay(3, () => 
+				.Delay(3, () =>
 				{
 					GetObj("hengwenshuiyuguo14").SetActive(false);
 					AnimStop("UltrasonicCup");
-					AnimStart("Ring_Diamond", "Ring_Diamond_From_UltrasonicCup_To_Up",ViewType.None);
+					AnimStart("Ring_Diamond", "Ring_Diamond_From_UltrasonicCup_To_Up", ViewType.None);
 				})
-				.Delay(2,() => 
-				{
-					GetObj("hengwenshuiyuguo14").SetActive(true);
-					isSuccess2 = true;
-					RoamCamera.Instance.BackToOrigin();
-				})
+				.Delay(5, () =>
+				 {
+					 ModuleReportData report = new ModuleReportData()
+					 {
+						 title = "铸件处理_戒指抛光和清洁",
+						 score = 2,
+						 startTime = this.startTime,
+						 endTime = DateTime.Now
+					 };
+					 LabReportPanel.Instance.CreateModuleReport(report);
+					 GetObj("hengwenshuiyuguo14").SetActive(true);
+					 isSuccess2 = true;
+					 RoamCamera.Instance.BackToOrigin();
+				 })
 				.Start(this);
 		}
 

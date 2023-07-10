@@ -170,8 +170,8 @@ namespace LXQJZ.Task
 			nowStep.Prepare?.Invoke();
 			IsEnable = true;
 
-			if(nowObjList != null && nowObjList.Count > 0)
-				RoamCamera.Instance.LookAt(nowObjList[0].transform, 1);
+			//if(nowObjList != null && nowObjList.Count > 0)
+			//	RoamCamera.Instance.LookAt(nowObjList[0].transform, 1);
 		}
 	}
 }

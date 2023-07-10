@@ -14,6 +14,7 @@ namespace LXQJZ.Task
 		bool isSuccess1 = false;
 		bool isSuccess2 = false;
 		bool isSuccess3 = false;
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -25,6 +26,7 @@ namespace LXQJZ.Task
 
 		public override void RegisterSteps()
 		{
+			startTime = DateTime.Now;
 			Step step1 = new Step();
 			step1.objList.Add(GetObj("GypsumEffect"));
 			step1.OnClickObj += ClickObj1;
@@ -133,13 +135,13 @@ namespace LXQJZ.Task
 
 			//取出石膏模
 			AnimStart("Tongs", "Tongs_Enter_Oven", ViewType.Follow);
-			yield return new WaitForSeconds(2.2f);
+			yield return new WaitForSeconds(4.4f);
 			WaxTree.transform.SetParent(GetObj("Tongs").transform);
 			AnimStart("WaxTree", "WaxTree_Forward_Tongs");
-			yield return new WaitForSeconds(1.8f);
+			yield return new WaitForSeconds(3.6f);
 			WaxTree.transform.SetParent(GetObj("Tool").transform);
 			AnimStart("WaxTree", "WaxTree_Enter_GypsumTile", ViewType.Follow);
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(2);
 			//关闭烤箱门
 			AnimStart("Oven", "OvenClose", ViewType.None);
 			yield return new WaitForSeconds(1);
@@ -149,7 +151,14 @@ namespace LXQJZ.Task
 
 		void OnConfirmExam3(int addScore)
 		{
-			TaskManager.Instance.score += addScore;
+			ModuleReportData report = new ModuleReportData()
+			{
+				title = "失蜡铸造_脱蜡",
+				score = 3 + addScore,
+				startTime = this.startTime,
+				endTime = DateTime.Now
+			};
+			LabReportPanel.Instance.CreateModuleReport(report);
 			isSuccess3 = true;
 		}
 

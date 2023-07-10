@@ -1,3 +1,4 @@
+using LXQJZ.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace LXQJZ.Task
 	public class TaskPlantWaxTree : TaskBase
 	{
 		bool isSuccess1 = false;
+		DateTime startTime;
 
 		protected override void OnDisable()
 		{
@@ -17,6 +19,7 @@ namespace LXQJZ.Task
 
 		public override void BeforeInitState()
 		{
+			startTime = DateTime.Now;
 			modelName = "PlantWaxTree";
 		}
 
@@ -44,7 +47,7 @@ namespace LXQJZ.Task
 
 			//¹Ì¶¨À¯½ä
 			AnimStart("TreatedRing2", "TreatedRing2_Approach_WaxTree");
-			yield return wait1;
+			yield return wait2;
 			GetObj("WeldingWaxMachine_Bottom").SetActive(false);
 			AnimStart("WeldingWaxMachine", "WeldingWaxMachine_Weld_WaxTree");
 			yield return wait05;
@@ -53,6 +56,14 @@ namespace LXQJZ.Task
 			GetObj("WeldingWaxMachine_Bottom").SetActive(true);
 			GetObj("TreatedRing2").transform.SetParent(GetObj("GypsumEffect").transform);
 			AnimStart("TreatedRing2", "TreatedRing2_Forward_GypsumEffect");
+			ModuleReportData report = new ModuleReportData()
+			{
+				title = "Ê§À¯ÖýÔì_ÖÖÀ¯Ê÷",
+				score = 3,
+				startTime = this.startTime,
+				endTime = DateTime.Now
+			};
+			LabReportPanel.Instance.CreateModuleReport(report);
 			isSuccess1 = true;
 		}
 

@@ -28,19 +28,41 @@ namespace LXQJZ.UI
 
 		public DateTime startTime;
 
+		protected override void Awake()
+		{
+			base.Awake();
+			List<int> maxScoreList = new List<int>() 
+			{
+				3, 6, 3,
+				30, 3, 3,
+				9, 6, 6,
+				6, 3, 6,
+				2, 2, 2,
+				2, 2, 2,
+				2, 2 };
+			int totalScore = 0;
+			for (int i = 0; i < reportList.Count; i++)
+			{
+				reportList[i].mData.seq = i;
+				reportList[i].mData.title = reportList[i].name;
+				reportList[i].mData.maxScore = maxScoreList[i];
+				reportDic.Add(reportList[i].name, reportList[i]);
+			}
+			print(totalScore);
+		}
+
 		protected override void Start()
 		{
 			startTime = DateTime.Now;
 			InitListener();
-			for (int i = 0; i < reportList.Count; i++)
-				reportDic.Add(reportList[i].name, reportList[i]);
+
 			base.Start();
 			StartCoroutine(HideAsync(0.1f));
 		}
 
 		private void FixedUpdate()
 		{
-			txtNowDate.text = DateTime.Now.ToString("g");
+			txtNowDate.text = DateTime.Now.ToString("yyyy/MM/dd-HH-mm:ss");
 		}
 
 		void InitListener()
@@ -55,27 +77,12 @@ namespace LXQJZ.UI
 
 		public void CreateModuleReport(ModuleReportData newData)
 		{
-			ModuleReport newReoprt = null;
-			if (!reportDic.ContainsKey(newData.title))
-			{
-				//ÉèÖÃObj
-				GameObject newObj = ResMgr.GetInstance().Load<GameObject>("Prefabs\\Exam_Prefab\\ModuleReport");
-				newObj.name = newData.title;
-				newObj.transform.SetParent(Grid);
-				LayoutRebuilder.ForceRebuildLayoutImmediate(Grid);
-				LayoutRebuilder.ForceRebuildLayoutImmediate(Content);
-				//Report
-				newReoprt = newObj.GetComponent<ModuleReport>();
-				reportDic.Add(newData.title, newReoprt);
-			}
-			else
-			{
-				newReoprt = reportDic[newData.title];
-				totalScore -= newReoprt.mData.score;
-			}
-			newReoprt.InitData(newData);
+			reportDic[newData.title].mData.score = newData.score;
+			reportDic[newData.title].mData.startTime = newData.startTime;
+			reportDic[newData.title].mData.endTime = newData.endTime;
+			reportDic[newData.title].InitData(reportDic[newData.title].mData);
 
-			totalScore += newReoprt.mData.score;
+			totalScore += newData.score;
 			txtTotalScore.text = "×Ü³É¼¨£º" + totalScore.ToString();
 		}
 
